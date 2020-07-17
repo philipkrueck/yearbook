@@ -23,6 +23,7 @@ build/
 .idea/workspace.xml
 .idea/libraries/*
 .idea/modules.xml
+.idea/dataSources.xml
 
 *.iws
 *.iml
