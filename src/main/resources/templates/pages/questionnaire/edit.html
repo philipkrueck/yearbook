@@ -1,4 +1,6 @@
-<!DOCTYPE html> <html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Edit Questionnaire</title>
     <link rel="stylesheet" type="text/css"
@@ -6,7 +8,15 @@
 <body>
 <div class="container">
     <div class="mt-4">
+        <a href="/questionnaire/1/back" >Go back</a>
         <h1>Edit Questionnaire</h1>
+
+        <form method="post" th:action="@{/questionnaire/1/edit/update}" th:object="${questionnaireViewModel}">
+            <p>Question 1: <input type="text" th:field="*{questionOne}" /></p>
+            <p>Question 2: <input type="text" th:field="*{questionTwo}" /></p>
+            <p>Question 3: <input type="text" th:field="*{questionThree}" /></p>
+            <button type="submit">Save</button>
+        </form>
     </div>
 </div>
 </body>

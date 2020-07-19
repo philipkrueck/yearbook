@@ -5,9 +5,6 @@ import lombok.Setter;
 
 public class CommentForm {
     @Getter
+    @Setter
     private String comment;
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 }

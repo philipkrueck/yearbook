@@ -17,9 +17,6 @@ public class QuestionnaireController {
     @GetMapping("/back")
     public String goBack(@PathVariable("id") Long id) { return "redirect:/book/1"; }
 
-    @GetMapping("/edit")
-    public String editQuestionnaire(@PathVariable("id") Long id) { return "pages/questionnaire/edit"; }
-
     @PostMapping("/addComment")
     public String addComment(@PathVariable("id") Long id, @ModelAttribute CommentForm commentForm) {
         // ToDo: do something with the comment
