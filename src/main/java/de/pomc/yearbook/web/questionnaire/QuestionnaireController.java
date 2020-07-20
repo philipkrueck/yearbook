@@ -10,7 +10,7 @@ public class QuestionnaireController {
 
     @GetMapping
     public String showQuestionnaireView(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("commentForm", new CommentForm());
+        model.addAttribute("commentForm", new CommentViewModel());
         return "/pages/questionnaire/show";
     }
 
@@ -18,7 +18,7 @@ public class QuestionnaireController {
     public String goBackToBookView(@PathVariable("id") Long id) { return "redirect:/book/1"; }
 
     @PostMapping("/addComment")
-    public String addComment(@PathVariable("id") Long id, @ModelAttribute CommentForm commentForm) {
+    public String addComment(@PathVariable("id") Long id, @ModelAttribute CommentViewModel commentForm) {
         // ToDo: do something with the comment
         System.out.print("added comment " + commentForm.getComment());
         return "redirect:/questionnaire/{id}";

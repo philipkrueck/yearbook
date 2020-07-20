@@ -1,4 +1,4 @@
-package de.pomc.yearbook.web;
+package de.pomc.yearbook.web.addBook;
 
 import lombok.Getter;
 import lombok.Setter;
