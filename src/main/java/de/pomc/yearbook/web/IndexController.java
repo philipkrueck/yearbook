@@ -17,5 +17,5 @@ public class IndexController {
     }
 
     @GetMapping("/login")
-    public String login() { return "pages/login/login"; }
+    public String showLoginView() { return "pages/login/login"; }
 }

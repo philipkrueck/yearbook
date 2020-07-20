@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 public class QuestionnaireController {
 
     @GetMapping
-    public String showQuestionnaire(Model model, @PathVariable("id") Long id) {
+    public String showQuestionnaireView(Model model, @PathVariable("id") Long id) {
         model.addAttribute("commentForm", new CommentForm());
         return "/pages/questionnaire/show";
     }
 
     @GetMapping("/back")
-    public String goBack(@PathVariable("id") Long id) { return "redirect:/book/1"; }
+    public String goBackToBookView(@PathVariable("id") Long id) { return "redirect:/book/1"; }
 
     @PostMapping("/addComment")
     public String addComment(@PathVariable("id") Long id, @ModelAttribute CommentForm commentForm) {

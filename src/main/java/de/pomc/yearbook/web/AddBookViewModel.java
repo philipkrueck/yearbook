@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class AddBookViewModel {
-
     @Getter
     @Setter
     private String title;

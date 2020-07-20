@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 public class QuestionnaireEditController {
 
     @GetMapping
-    public String editQuestionnaire(Model model, @PathVariable("id") Long id) {
+    public String showEditQuestionnaireView(Model model, @PathVariable("id") Long id) {
         model.addAttribute("questionnaireViewModel", new QuestionnaireViewModel());
         return "pages/questionnaire/edit";
     }
 
     @GetMapping("/back")
-    public String goBack(@PathVariable("id") Long id) { return "redirect:/questionnaire/{id}"; }
+    public String goBackToQuestionnaireView(@PathVariable("id") Long id) { return "redirect:/questionnaire/{id}"; }
 
     @PostMapping("/update")
     public String updateQuestionnaire(@PathVariable("id") Long id, @ModelAttribute QuestionnaireViewModel questionnaireViewModel) {

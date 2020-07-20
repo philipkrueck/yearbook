@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BookController {
 
     @GetMapping
-    public String show(@PathVariable("id") Long id) {
+    public String showBookView(@PathVariable("id") Long id) {
         return "pages/book/book";
     }
 
     @GetMapping("/edit")
-    public String edit(@PathVariable("id") Long id) {
+    public String showEditBookView(@PathVariable("id") Long id) {
         return "pages/book/edit";
     }
 }
