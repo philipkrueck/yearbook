@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Questionnaire</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/> </head>
+<body>
+<div class="container">
+    <div class="mt-4">
+        <h1>Questionnaire</h1>
+
+        <a href="/questionnaire/1/back">Go back to book</a>
+        <a href="/questionnaire/1/edit">edit</a>
+
+        <form method="post" th:action="@{/questionnaire/1/addComment}" th:object="${commentForm}">
+            <p>Comment: <input type="text" th:field="*{comment}" /></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+    </div>
+</div>
+</body>
+</html>
