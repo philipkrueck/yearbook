@@ -11,7 +11,7 @@ public class ProfileController {
 
     @GetMapping
     public String showProfile() {
-        boolean loggedIn = false;
+        boolean loggedIn = true;
 
         if (!loggedIn) { // TODO: actually check if the user is logged in or not
             throw new ForbiddenException();
