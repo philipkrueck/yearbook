@@ -1,14 +1,30 @@
-<!DOCTYPE html> <html>
-<head>
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/> </head>
+<!DOCTYPE html>
+<html>
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Sign in to Yearbook | Yearbook</title>
 <body>
-<div class="container">
-    <div class="mt-4">
-        <h1>Login</h1>
-        <a href="/profile">Login</a>
-    </div>
-</div>
+
+    <main class="grid-container full">
+        <div class="grid-x align-center">
+            <div class="cell small-24 medium-8" id="loginGroup">
+                <h1 class="h3">Sign in to Yearbook</h1>
+                <form action="/profile">
+                    <label>Username or email address
+                        <input type="email">
+                    </label>
+                    <label>Password
+                        <input type="email">
+                    </label>
+                    <input class="button" type="submit" value="Sign in">
+                </form>
+            </div>
+        </div>
+        <div class="grid-x align-center" id="signupTeaser">
+            <div class="cell small-24 medium-8">
+                <p>New to Yearbook? <a href="/">Create an account</a></p>
+            </div>
+        </div>
+    </main>
+
 </body>
 </html>
