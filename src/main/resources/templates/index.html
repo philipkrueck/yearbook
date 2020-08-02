@@ -1,20 +1,70 @@
-<!DOCTYPE html> <html>
-<head>
-    <title>Yearbook application</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/> </head>
+<!DOCTYPE html>
+<html>
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Yearbook | Home</title>
+</head>
 <body>
-<div class="container">
-    <div class="mt-4">
-        <h1>Yearbook application</h1>
-    </div>
-    <a href="/login">Login</a>
-    <h3>Featured</h3>
-    <a href="/book/1">Featured 1</a>
-    <a href="/book/2">Featured 2</a>
-    <a href="/book/3">Featured 3</a>
-    <a href="/book/4">Featured 4</a>
 
-</div>
+    <!-- <header th:insert="fragments/header :: header"></header> -->
+
+    <main class="grid-container full" id="indexHero">
+        <div class="grid-x">
+            <div class="grid-x small-24 medium-12 align-center-middle text-center" id="indexHeroLeft">
+                <div class="cell shrink">
+                    <h1>Yearbook.</h1>
+                    <p>Create. Discover. Collaborate.</p>
+                </div>
+            </div>
+            <div class="grid-x small-24 medium-12 align-center-middle" id="indexHeroRight">
+                <div class="cell small-20 medium-12">
+                    <h4>Discover the unique Yearbook experience.</h4>
+                    <p class="">Join Yearbook today.</p>
+                    <div class="button-group stacked">
+                        <a href="/login" class="button">Login</a>
+                        <a href="/login" class="button">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="grid-wrapper" id="featuredWrapper">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x grid-padding-x">
+                <div class="cell small-24 text-center">
+                    <h2>Featured Books</h2>
+                </div>
+                <div class="cell small-12 medium-6 featuredCard">
+                    <img src="https://via.placeholder.com/300x150.webp">
+                    <div class="desc">
+                        <a href="/book/1">Featured 1</a> <br/>
+                        <small><a href="/book/1">Desc</a></small>
+                    </div>
+                </div>
+                <div class="cell small-12 medium-6 featuredCard">
+                    <img src="https://via.placeholder.com/300x150.webp">
+                    <div class="desc">
+                        <a href="/book/2">Featured 2</a> <br/>
+                        <small><a href="/book/2">Desc</a></small>
+                    </div>
+                </div>
+                <div class="cell small-12 medium-6 featuredCard">
+                    <img src="https://via.placeholder.com/300x150.webp">
+                    <div class="desc">
+                        <a href="/book/3">Featured 3</a> <br/>
+                        <small><a href="/book/3">Desc</a></small>
+                    </div>
+                </div>
+                <div class="cell small-12 medium-6 featuredCard">
+                    <img src="https://via.placeholder.com/300x150.webp">
+                    <div class="desc">
+                        <a href="/book/4">Featured 4</a> <br/>
+                        <small><a href="/book/4">Desc</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 </body>
 </html>

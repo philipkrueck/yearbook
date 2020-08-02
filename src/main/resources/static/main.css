@@ -1,0 +1,60 @@
+/*
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+
+# Typography
+# Home Page
+
+--------------------------------------------------------------*/
+
+
+/* Typographie
+--------------------------------------------- */
+
+body, h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.button-group .button {
+    background-color: #1da1f2;
+    margin: 5px 0;
+}
+
+.material-icons {
+    font-size: inherit;
+    margin-right: 5px;
+}
+
+/* Home Page
+--------------------------------------------- */
+
+#indexHero > .grid-x {
+    height: 100vh;
+}
+
+#indexHeroLeft {
+    background-color: #1da1f2;
+    color: #f1f1f1;
+}
+
+#featuredWrapper {
+    margin: 80px 0;
+    padding: 80px;
+    background: #f1f1f1;
+}
+
+.featuredCard {
+    background-color: #cdcdcd;
+}
+
+/* Footer
+--------------------------------------------- */
+
+footer {
+    margin-top: 40px;
+    background-color: #1da1f2;
+    color: #f1f1f1;
+    padding: 10px 0;
+}
