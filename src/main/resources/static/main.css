@@ -4,9 +4,18 @@
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
 
+<<<<<<< HEAD
 # Typography
 # Home Page
 # Forms
+=======
+# typography
+# templates.index
+# templates.fragments.header
+# templates.fragments.footer
+# templates.pages.login
+# templates.pages.profile
+>>>>>>> profile
 
 --------------------------------------------------------------*/
 
@@ -38,6 +47,7 @@ body, h1, h2, h3, h4, h5, h6, p {
     margin-right: 5px;
 }
 
+
 /* Forms
 --------------------------------------------- */
 
@@ -59,6 +69,9 @@ form {
 }
 
 /* Home Page
+=======
+/* templates.index
+>>>>>>> profile
 --------------------------------------------- */
 
 #indexHero > .grid-x {
@@ -91,7 +104,20 @@ form {
     background-color: #cdcdcd;
 }
 
-/* Footer
+/* templates.fragments.header
+--------------------------------------------- */
+
+header#mastHead {
+    padding: 10px 0;
+    background-color: #2c3840;
+    color: #ffffff;
+}
+
+header#mastHead .button {
+    margin: 0;
+}
+
+/* templates.fragments.footer
 --------------------------------------------- */
 
 footer {
@@ -99,4 +125,27 @@ footer {
     background-color: #292c31;
     color: #f1f1f1;
     padding: 10px 0;
+}
+
+/* templates.pages.login
+--------------------------------------------- */
+
+#loginGroup {
+    margin-top: 150px;
+    background-color: #ffffff;
+}
+
+#signupTeaser {
+    margin-top: 40px;
+}
+
+/* templates.pages.profile
+--------------------------------------------- */
+
+#ownedBooks {
+    margin-top: 60px;
+}
+
+#participatingBooks {
+    margin-top: 60px;
 }

@@ -1,49 +1,68 @@
-<!DOCTYPE html> <html>
-<head>
-    <title>Profile</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/> </head>
+<!DOCTYPE html>
+<html>
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Your Profile | Yearbook</title>
+</head>
 <body>
-<div class="container">
-    <div class="mt-4">
-        <h1>Profile®</h1>
-        <h4>Peter Griffin</h4>
-        <p>peter.griffin@hotmail.com</p>
-        <h4>My Books</h4>
-        <table>
-            <tr>
-                <th>Name</th>
-            </tr>
-            <tr>
-                <th>Book 1</th>
-                <th><a href="/book/1">view</a></th>
-                <th><a href="/book/1/edit">edit</a></th>
-            </tr>
-            <tr>
-                <th>Book 1</th>
-                <th><a href="/book/1">view</a></th>
-                <th><a href="/book/1/edit">edit</a></th>
-            </tr>
-        </table>
-        <a href="/addBook"><button>Add a new book</button></a>
 
-        <h4>My Participations</h4>
-        <table>
-            <tr>
-                <th>Name</th>
-            </tr>
-            <tr>
-                <th>Participation 1</th>
-                <th><a href="/book/1">view</a></th>
-                <th><a href="/book/1/edit">edit</a></th>
-            </tr>
-            <tr>
-                <th>Participation 2</th>
-                <th><a href="/book/2">view</a></th>
-                <th><a href="/book/2/edit">edit</a></th>
-            </tr>
-        </table>
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell small-12 medium-8">
+                <img src="https://via.placeholder.com/200x200.webp?text=Profilpic">
+            </div>
+            <div class="cell small-12">
+                <h1>Profile</h1>
+                <p>[USERNAME] <br/> [EMAIL]</p>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="grid-container" id="ownedBooks">
+        <div class="grid-x">
+            <div class="cell small-24">
+                <h3>My Books</h3>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    <tr>
+                        <th>Book 1</th>
+                        <th><a href="/book/1">view</a></th>
+                        <th><a href="/book/1/edit">edit</a></th>
+                    </tr>
+                    <tr>
+                        <th>Book 1</th>
+                        <th><a href="/book/1">view</a></th>
+                        <th><a href="/book/1/edit">edit</a></th>
+                    </tr>
+                </table>
+                <a class="button" href="/addBook"><button>Add a new book</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-container" id="participatingBooks">
+        <div class="grid-x">
+            <div class="cell small-24">
+                <h3>My Participations</h3>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    <tr>
+                        <th>Participation 1</th>
+                        <th><a href="/book/1">view</a></th>
+                        <th><a href="/book/1/edit">edit</a></th>
+                    </tr>
+                    <tr>
+                        <th>Participation 2</th>
+                        <th><a href="/book/2">view</a></th>
+                        <th><a href="/book/2/edit">edit</a></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 </body>
 </html>
