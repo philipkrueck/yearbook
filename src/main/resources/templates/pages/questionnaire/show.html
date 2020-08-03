@@ -1,23 +1,73 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Questionnaire</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/> </head>
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">View Questionnaire | Yearbook</title>
+</head>
 <body>
-<div class="container">
-    <div class="mt-4">
-        <h1>Questionnaire</h1>
 
-        <a href="/questionnaire/1/back">Go back to book</a>
-        <a href="/questionnaire/1/edit">edit</a>
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
 
-        <form method="post" th:action="@{/questionnaire/1/addComment}" th:object="${commentForm}">
-            <p>Comment: <input type="text" th:field="*{comment}" /></p>
-            <p><input type="submit" value="Submit" /></p>
-        </form>
+<!-- #editBar -------------------------------- -->
+<div class="grid-wrapper" id="upperEditBar">
+    <div class="grid-container">
+        <div class="grid-x align-middle">
+            <div class="cell auto">
+                <h1 class="h4">View Questionnaire <small>Book X</small></h1>
+            </div>
+            <div class="cell shrink">
+                <a class="button small" href="/questionnaire/1/back">Go back to book</a>
+                <a class="button small" href="/questionnaire/1/edit">edit</a>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- #ViewHeader -------------------------------- -->
+<main class="grid-wrapper" id="viewQuestionnaire">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell small-24 medium-8">
+                <img src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
+            </div>
+            <div class="cell small-24 medium-16">
+                <h1>John Doe</h1>
+                <div class="questionBlock">
+                    <h5>Question 1</h5>
+                    <p>Answer 1</p>
+                    <h5>Question 2</h5>
+                    <p>Answer 2</p>
+                    <h5>Question 3</h5>
+                    <p>Answer 3</p>
+                </div>
+                <div class="publishedComments">
+                    <hr/>
+                    <h5>Comments about John Doe</h5>
+                    <blockquote>Comment 1</blockquote>
+                    <blockquote>Comment 2</blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-container">
+        <div class="grid-x align-right">
+            <div class="cell small-22 medium-16">
+                <hr />
+                <h4>What do you remember about John Doe?<br/><small>Add a comment.</small></h4>
+                <form method="post" th:action="@{/questionnaire/1/addComment}" th:object="${commentForm}">
+                    <label>Your comment
+                        <input type="text" th:field="*{comment}" />
+                    </label>
+                    <input type="submit" class="button" value="Submit comment" />
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
 </body>
 </html>

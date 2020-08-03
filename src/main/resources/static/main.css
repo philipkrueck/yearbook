@@ -187,6 +187,12 @@ footer a {
     margin: 30px auto;
 }
 
+
+#viewQuestionnaire {
+    background-color: #f2f5f8;
+    padding: 40px 0;
+}
+
 #questionaires {
     margin-top: 80px;
 }
