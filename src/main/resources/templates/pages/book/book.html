@@ -1,22 +1,60 @@
 <!DOCTYPE html>
-<head>
-    <title>Book</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/> </head>
+<html>
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">View Book | Yearbook</title>
+</head>
 <body>
-<div class="container">
-    <div class="mt-4">
-        <a href="/book/1/edit">edit</a>
-        <h1>Book Title</h1>
-        <p>Book description</p>
 
-        <div>
-            <a href="/questionnaire/1">Questionnaire 1</a>
-            <a href="/questionnaire/1">Questionnaire 2</a>
-            <a href="/questionnaire/1">Questionnaire 3</a>
-            <a href="/questionnaire/1">Questionnaire 4</a>
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
+
+<!-- #editBar -------------------------------- -->
+<div class="grid-wrapper" id="editBar">
+    <div class="grid-container">
+        <div class="grid-x align-right">
+            <div class="cell shrink">
+                <a class="button small" href="/book/1/edit">edit Book</a>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- #viewHeader -------------------------------- -->
+<div class="grid-wrapper" id="viewHeader">
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x align-middle">
+            <div class="cell small-12 medium-6">
+                <img src="https://via.placeholder.com/200x200.webp?text=BookPreviewImage">
+            </div>
+            <div class="cell small-12 medium-18">
+                <h1>Book title</h1>
+                <p>Book description</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- #questionaires -------------------------------- -->
+<div class="grid-wrapper" id="questionaires">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell small-12 medium-6">
+                <a href="/questionnaire/1">Questionnaire 1</a>
+            </div>
+            <div class="cell small-12 medium-6">
+                <a href="/questionnaire/2">Questionnaire 2</a>
+            </div>
+            <div class="cell small-12 medium-6">
+                <a href="/questionnaire/3">Questionnaire 3</a>
+            </div>
+            <div class="cell small-12 medium-6">
+                <a href="/questionnaire/4">Questionnaire 4</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 </body>
 </html>

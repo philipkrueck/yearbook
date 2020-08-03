@@ -21,6 +21,10 @@
 /* Typographie
 --------------------------------------------- */
 
+body {
+    background-color: #FAFAFC;
+}
+
 body, h1, h2, h3, h4, h5, h6, p {
     font-family: 'Open Sans', sans-serif;
 }
@@ -72,7 +76,6 @@ form {
 
 #indexHero > .grid-x {
     height: 100vh;
-    background-color: #FAFAFC;
 }
 
 #indexHeroLeft {
@@ -83,10 +86,10 @@ form {
 .formGroup {
     background-color: #ffffff;
     border: 1px solid #dbdbdb;
-    padding: 16px 12px;
+    padding: 18px 16px;
 }
 
-.formGroup#login {
+#formAddOn {
     margin-top: 25px;
 }
 
@@ -106,11 +109,15 @@ form {
 header#mastHead {
     padding: 10px 0;
     background-color: #2c3840;
-    color: #ffffff;
+    color: #f1f1f1;
 }
 
 header#mastHead .button {
     margin: 0;
+}
+
+header#mastHead a {
+    color: #f1f1f1;
 }
 
 /* templates.fragments.footer
@@ -123,12 +130,15 @@ footer {
     padding: 10px 0;
 }
 
+footer a {
+    color: #f1f1f1;
+}
+
 /* templates.pages.login
 --------------------------------------------- */
 
-#loginGroup {
-    margin-top: 150px;
-    background-color: #ffffff;
+#loginWrapper .grid-x {
+    height: 100vh;
 }
 
 #signupTeaser {
@@ -151,4 +161,20 @@ footer {
 
 #createFirstStep, #createSecondStep, #createThirdStep {
     margin-top: 60px;
+}
+
+/* templates.pages.book.book
+--------------------------------------------- */
+
+#editBar .grid-container {
+    margin: 30px auto;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+#viewHeader {
+    background-color: #f2f5f8;
+}
+
+#questionaires {
+    margin-top: 80px;
 }
