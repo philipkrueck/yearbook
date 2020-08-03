@@ -10,6 +10,8 @@
 # templates.fragments.footer
 # templates.pages.login
 # templates.pages.profile
+# templates.pages.addBook
+
 
 --------------------------------------------------------------*/
 
@@ -71,7 +73,7 @@ header#mastHead .button {
 
 footer {
     margin-top: 40px;
-    background-color: #121212;
+    background-color: #292c31;
     color: #f1f1f1;
     padding: 10px 0;
 }
@@ -96,5 +98,12 @@ footer {
 }
 
 #participatingBooks {
+    margin-top: 60px;
+}
+
+/* templates.pages.addBook
+--------------------------------------------- */
+
+#createFirstStep, #createSecondStep, #createThirdStep {
     margin-top: 60px;
 }
