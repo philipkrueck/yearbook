@@ -26,7 +26,11 @@ body {
 }
 
 body, h1, h2, h3, h4, h5, h6, p {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+    line-height: 1;
 }
 
 .button {
@@ -47,11 +51,17 @@ body, h1, h2, h3, h4, h5, h6, p {
 .material-icons {
     font-size: inherit;
     margin-right: 5px;
+    vertical-align: text-top;
+    padding-top: 5px;
 }
 
 .infoBox {
     background-color: #f2f6ea;
     padding: 24px 16px;
+}
+
+h1 .colored, h2 .colored, h3 .colored, h4 .colored, h5 .colored, h6 .colored {
+    color: #e74c3c;
 }
 
 /* Forms
@@ -98,13 +108,43 @@ form {
 }
 
 #featuredWrapper {
-    margin: 80px 0;
-    padding: 80px;
-    background: #f2f6ea;
+    margin: 120px 0;
 }
 
 .featuredCard {
-    background-color: #cdcdcd;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: auto 10px;
+    display: flex;
+    padding: 0 10px;
+}
+
+.featuredCard h5 {
+    vertical-align: bottom;
+    display: flex;
+    align-self: flex-end;
+}
+
+.featuredCard h5 a {
+    color: #f1f1f1;
+}
+
+.featuredCard h5 a:hover {
+    color: #c0392b;
+}
+
+.featuredCard:nth-child(1), .featuredCard:nth-child(5) {
+    margin-top: -20px;
+}
+
+.featuredCard:nth-child(2), .featuredCard:nth-child(4) {
+    margin-top: 20px;
+}
+
+.featuredCard:nth-child(3) {
+    margin-top: 60px;
 }
 
 /* templates.fragments.header
@@ -186,7 +226,6 @@ footer a {
     background-color: #f2f5f8;
     margin: 30px auto;
 }
-
 
 #viewQuestionnaire {
     background-color: #f2f5f8;
