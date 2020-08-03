@@ -4,18 +4,16 @@
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
 
-<<<<<<< HEAD
 # Typography
 # Home Page
 # Forms
-=======
 # typography
 # templates.index
 # templates.fragments.header
 # templates.fragments.footer
 # templates.pages.login
 # templates.pages.profile
->>>>>>> profile
+# templates.pages.addBook
 
 --------------------------------------------------------------*/
 
@@ -68,10 +66,8 @@ form {
     background-color: #c0392b;
 }
 
-/* Home Page
-=======
+
 /* templates.index
->>>>>>> profile
 --------------------------------------------- */
 
 #indexHero > .grid-x {
@@ -147,5 +143,12 @@ footer {
 }
 
 #participatingBooks {
+    margin-top: 60px;
+}
+
+/* templates.pages.addBook
+--------------------------------------------- */
+
+#createFirstStep, #createSecondStep, #createThirdStep {
     margin-top: 60px;
 }
