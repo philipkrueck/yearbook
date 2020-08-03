@@ -49,6 +49,10 @@ body, h1, h2, h3, h4, h5, h6, p {
     margin-right: 5px;
 }
 
+.infoBox {
+    background-color: #f2f6ea;
+    padding: 24px 16px;
+}
 
 /* Forms
 --------------------------------------------- */
