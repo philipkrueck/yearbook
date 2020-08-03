@@ -222,16 +222,46 @@ footer a {
     border-top: 1px solid #dbdbdb;
 }
 
-#viewHeader {
+#smallviewHeader {
     background-color: #f2f5f8;
-    margin: 30px auto;
 }
+
+#largeViewHeader .grid-x {
+    background-color: #f2f5f8;
+    margin: 30px;
+    height: 60vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#viewHeaderInner {
+    background-color: rgba(255, 255, 255, .8);
+    margin: 40px;
+    padding: 40px;
+    max-width: 50%;
+}
+
+#questionnairesWrapper {
+    margin-top: 80px;
+}
+
+.questionnaireCard {
+    background-color: #ffffff;
+    min-height: 120px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.cardContent {
+    padding: 10px 12px;
+}
+
+/* templates.pages.questionnaire.show
+--------------------------------------------- */
 
 #viewQuestionnaire {
     background-color: #f2f5f8;
     padding: 40px 0;
-}
-
-#questionaires {
-    margin-top: 80px;
 }
