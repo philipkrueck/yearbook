@@ -6,6 +6,7 @@
 
 # Typography
 # Home Page
+# Forms
 
 --------------------------------------------------------------*/
 
@@ -17,9 +18,19 @@ body, h1, h2, h3, h4, h5, h6, p {
     font-family: 'Open Sans', sans-serif;
 }
 
-.button-group .button {
-    background-color: #1da1f2;
+.button {
+    background-color: #e74c3c;
     margin: 5px 0;
+}
+
+.inlineButton {
+    display: inline-block;
+    border-bottom: 1px solid #e74c3c;
+    color: #e74c3c;
+}
+
+.inlineButton:hover {
+    color: #c0392b;
 }
 
 .material-icons {
@@ -27,22 +38,53 @@ body, h1, h2, h3, h4, h5, h6, p {
     margin-right: 5px;
 }
 
+/* Forms
+--------------------------------------------- */
+
+form {
+    width: 100%;
+}
+
+[type=color], [type=date], [type=datetime-local], [type=datetime], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel], [type=text], [type=time], [type=url], [type=week], textarea {
+    box-shadow: none;
+    background-color: #f9f9f9;
+}
+
+[type=submit] {
+    width: 100%;
+}
+
+[type=submit]:hover {
+    background-color: #c0392b;
+}
+
 /* Home Page
 --------------------------------------------- */
 
 #indexHero > .grid-x {
     height: 100vh;
+    background-color: #FAFAFC;
 }
 
 #indexHeroLeft {
-    background-color: #1da1f2;
+    background-color: #292c31;
     color: #f1f1f1;
+}
+
+.formGroup {
+    background-color: #ffffff;
+    border: 1px solid #dbdbdb;
+    padding: 16px 12px;
+}
+
+.formGroup#login {
+    margin-top: 25px;
 }
 
 #featuredWrapper {
     margin: 80px 0;
     padding: 80px;
-    background: #f1f1f1;
+    background: #f2f6ea;
 }
 
 .featuredCard {
@@ -54,7 +96,7 @@ body, h1, h2, h3, h4, h5, h6, p {
 
 footer {
     margin-top: 40px;
-    background-color: #1da1f2;
+    background-color: #292c31;
     color: #f1f1f1;
     padding: 10px 0;
 }
