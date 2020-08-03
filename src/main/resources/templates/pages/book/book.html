@@ -9,11 +9,14 @@
 <header th:insert="fragments/header :: header"></header>
 
 <!-- #editBar -------------------------------- -->
-<div class="grid-wrapper" id="editBar">
+<div class="grid-wrapper" id="upperEditBar">
     <div class="grid-container">
-        <div class="grid-x align-right">
+        <div class="grid-x align-middle">
+            <div class="cell auto">
+                <span>You are seeing this bar, because you are Admin of the book.</span>
+            </div>
             <div class="cell shrink">
-                <a class="button small" href="/book/1/edit">edit Book</a>
+                <a class="button small" href="/book/1/edit">Edit book</a>
             </div>
         </div>
     </div>
