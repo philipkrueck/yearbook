@@ -14,7 +14,7 @@
     <div class="grid-container">
         <div class="grid-x align-middle">
             <div class="cell auto">
-                <h1 class="h4">View Questionnaire <small>Book X</small></h1>
+                <h1 class="h4">View Questionnaire <small th:text="${questionnaireViewModel.getBookName()}"></small></h1>
             </div>
             <div class="cell shrink">
                 <a class="button small" href="/questionnaire/1/back">Go back to book</a>
@@ -32,20 +32,19 @@
                 <img src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
             </div>
             <div class="cell small-24 medium-16">
-                <h1>John Doe</h1>
+                <h1 th:text="${questionnaireViewModel.getName()}"></h1>
                 <div class="questionBlock">
-                    <h5>Question 1</h5>
-                    <p>Answer 1</p>
-                    <h5>Question 2</h5>
-                    <p>Answer 2</p>
-                    <h5>Question 3</h5>
-                    <p>Answer 3</p>
+                    <div th:each="questionViewModel : ${questionnaireViewModel.getQuestionViewModels()}">
+                        <h5 th:text="${questionViewModel.getQuestion()}"></h5>
+                        <p th:text="${questionViewModel.getAnswer()}"></p>
+                    </div>
                 </div>
                 <div class="publishedComments">
                     <hr/>
-                    <h5>Comments about John Doe</h5>
-                    <blockquote>Comment 1</blockquote>
-                    <blockquote>Comment 2</blockquote>
+                    <h5 th:text="'Comments about ' + ${questionnaireViewModel.getName()}"></h5>
+                    <div th:each="commentViewModel : ${questionnaireViewModel.getCommentViewModels()}">
+                        <blockquote th:text="${commentViewModel.getComment()} + ' - ' + ${commentViewModel.getAuthor()}"></blockquote>
+                    </div>
                 </div>
             </div>
         </div>

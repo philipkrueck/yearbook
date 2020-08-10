@@ -15,7 +15,7 @@ public class QuestionnaireEditController {
             throw new NotFoundException();
         }
 
-        model.addAttribute("questionnaireViewModel", new QuestionnaireViewModel());
+        model.addAttribute("questionnaireViewModel", new QuestionnaireViewModel("Graduation 2020", "Peter Griffin", QuestionViewModel.sampleData, CommentViewModel.sampleData));
         return "pages/questionnaire/edit";
     }
 
@@ -33,9 +33,6 @@ public class QuestionnaireEditController {
             throw new NotFoundException();
         }
 
-        System.out.println("new question 1: " + questionnaireViewModel.getQuestionOne());
-        System.out.println("new question 2: " + questionnaireViewModel.getQuestionTwo());
-        System.out.println("new question 3: " + questionnaireViewModel.getQuestionThree());
         return "redirect:/questionnaire/{id}";
     }
 }

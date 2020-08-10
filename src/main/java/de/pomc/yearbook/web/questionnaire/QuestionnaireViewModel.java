@@ -1,18 +1,26 @@
 package de.pomc.yearbook.web.questionnaire;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
+@AllArgsConstructor
 public class QuestionnaireViewModel {
     @Getter
     @Setter
-    private String questionOne;
+    private String bookName;
 
     @Getter
     @Setter
-    private String questionTwo;
+    private String name;
 
     @Getter
     @Setter
-    private String questionThree;
+    private List<QuestionViewModel> questionViewModels;
+
+    @Getter
+    @Setter
+    private List<CommentViewModel> commentViewModels;
 }
