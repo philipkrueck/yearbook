@@ -1,5 +1,6 @@
 package de.pomc.yearbook.web.book;
 
+import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,10 @@ public class BookController {
     public String showBookView(@PathVariable("id") Long id) {
         if (id == 1234) { // TODO: actually look up the book in the db
             throw new NotFoundException();
+        }
+
+        if (id == 69) {
+            throw new ForbiddenException();
         }
 
         return "pages/book/book";
