@@ -5,64 +5,106 @@
 </head>
 <body>
 
-    <header th:insert="fragments/header :: header"></header>
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
 
-    <div class="grid-container">
-        <div class="grid-x">
-            <div class="cell small-12 medium-8">
-                <img src="https://via.placeholder.com/200x200.webp?text=Profilpic">
+<!-- #profileContainer -------------------------------- -->
+<div class="grid-container" id="profileContainer">
+    <div class="grid-x grid-margin-x">
+
+        <!-- Sidebar -------------------------------- -->
+        <aside class="cell small-12 medium-6">
+            <img id="avatarImage" src="https://via.placeholder.com/400x400.webp?text=Profilpic">
+            <h1 id="profileTitle"><span class="h4">[USERNAME]</span> <br/> <span class="h5">[EMAIL]</span></h1>
+            <p>[BIO]</p>
+            <hr />
+            <button id="openEditProfile" onclick="openEdit(this, 'editProfile');" class="button small medium-expanded">Edit profile</button>
+            <form id="editProfile" action="#">
+                <label>Avatar
+                    <input type="file" accept="image/*" value="Upload a photo...">
+                </label>
+                <textarea placeholder="Add a bio" aria-label="Add a bio"></textarea>
+                <label>Username
+                    <input type="text">
+                </label>
+                <div class="stack-for-small small expanded button-group">
+                    <input class="success button" type="submit" value="Save">
+                    <button id="closeEditProfile" class="secondary button" onclick="closeEdit('openEditProfile', 'editProfile')" value="Cancel">Cancel</button>
+                </div>
+            </form>
+        </aside>
+
+        <!-- Main -------------------------------- -->
+        <main class="cell small-12 medium-17 medium-offset-1">
+            <div class="grid-x" id="ownedBooks">
+                <div class="cell small-24">
+                    <h3>My Books</h3>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                        <tr>
+                            <th>Book 1</th>
+                            <th><a href="/book/1">view</a></th>
+                            <th><a href="/book/1/edit">edit</a></th>
+                        </tr>
+                        <tr>
+                            <th>Book 1</th>
+                            <th><a href="/book/1">view</a></th>
+                            <th><a href="/book/1/edit">edit</a></th>
+                        </tr>
+                    </table>
+                    <a class="button" href="/addBook"><button>Add a new book</button></a>
+                </div>
             </div>
-            <div class="cell small-12">
-                <h1>Profile</h1>
-                <p>[USERNAME] <br/> [EMAIL]</p>
+            <hr />
+            <div class="grid-x" id="participatingBooks">
+                <div class="cell small-24">
+                    <h3>My Participations</h3>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                        <tr>
+                            <th>Participation 1</th>
+                            <th><a href="/book/1">view</a></th>
+                            <th><a href="/book/1/edit">edit</a></th>
+                        </tr>
+                        <tr>
+                            <th>Participation 2</th>
+                            <th><a href="/book/2">view</a></th>
+                            <th><a href="/book/2/edit">edit</a></th>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
-    <div class="grid-container" id="ownedBooks">
-        <div class="grid-x">
-            <div class="cell small-24">
-                <h3>My Books</h3>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                    <tr>
-                        <th>Book 1</th>
-                        <th><a href="/book/1">view</a></th>
-                        <th><a href="/book/1/edit">edit</a></th>
-                    </tr>
-                    <tr>
-                        <th>Book 1</th>
-                        <th><a href="/book/1">view</a></th>
-                        <th><a href="/book/1/edit">edit</a></th>
-                    </tr>
-                </table>
-                <a class="button" href="/addBook"><button>Add a new book</button></a>
-            </div>
-        </div>
-    </div>
-    <div class="grid-container" id="participatingBooks">
-        <div class="grid-x">
-            <div class="cell small-24">
-                <h3>My Participations</h3>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                    <tr>
-                        <th>Participation 1</th>
-                        <th><a href="/book/1">view</a></th>
-                        <th><a href="/book/1/edit">edit</a></th>
-                    </tr>
-                    <tr>
-                        <th>Participation 2</th>
-                        <th><a href="/book/2">view</a></th>
-                        <th><a href="/book/2/edit">edit</a></th>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+</div>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
+<!-- script -------------------------------- -->
+<script type="text/javascript">
+    function openEdit(ctrl, id) {
+        var d = ctrl;
+        var e = document.getElementById(id);
+        if(e.style.display == 'block')
+            e.style.display = 'none',
+            d.style.dislay = 'block';
+        else
+            e.style.display = 'block',
+            d.style.display = 'none';
+    }
+
+    function closeEdit(show, hide) {
+        var d = document.getElementById(show);
+        var e = document.getElementById(hide);
+        d.style.display = 'block';
+        e.style.display = 'none';
+    }
+</script>
+
 </body>
 </html>

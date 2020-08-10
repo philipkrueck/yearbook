@@ -80,8 +80,21 @@ form {
     width: 100%;
 }
 
+.button-group [type=submit] {
+    width: auto;
+}
+
+.button-group.expanded .button:not(:last-child) {
+    margin-right: 12px;
+}
+
 [type=submit]:hover, .button:hover {
     background-color: #c0392b;
+}
+
+.button.success, .button.success.disabled, .button.success.disabled:focus, .button.success.disabled:hover, .button.success[disabled], .button.success[disabled]:focus, .button.success[disabled]:hover {
+    color: #ffffff;
+    background-color: #27ae60;
 }
 
 
@@ -192,13 +205,32 @@ footer a {
 /* templates.pages.profile
 --------------------------------------------- */
 
-#ownedBooks {
-    margin-top: 60px;
+#profileContainer {
+    margin: 60px auto;
+}
+
+#avatarImage {
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+#profileTitle {
+    line-height: .2;
+}
+
+#editProfile {
+    display: none;
 }
 
 #participatingBooks {
     margin-top: 60px;
 }
+
+
+
+
+
+
 
 /* templates.pages.addBook
 --------------------------------------------- */
