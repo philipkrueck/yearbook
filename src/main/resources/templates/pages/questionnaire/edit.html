@@ -1,23 +1,48 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Edit Questionnaire</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/> </head>
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Edit Questionnaire | Yearbook</title>
+</head>
 <body>
-<div class="container">
-    <div class="mt-4">
-        <a href="/questionnaire/1/back" >Go back</a>
-        <h1>Edit Questionnaire</h1>
 
-        <form method="post" th:action="@{/questionnaire/1/edit/update}" th:object="${questionnaireViewModel}">
-            <p>Question 1: <input type="text" th:field="*{questionOne}" /></p>
-            <p>Question 2: <input type="text" th:field="*{questionTwo}" /></p>
-            <p>Question 3: <input type="text" th:field="*{questionThree}" /></p>
-            <button type="submit">Save</button>
-        </form>
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
+
+<!-- #editBar -------------------------------- -->
+<div class="grid-wrapper" id="upperEditBar">
+    <div class="grid-container">
+        <div class="grid-x align-middle">
+            <div class="cell auto">
+                <h1 class="h4">Edit Questionnaire <small>Book X</small></h1>
+            </div>
+            <div class="cell shrink">
+                <a class="button small" href="/questionnaire/1/back" >Go back</a>
+            </div>
+        </div>
     </div>
 </div>
+
+<main class="grid-wrapper" id="questionnaireEdit">
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+            <div class="cell small-24 medium-12">
+                <p class="infoBox">This is your personal questionnaire. All your answers will be published directly into the yearbook.</p>
+            </div>
+            <div class="cell small-24 medium-12">
+                <form method="post" th:action="@{/questionnaire/1/edit/update}" th:object="${questionnaireViewModel}">
+                    <p>Question 1: <input type="text" th:field="*{questionOne}" /></p>
+                    <p>Question 2: <input type="text" th:field="*{questionTwo}" /></p>
+                    <p>Question 3: <input type="text" th:field="*{questionThree}" /></p>
+                    <input class="button" type="submit" value="Save questionnaire">
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
 </body>
 </html>

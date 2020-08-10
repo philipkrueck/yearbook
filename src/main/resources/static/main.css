@@ -1,0 +1,267 @@
+/*
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+
+# Typography
+# Home Page
+# Forms
+# typography
+# templates.index
+# templates.fragments.header
+# templates.fragments.footer
+# templates.pages.login
+# templates.pages.profile
+# templates.pages.addBook
+
+--------------------------------------------------------------*/
+
+
+/* Typographie
+--------------------------------------------- */
+
+body {
+    background-color: #FAFAFC;
+}
+
+body, h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+    line-height: 1;
+}
+
+.button {
+    background-color: #e74c3c;
+    margin: 5px 0;
+}
+
+.inlineButton {
+    display: inline-block;
+    border-bottom: 1px solid #e74c3c;
+    color: #e74c3c;
+}
+
+.inlineButton:hover {
+    color: #c0392b;
+}
+
+.material-icons {
+    font-size: inherit;
+    margin-right: 5px;
+    vertical-align: text-top;
+    padding-top: 5px;
+}
+
+.infoBox {
+    background-color: #f2f6ea;
+    padding: 24px 16px;
+}
+
+h1 .colored, h2 .colored, h3 .colored, h4 .colored, h5 .colored, h6 .colored {
+    color: #e74c3c;
+}
+
+/* Forms
+--------------------------------------------- */
+
+form {
+    width: 100%;
+}
+
+[type=color], [type=date], [type=datetime-local], [type=datetime], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel], [type=text], [type=time], [type=url], [type=week], textarea {
+    box-shadow: none;
+    background-color: #f9f9f9;
+}
+
+[type=submit] {
+    width: 100%;
+}
+
+[type=submit]:hover, .button:hover {
+    background-color: #c0392b;
+}
+
+
+/* templates.index
+--------------------------------------------- */
+
+#indexHero > .grid-x {
+    height: 100vh;
+}
+
+#indexHeroLeft {
+    background-color: #292c31;
+    color: #f1f1f1;
+}
+
+.formGroup {
+    background-color: #ffffff;
+    border: 1px solid #dbdbdb;
+    padding: 18px 16px;
+}
+
+#formAddOn {
+    margin-top: 25px;
+}
+
+#featuredWrapper {
+    margin: 120px 0;
+}
+
+.featuredCard {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: auto 10px;
+    display: flex;
+    padding: 0 10px;
+}
+
+.featuredCard h5 {
+    vertical-align: bottom;
+    display: flex;
+    align-self: flex-end;
+}
+
+.featuredCard h5 a {
+    color: #f1f1f1;
+}
+
+.featuredCard h5 a:hover {
+    color: #c0392b;
+}
+
+.featuredCard:nth-child(1), .featuredCard:nth-child(5) {
+    margin-top: -20px;
+}
+
+.featuredCard:nth-child(2), .featuredCard:nth-child(4) {
+    margin-top: 20px;
+}
+
+.featuredCard:nth-child(3) {
+    margin-top: 60px;
+}
+
+/* templates.fragments.header
+--------------------------------------------- */
+
+header#mastHead {
+    padding: 10px 0;
+    background-color: #2c3840;
+    color: #f1f1f1;
+}
+
+header#mastHead .button {
+    margin: 0;
+}
+
+header#mastHead a {
+    color: #f1f1f1;
+}
+
+/* templates.fragments.footer
+--------------------------------------------- */
+
+footer {
+    margin-top: 40px;
+    background-color: #292c31;
+    color: #f1f1f1;
+    padding: 10px 0;
+}
+
+footer a {
+    color: #f1f1f1;
+}
+
+/* templates.pages.login
+--------------------------------------------- */
+
+#loginWrapper .grid-x {
+    height: 100vh;
+}
+
+#signupTeaser {
+    margin-top: 40px;
+}
+
+/* templates.pages.profile
+--------------------------------------------- */
+
+#ownedBooks {
+    margin-top: 60px;
+}
+
+#participatingBooks {
+    margin-top: 60px;
+}
+
+/* templates.pages.addBook
+--------------------------------------------- */
+
+#createFirstStep, #createSecondStep, #createThirdStep {
+    margin-top: 60px;
+}
+
+/* templates.pages.book.book
+--------------------------------------------- */
+
+#upperEditBar .grid-container {
+    margin: 30px auto;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+#lowerEditBar .grid-container {
+    margin: 30px auto;
+    padding-top: 12px;
+    border-top: 1px solid #dbdbdb;
+}
+
+#smallviewHeader {
+    background-color: #f2f5f8;
+}
+
+#largeViewHeader .grid-x {
+    background-color: #f2f5f8;
+    margin: 30px;
+    height: 60vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#viewHeaderInner {
+    background-color: rgba(255, 255, 255, .8);
+    margin: 40px;
+    padding: 40px;
+    max-width: 50%;
+}
+
+#questionnairesWrapper {
+    margin-top: 80px;
+}
+
+.questionnaireCard {
+    background-color: #ffffff;
+    min-height: 120px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.cardContent {
+    padding: 10px 12px;
+}
+
+/* templates.pages.questionnaire.show
+--------------------------------------------- */
+
+#viewQuestionnaire {
+    background-color: #f2f5f8;
+    padding: 40px 0;
+}

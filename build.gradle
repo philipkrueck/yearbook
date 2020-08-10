@@ -12,6 +12,7 @@ configurations {
 	developmentOnly
 	runtimeClasspath {
 		extendsFrom annotationProcessor
+		extendsFrom developmentOnly
 	}
 	compileOnly {
 		extendsFrom annotationProcessor
