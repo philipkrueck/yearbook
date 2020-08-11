@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>403</title>
+<html>
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">404 Page not Found | Yearbook</title>
 </head>
 <body>
-<h1>403</h1>
+
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
+
+<!-- #editBar -------------------------------- -->
+<div class="grid-wrapper" id="errorPage">
+    <div class="grid-container">
+        <div class="grid-x align-middle">
+            <div class="cell auto">
+                <h1><small>403 Error</small> <br/>Access denied.</h1>
+                <a href="/" class="button">Return to Homepage <i class="material-icons">keyboard_return</i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 
 </body>
 </html>
