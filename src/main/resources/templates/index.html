@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
     <title id="pageTitle">Yearbook | Home</title>
 </head>
@@ -47,20 +47,8 @@
                 </div>
             </div>
             <div class="grid-x align-center">
-                <div class="cell small-8 medium-4 featuredCard" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')">
-                    <h5><a href="/book/1">Book 1<span class="material-icons">arrow_right_alt</span></a></h5>
-                </div>
-                <div class="cell small-8 medium-4 featuredCard" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')">
-                    <h5><a href="/book/2">Book 2<span class="material-icons">arrow_right_alt</span></a></h5>
-                </div>
-                <div class="cell small-8 medium-4 featuredCard" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')">
-                    <h5><a href="/book/3">Book 3<span class="material-icons">arrow_right_alt</span></a></h5>
-                </div>
-                <div class="cell small-8 medium-4 featuredCard" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')">
-                    <h5><a href="/book/4">Book 4<span class="material-icons">arrow_right_alt</span></a></h5>
-                </div>
-                <div class="cell small-8 medium-4 featuredCard" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')">
-                    <h5><a href="/book/5">Book 5<span class="material-icons">arrow_right_alt</span></a></h5>
+                <div class="cell small-8 medium-4 featuredCard" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')" th:each="featuredBookViewModel : ${indexViewModel.getFeaturedBookViewModels()}">
+                    <h5><a th:href="@{/book/{id}(id=${featuredBookViewModel.getId()})}" th:text="${featuredBookViewModel.getBookTitle()}"><span class="material-icons">arrow_right_alt</span></a></h5>
                 </div>
             </div>
         </div>
