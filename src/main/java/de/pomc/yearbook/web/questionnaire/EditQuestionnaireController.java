@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/questionnaire/{id}/edit")
-public class QuestionnaireEditController {
+public class EditQuestionnaireController {
 
     @GetMapping
     public String showEditQuestionnaireView(Model model, @PathVariable("id") Long id) {
@@ -15,7 +15,7 @@ public class QuestionnaireEditController {
             throw new NotFoundException();
         }
 
-        model.addAttribute("questionnaireViewModel", new QuestionnaireViewModel("Graduation 2020", "Peter Griffin", QuestionViewModel.sampleData, CommentViewModel.sampleData));
+        model.addAttribute("editQuestionnaireViewModel", new EditQuestionnaireViewModel("Graduation 2020", QuestionViewModel.sampleData));
         return "pages/questionnaire/edit";
     }
 
