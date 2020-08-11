@@ -7,20 +7,13 @@ import lombok.Setter;
 import java.util.List;
 
 @AllArgsConstructor
-public class QuestionnaireViewModel {
+public class EditQuestionnaireViewModel {
+
     @Getter
     @Setter
     private String bookName;
 
     @Getter
     @Setter
-    private String name;
-
-    @Getter
-    @Setter
     private List<QuestionViewModel> questionViewModels;
-
-    @Getter
-    @Setter
-    private List<CommentViewModel> commentViewModels;
 }

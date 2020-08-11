@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/questionnaire/{id}/edit")
-public class QuestionnaireEditController {
+public class EditQuestionnaireController {
 
     @GetMapping
     public String showEditQuestionnaireView(Model model, @PathVariable("id") Long id) {
@@ -15,7 +15,7 @@ public class QuestionnaireEditController {
             throw new NotFoundException();
         }
 
-        model.addAttribute("questionnaireViewModel", new QuestionnaireViewModel());
+        model.addAttribute("editQuestionnaireViewModel", new EditQuestionnaireViewModel("Graduation 2020", QuestionViewModel.sampleData));
         return "pages/questionnaire/edit";
     }
 
@@ -33,9 +33,10 @@ public class QuestionnaireEditController {
             throw new NotFoundException();
         }
 
-        System.out.println("new question 1: " + questionnaireViewModel.getQuestionOne());
-        System.out.println("new question 2: " + questionnaireViewModel.getQuestionTwo());
-        System.out.println("new question 3: " + questionnaireViewModel.getQuestionThree());
+        for (QuestionViewModel questionViewModel : questionnaireViewModel.getQuestionViewModels()) {
+            System.out.println(questionViewModel.getAnswer());
+        }
+
         return "redirect:/questionnaire/{id}";
     }
 }

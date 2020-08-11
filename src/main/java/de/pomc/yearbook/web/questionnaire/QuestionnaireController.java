@@ -14,7 +14,9 @@ public class QuestionnaireController {
         if (id == 1234) { // TODO: actually look up the questionnaire in the db
             throw new NotFoundException();
         }
-        model.addAttribute("commentForm", new CommentViewModel());
+        model.addAttribute("questionnaireViewModel", new QuestionnaireViewModel("Graduation 2020" +
+                "", "Peter Griffin", QuestionViewModel.sampleData, CommentViewModel.sampleData));
+        model.addAttribute("commentForm", new CommentForm());
         return "/pages/questionnaire/show";
     }
 
@@ -33,7 +35,6 @@ public class QuestionnaireController {
             throw new NotFoundException();
         }
 
-        // ToDo: do something with the comment
         System.out.print("added comment " + commentForm.getComment());
         return "redirect:/questionnaire/{id}";
     }

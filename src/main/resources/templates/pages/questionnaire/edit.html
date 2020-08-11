@@ -14,7 +14,7 @@
     <div class="grid-container">
         <div class="grid-x align-middle">
             <div class="cell auto">
-                <h1 class="h4">Edit Questionnaire <small>Book X</small></h1>
+                <h1 class="h4">Edit Questionnaire <small th:text="${editQuestionnaireViewModel.getBookName()}"></small></h1>
             </div>
             <div class="cell shrink">
                 <a class="button small" href="/questionnaire/1/back" >Go back</a>
@@ -30,10 +30,12 @@
                 <p class="infoBox">This is your personal questionnaire. All your answers will be published directly into the yearbook.</p>
             </div>
             <div class="cell small-24 medium-12">
-                <form method="post" th:action="@{/questionnaire/1/edit/update}" th:object="${questionnaireViewModel}">
-                    <p>Question 1: <input type="text" th:field="*{questionOne}" /></p>
-                    <p>Question 2: <input type="text" th:field="*{questionTwo}" /></p>
-                    <p>Question 3: <input type="text" th:field="*{questionThree}" /></p>
+                <form method="post" th:action="@{/questionnaire/1/edit/update}" th:object="${editQuestionnaireViewModel}">
+                    <div th:each="questionViewModel, itemStat : *{questionViewModels}">
+                        <p th:text="${questionViewModel.getQuestion()}"></p>
+                        <input type="text" th:field="*{questionViewModels[__${itemStat.index}__].answer}"/>
+                    </div>
+
                     <input class="button" type="submit" value="Save questionnaire">
                 </form>
             </div>
