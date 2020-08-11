@@ -33,6 +33,10 @@ public class EditQuestionnaireController {
             throw new NotFoundException();
         }
 
+        for (QuestionViewModel questionViewModel : questionnaireViewModel.getQuestionViewModels()) {
+            System.out.println(questionViewModel.getAnswer());
+        }
+
         return "redirect:/questionnaire/{id}";
     }
 }

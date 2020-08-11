@@ -31,9 +31,11 @@
             </div>
             <div class="cell small-24 medium-12">
                 <form method="post" th:action="@{/questionnaire/1/edit/update}" th:object="${editQuestionnaireViewModel}">
-                    <p>Question One
-                        <input type="text" th:field="*{bookName}" />
-                    </p>
+                    <div th:each="questionViewModel, itemStat : *{questionViewModels}">
+                        <p th:text="${questionViewModel.getQuestion()}"></p>
+                        <input type="text" th:field="*{questionViewModels[__${itemStat.index}__].answer}"/>
+                    </div>
+
                     <input class="button" type="submit" value="Save questionnaire">
                 </form>
             </div>

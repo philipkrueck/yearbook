@@ -2,11 +2,13 @@ package de.pomc.yearbook.web.questionnaire;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class QuestionViewModel {
 
     @Getter
