@@ -16,7 +16,7 @@ public class ProfileController {
     public String showProfile(Model model) {
         boolean loggedIn = true;
 
-        model.addAttribute("profileViewModel", new ProfileViewModel("petergriffin", "peter.griffin@gmail.com", "Hi, I'm Peter."));
+        model.addAttribute("profileViewModel", new ProfileViewModel("petergriffin", "peter.griffin@gmail.com", "Hi, I'm Peter.", ProfileBookViewModel.sampleData, ProfileParticipationViewModel.sampleData));
 
         if (!loggedIn) { // TODO: actually check if the user is logged in or not
             throw new ForbiddenException();

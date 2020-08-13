@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileViewModel {
@@ -16,4 +18,10 @@ public class ProfileViewModel {
 
     @Getter
     private String bio;
+
+    @Getter
+    private List<ProfileBookViewModel> profileBookViewModels;
+
+    @Getter
+    private List<ProfileParticipationViewModel> profileParticipationViewModels;
 }

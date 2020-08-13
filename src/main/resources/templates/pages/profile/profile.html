@@ -43,15 +43,10 @@
                         <tr>
                             <th>Name</th>
                         </tr>
-                        <tr>
-                            <th>Book 1</th>
-                            <th><a href="/book/1">view</a></th>
-                            <th><a href="/book/1/edit">edit</a></th>
-                        </tr>
-                        <tr>
-                            <th>Book 1</th>
-                            <th><a href="/book/1">view</a></th>
-                            <th><a href="/book/1/edit">edit</a></th>
+                        <tr th:each="profileBookViewModel : ${profileViewModel.getProfileBookViewModels()}">
+                            <th th:text="${profileBookViewModel.getBookName()}"></th>
+                            <th><a th:href="@{/book/{id}(id=${profileBookViewModel.getId()})}">view</a></th>
+                            <th><a th:href="@{/book/{id}/edit(id=${profileBookViewModel.getId()})}">edit</a></th>
                         </tr>
                     </table>
                     <a class="button" href="/addBook"><button>Add a new book</button></a>
@@ -65,15 +60,10 @@
                         <tr>
                             <th>Name</th>
                         </tr>
-                        <tr>
-                            <th>Participation 1</th>
-                            <th><a href="/book/1">view</a></th>
-                            <th><a href="/book/1/edit">edit</a></th>
-                        </tr>
-                        <tr>
-                            <th>Participation 2</th>
-                            <th><a href="/book/2">view</a></th>
-                            <th><a href="/book/2/edit">edit</a></th>
+                        <tr th:each="profileParticipationViewModel : ${profileViewModel.getProfileParticipationViewModels()}">
+                            <th th:text="${profileParticipationViewModel.getBookName()}"></th>
+                            <th><a th:href="@{/questionnaire/{id}(id=${profileParticipationViewModel.getQuestionnaireId()})}">view</a></th>
+                            <th><a th:href="@{/questionnaire/{id}/edit(id=${profileParticipationViewModel.getQuestionnaireId()})}">edit</a></th>
                         </tr>
                     </table>
                 </div>
