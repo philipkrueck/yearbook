@@ -10,16 +10,18 @@ import java.util.List;
 class QuestionnairePreviewViewModel {
 
     @Getter
-    @Setter
+    private Long id;
+
+    @Getter
     private String title;
 
     // TODO: Add image
 
     static List<QuestionnairePreviewViewModel> sampleData = List.of(
-        new QuestionnairePreviewViewModel("John Doe"),
-        new QuestionnairePreviewViewModel("Peter Griffin"),
-        new QuestionnairePreviewViewModel("Mat Fraser"),
-        new QuestionnairePreviewViewModel("Ben Smith"),
-        new QuestionnairePreviewViewModel("David Jones")
+        new QuestionnairePreviewViewModel((long) 1, "John Doe"),
+        new QuestionnairePreviewViewModel((long) 2, "Peter Griffin"),
+        new QuestionnairePreviewViewModel((long) 3, "Mat Fraser"),
+        new QuestionnairePreviewViewModel((long) 4, "Ben Smith"),
+        new QuestionnairePreviewViewModel((long) 5, "David Jones")
     );
 }

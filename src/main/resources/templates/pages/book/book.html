@@ -44,7 +44,7 @@
                 <img src="https://via.placeholder.com/300x150.webp?text=Profilpic" alt="Profil Pic">
                 <div class="cardContent">
                     <h4 th:text="${questionnairePreviewViewModel.getTitle()}"></h4>
-                    <a class="inlineButton" href="/questionnaire/1">View Questionnaire</a>
+                    <a class="inlineButton" th:href="@{/questionnaire/{id}(id=${questionnairePreviewViewModel.getId()})}">View Questionnaire</a>
                 </div>
             </div>
         </div>
