@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
     <title id="pageTitle">Your Profile | Yearbook</title>
 </head>
@@ -15,18 +15,18 @@
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
             <img id="avatarImage" src="https://via.placeholder.com/400x400.webp?text=Profilpic">
-            <h1 id="profileTitle"><span class="h4">[USERNAME]</span> <br/> <span class="h5">[EMAIL]</span></h1>
-            <p>[BIO]</p>
+            <h1 id="profileTitle"><span th:text="${profileViewModel.getUsername()}" class="h4"></span> <br/> <span th:text="${profileViewModel.getEmail()}" class="h5"></span></h1>
+            <p th:text="${profileViewModel.getBio()}"></p>
             <hr />
             <button id="openEditProfile" onclick="openEdit(this, 'editProfile');" class="button small medium-expanded">Edit profile</button>
-            <form id="editProfile" action="#">
+            <form id="editProfile" th:action="@{/profile/edit}" th:object="${profileViewModel}" method="post">
                 <label>Avatar
                     <input type="file" accept="image/*" value="Upload a photo...">
                 </label>
-                <textarea placeholder="Add a bio" aria-label="Add a bio"></textarea>
-                <label>Username
-                    <input type="text">
-                </label>
+                <label>Bio</label>
+                <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
+                <label>Username</label>
+                <input type="text" th:field="*{username}">
                 <div class="stack-for-small small expanded button-group">
                     <input class="success button" type="submit" value="Save">
                     <button id="closeEditProfile" class="secondary button" onclick="closeEdit('openEditProfile', 'editProfile')" value="Cancel">Cancel</button>
@@ -43,15 +43,10 @@
                         <tr>
                             <th>Name</th>
                         </tr>
-                        <tr>
-                            <th>Book 1</th>
-                            <th><a href="/book/1">view</a></th>
-                            <th><a href="/book/1/edit">edit</a></th>
-                        </tr>
-                        <tr>
-                            <th>Book 1</th>
-                            <th><a href="/book/1">view</a></th>
-                            <th><a href="/book/1/edit">edit</a></th>
+                        <tr th:each="profileBookViewModel : ${profileViewModel.getProfileBookViewModels()}">
+                            <th th:text="${profileBookViewModel.getBookName()}"></th>
+                            <th><a th:href="@{/book/{id}(id=${profileBookViewModel.getId()})}">view</a></th>
+                            <th><a th:href="@{/book/{id}/edit(id=${profileBookViewModel.getId()})}">edit</a></th>
                         </tr>
                     </table>
                     <a class="button" href="/addBook"><button>Add a new book</button></a>
@@ -65,15 +60,10 @@
                         <tr>
                             <th>Name</th>
                         </tr>
-                        <tr>
-                            <th>Participation 1</th>
-                            <th><a href="/book/1">view</a></th>
-                            <th><a href="/book/1/edit">edit</a></th>
-                        </tr>
-                        <tr>
-                            <th>Participation 2</th>
-                            <th><a href="/book/2">view</a></th>
-                            <th><a href="/book/2/edit">edit</a></th>
+                        <tr th:each="profileParticipationViewModel : ${profileViewModel.getProfileParticipationViewModels()}">
+                            <th th:text="${profileParticipationViewModel.getBookName()}"></th>
+                            <th><a th:href="@{/questionnaire/{id}(id=${profileParticipationViewModel.getQuestionnaireId()})}">view</a></th>
+                            <th><a th:href="@{/questionnaire/{id}/edit(id=${profileParticipationViewModel.getQuestionnaireId()})}">edit</a></th>
                         </tr>
                     </table>
                 </div>
