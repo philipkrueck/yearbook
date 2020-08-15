@@ -5,112 +5,82 @@
 </head>
 <body>
 
-    <header th:insert="fragments/header :: header"></header>
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
 
-    <div class="grid-wrapper" id="createForm">
-        <div class="grid-container" id="createFirstStep">
-            <div class="grid-x">
-                <div class="cell">
-                    <h1>Create a new Book</h1>
-                </div>
-            </div>
-            <div class="grid-x">
-                <div class="cell small-12 medium-8">
-                    <img src="https://via.placeholder.com/200x200.webp?text=Login">
-                </div>
-                <div class="cell small-12 medium-16">
-                    <form method="post" th:action="@{/addBook/new}" th:object="${addBookViewModel}">
-                        <label>Add Name
-                            <input type="text" th:field="*{title}" />
-                        </label>
-                        <label>Add Description
-                            <input type="text" th:field="*{description}"/>
-                        </label>
-                        <input class="button" type="submit" value="Create Book" />
-                    </form>
-                </div>
+<!-- form#addBook -------------------------------- -->
+<form method="post" th:action="@{/addBook/new}" th:object="${addBookViewModel}">
+
+<div class="grid-wrapper" id="createBookForm">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell">
+                <h1 class="h3">Create a new Book</h1>
+                <p>Choose a title and a description. Then invite your friends and create your unique Yearbook memory.</p>
+                <hr />
             </div>
         </div>
-        <div class="grid-container" id="createSecondStep">
-            <div class="grid-x">
-                <div class="cell small-24 medium-8">
-                    <h4>Create Master Layout</h4>
-                    <p>Create your unique Layout for questions. Add titles and a description for every question. Add up to 3 questions.</p>
-                </div>
-                <div class="cell small-24 medium-16">
-                    <form method="post">
-                        <div class="grid-x grid-padding-x">
-                            <div class="cell shrink">
-                                <h5 class="h1">1.</h5>
-                            </div>
-                            <div class="cell auto">
-                                <label>Add Title<input type="text"/></label>
-                                <label>Add Description<input type="text" /></label>
-                            </div>
-                            <hr />
-                        </div>
-                        <div class="grid-x grid-padding-x">
-                            <div class="cell shrink">
-                                <h5 class="h1">2.</h5>
-                            </div>
-                            <div class="cell auto">
-                                <label>Add Title<input type="text"/></label>
-                                <label>Add Description<input type="text" /></label>
-                            </div>
-                            <hr />
-                        </div>
-                        <div class="grid-x grid-padding-x">
-                            <div class="cell shrink">
-                                <h5 class="h1">3.</h5>
-                            </div>
-                            <div class="cell auto">
-                                <label>Add Title<input type="text"/></label>
-                                <label>Add Description<input type="text" /></label>
-                            </div>
-                            <hr />
-                        </div>
-                        <input class="button" type="submit" value="Create Book" />
-                    </form>
-                </div>
+        <div class="grid-x">
+            <div class="cell small-12 medium-6">
+                <img class="bookAvater" src="https://via.placeholder.com/300x300.webp?text=ImageCover">
+                <label for="bookAvatarUpload" class="button bookAvatarUpload"><span class="material-icons">create</span> Edit</label>
+                <input type="file" id="bookAvatarUpload" class="show-for-sr">
             </div>
-        </div>
-        <div class="grid-container" id="createThirdStep">
-            <div class="grid-x">
-                <div class="cell small-24">
-                    <h4>Invite participants</h4>
-                </div>
-                <div class="cell small-24">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th width="80">ICON</th>
-                                <th>Name</th>
-                                <th width="400">Email</th>
-                                <th width="100">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ICON</td>
-                                <td>John</td>
-                                <td>john@doo.com</td>
-                                <td>Accepted</td>
-                            </tr>
-                            <tr>
-                                <td>ICON</td>
-                                <td>John</td>
-                                <td>john@doo.com</td>
-                                <td>Accepted</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <input type="submit" class="button" value="Add participant">
-                </div>
+            <div class="cell small-12 medium-17 medium-offset-1">
+                <label>Book title
+                    <input type="text" th:field="*{title}" />
+                </label>
+                <label>Description
+                    <input type="text" th:field="*{description}"/>
+                </label>
             </div>
         </div>
     </div>
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell small-24">
+                <h4>Add Questions</h4>
+                <p>Create your unique Layout for questions. Add titles and a description for every question. Add up to 3 questions.</p>
+            </div>
+            <div class="cell small-24 questionBorderWrap">
+                <div class="questionInner">
+                    <input placeholder="Type to add question title" type="text"/>
+                    <input placeholder="Type to add description" type="text"/>
+                </div>
+                <div class="removeQuestion"><span class="material-icons">remove</span></div>
+            </div>
+            <div class="cell small-24">
+                <button class="button small">Add question</button>
+            </div>
+        </div>
+    </div>
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell small-24">
+                <h4>Invite participants</h4>
+                <p>Participant can edit their questionnaire and comment on others in your yearbook.</p>
+            </div>
+            <div class="cell small-24 addParticipant">
+                <span class="addSlug">An</span>
+                <input class="addParticipantInput" type="email" placeholder="Nach Name oder E-Mail-Adresse suchen">
+                <button class="button small round"><span class="material-icons">person_add</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell small-24">
+                <input class="button" type="submit" value="Create book">
+            </div>
+        </div>
+    </div>
+</div>
 
-    <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+<!-- /form#addBook -------------------------------- -->
+</form>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 
 </body>
 </html>
