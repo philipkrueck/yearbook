@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">View Book | Yearbook</title>
+    <title id="pageTitle">Edit Questions | Yearbook</title>
 </head>
 <body>
     <header th:insert="fragments/header :: header"></header>
-
-    <h1 th:text="${editQuestionsBookViewModel.getBookName()}"></h1>
-
     <div class="grid-container" id="createSecondStep">
+
+        <h1 th:text="${editQuestionsBookViewModel.getBookName()}"></h1>
+
         <div class="grid-x">
             <div class="cell small-24 medium-8">
                 <h4>Add questions for all participants.</h4>
@@ -24,13 +24,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td>Some question?</td>
-                        </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td>Some other question?</td>
+                        <tr th:each="question, itemStat : ${editQuestionsBookViewModel.getQuestions()}">
+                            <td th:text="${itemStat.index + 1} + '.'"></td>
+                            <td th:text="${question}"></td>
                         </tr>
                         </tbody>
                     </table>

@@ -2,6 +2,7 @@ package de.pomc.yearbook.web.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -16,4 +17,10 @@ public class EditQuestionsViewModel {
     @Getter
     @Setter
     List<String> questions;
+
+
+    public static List<String> sampleQuestions = List.of(
+            "What was your best study moment?",
+            "What was your favorite course"
+            );
 }

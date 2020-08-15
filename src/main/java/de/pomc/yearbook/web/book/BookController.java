@@ -32,7 +32,7 @@ public class BookController {
 
     @GetMapping("/{id}/editQuestions")
     public String editQuestions(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("editQuestionsBookViewModel", new EditQuestionsViewModel("Graduation 2020", new ArrayList<>()));
+        model.addAttribute("editQuestionsBookViewModel", new EditQuestionsViewModel("Graduation 2020", EditQuestionsViewModel.sampleQuestions));
 
         return "pages/book/editQuestions";
     }
