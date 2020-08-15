@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">View Book | Yearbook</title>
+</head>
+<body>
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="grid-container" id="createSecondStep">
+        <div class="grid-x">
+            <div class="cell small-24 medium-8">
+                <h4>Create Master Layout</h4>
+                <p>Create your unique Layout for questions. Add titles and a description for every question. Add up to 3 questions.</p>
+            </div>
+            <div class="cell small-24 medium-16">
+                <form method="post">
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell shrink">
+                            <h5 class="h1">1.</h5>
+                        </div>
+                        <div class="cell auto">
+                            <label>Add Title<input type="text"/></label>
+                            <label>Add Description<input type="text" /></label>
+                        </div>
+                        <hr/>
+                    </div>
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell shrink">
+                            <h5 class="h1">2.</h5>
+                        </div>
+                        <div class="cell auto">
+                            <label>Add Title<input type="text"/></label>
+                            <label>Add Description<input type="text" /></label>
+                        </div>
+                        <hr />
+                    </div>
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell shrink">
+                            <h5 class="h1">3.</h5>
+                        </div>
+                        <div class="cell auto">
+                            <label>Add Title<input type="text"/></label>
+                            <label>Add Description<input type="text" /></label>
+                        </div>
+                        <hr />
+                    </div>
+                    <input class="button" type="submit" value="Create Book" />
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

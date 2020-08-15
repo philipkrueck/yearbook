@@ -8,14 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.awt.print.Book;
-import java.util.List;
-
 @Controller
-@RequestMapping("/book/{id}")
+@RequestMapping("/book")
 public class BookController {
 
-    @GetMapping
+    @GetMapping("/{id}")
     public String showBookView(Model model, @PathVariable("id") Long id) {
         if (id == 69) {
             throw new ForbiddenException();
@@ -32,11 +29,19 @@ public class BookController {
         return "pages/book/book";
     }
 
-    @GetMapping("/edit")
-    public String showEditBookView(@PathVariable("id") Long id) {
-        if (id == 1234) { // TODO: actually look up the book in the db
-            throw new NotFoundException();
-        }
-        return "pages/book/edit";
+    @GetMapping("/{id}/editQuestions")
+    public String editQuestions(@PathVariable("id") Long id) {
+        return "pages/book/editQuestions";
+    }
+
+    @GetMapping("/{id}/editParticipants")
+    public String editParticipants(@PathVariable("id") Long id) {
+        return "pages/book/editParticipants";
+    }
+
+    @GetMapping("/create")
+    public String createNewBook() {
+
+        return "pages/book/create";
     }
 }

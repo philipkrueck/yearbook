@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Add Book | Yearbook</title>
+</head>
+<body>
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="grid-container" id="createThirdStep">
+        <div class="grid-x">
+            <div class="cell small-24">
+                <h4>Invite participants</h4>
+            </div>
+            <div class="cell small-24">
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="80">ICON</th>
+                        <th>Name</th>
+                        <th width="400">Email</th>
+                        <th width="100">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>ICON</td>
+                        <td>John</td>
+                        <td>john@doo.com</td>
+                        <td>Accepted</td>
+                    </tr>
+                    <tr>
+                        <td>ICON</td>
+                        <td>John</td>
+                        <td>john@doo.com</td>
+                        <td>Accepted</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <input type="submit" class="button" value="Add participant">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
