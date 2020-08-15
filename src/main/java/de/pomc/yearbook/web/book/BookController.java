@@ -2,11 +2,12 @@ package de.pomc.yearbook.web.book;
 
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
+import de.pomc.yearbook.web.questionnaire.QuestionnaireViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/book")
@@ -30,7 +31,9 @@ public class BookController {
     }
 
     @GetMapping("/{id}/editQuestions")
-    public String editQuestions(@PathVariable("id") Long id) {
+    public String editQuestions(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("editQuestionsBookViewModel", new EditQuestionsViewModel("Graduation 2020", new ArrayList<>()));
+
         return "pages/book/editQuestions";
     }
 
@@ -40,8 +43,16 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public String createNewBook() {
-
+    public String createNewBook(Model model) {
+        model.addAttribute("createBookViewModel", new CreateBookViewModel("Graduation 2020", ""));
         return "pages/book/create";
+    }
+
+    @PostMapping("/create")
+    public String submitNewBookCreation(@ModelAttribute CreateBookViewModel createBookViewModel) {
+
+        System.out.println("name: " + createBookViewModel.getName());
+        System.out.println("description: " + createBookViewModel.getDescription());
+        return "redirect:/book/1/editQuestions";
     }
 }

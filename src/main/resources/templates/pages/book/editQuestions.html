@@ -6,45 +6,44 @@
 <body>
     <header th:insert="fragments/header :: header"></header>
 
+    <h1 th:text="${editQuestionsBookViewModel.getBookName()}"></h1>
+
     <div class="grid-container" id="createSecondStep">
         <div class="grid-x">
             <div class="cell small-24 medium-8">
-                <h4>Create Master Layout</h4>
-                <p>Create your unique Layout for questions. Add titles and a description for every question. Add up to 3 questions.</p>
+                <h4>Add questions for all participants.</h4>
+                <p>You can create your own custom question for your yearbook. You can get inspired be other yearbooks.</p>
             </div>
             <div class="cell small-24 medium-16">
+                <div class="cell small-24">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th width="40">#</th>
+                            <th width="400">Question</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>Some question?</td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>Some other question?</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <form method="post">
                     <div class="grid-x grid-padding-x">
-                        <div class="cell shrink">
-                            <h5 class="h1">1.</h5>
-                        </div>
                         <div class="cell auto">
-                            <label>Add Title<input type="text"/></label>
-                            <label>Add Description<input type="text" /></label>
+                            <label>Add a question.<input type="text"/></label>
                         </div>
                         <hr/>
                     </div>
-                    <div class="grid-x grid-padding-x">
-                        <div class="cell shrink">
-                            <h5 class="h1">2.</h5>
-                        </div>
-                        <div class="cell auto">
-                            <label>Add Title<input type="text"/></label>
-                            <label>Add Description<input type="text" /></label>
-                        </div>
-                        <hr />
-                    </div>
-                    <div class="grid-x grid-padding-x">
-                        <div class="cell shrink">
-                            <h5 class="h1">3.</h5>
-                        </div>
-                        <div class="cell auto">
-                            <label>Add Title<input type="text"/></label>
-                            <label>Add Description<input type="text" /></label>
-                        </div>
-                        <hr />
-                    </div>
-                    <input class="button" type="submit" value="Create Book" />
+                    <input class="button" type="submit" value="Add" />
                 </form>
             </div>
         </div>

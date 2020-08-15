@@ -18,13 +18,16 @@
             <div class="cell small-12 medium-8">
                 <img src="https://via.placeholder.com/200x200.webp?text=Login">
             </div>
+            <label>Choose a cover image
+                <input type="file" accept="image/*" value="Upload a photo...">
+            </label>
             <div class="cell small-12 medium-16">
-                <form method="post" th:action="@{/addBook/new}">
-                    <label>Add Name
-                        <input type="text"/>
+                <form method="post" th:action="@{/book/create}" th:object="${createBookViewModel}">
+                    <label>Add a book name.
+                        <input type="text" th:field="*{name}"/>
                     </label>
-                    <label>Add Description
-                        <input type="text"/>
+                    <label>Describe the book you are creating.
+                        <input type="text" th:field="*{description}"/>
                     </label>
                     <input class="button" type="submit" value="Create Book" />
                 </form>
