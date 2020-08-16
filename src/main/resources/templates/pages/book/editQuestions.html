@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Edit Questions | Yearbook</title>
+</head>
+<body>
+    <header th:insert="fragments/header :: header"></header>
+    <div class="grid-container" id="createSecondStep">
+
+        <div th:if="${isInCreationProcess}">
+            <p>ToDo: Showing the progress bar...</p>
+        </div>
+
+        <h1 th:text="${bookViewModel.getTitle()}"></h1>
+
+        <div class="grid-x">
+            <div class="cell small-24 medium-8">
+                <h4>Add questions for all participants.</h4>
+                <p>You can create your own custom question for your yearbook. You can get inspired be other yearbooks.</p>
+            </div>
+            <div class="cell small-24 medium-16">
+                <div class="cell small-24">
+                    <table th:if="${!questions.isEmpty()}">
+                        <thead>
+                        <tr>
+                            <th width="40">#</th>
+                            <th width="400">Question</th>
+                            <th th:width="40"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="question, itemStat : ${questions}">
+                            <td th:text="${itemStat.index + 1} + '.'"></td>
+                            <td th:text="${question}"></td>
+                            <td>
+                                <form method="post" th:action="@{/book/{id}/deleteQuestion/{questionId}(isInCreationProcess=${isInCreationProcess}, id=${bookViewModel.getId()}, questionId=${itemStat.index})}">
+                                    <button type="submit" class="button">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <form method="post" th:action="@{/book/{id}/editQuestions/new(isInCreationProcess=${isInCreationProcess} ,id=${bookViewModel.getId()})}" th:object="${newQuestionForm}">
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell auto">
+                            <label>Add a question.<input type="text" placeholder="..." th:field="*{question}"/></label>
+                        </div>
+                        <hr/>
+                    </div>
+                    <input class="button" type="submit" value="Add"/>
+                </form>
+
+                <a  th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Back to Book</a>
+
+                <a th:if="${isInCreationProcess}" class="button" th:href="@{/book/{id}/editParticipants(isInCreationProcess=true, id=${bookViewModel.getId()})}">Go to final step</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
