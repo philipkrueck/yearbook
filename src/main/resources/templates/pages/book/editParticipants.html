@@ -7,36 +7,50 @@
     <header th:insert="fragments/header :: header"></header>
 
     <div class="grid-container" id="createThirdStep">
+
+        <div th:if="${isInCreationProcess}">
+            <p>ToDo: Showing the progress bar...</p>
+        </div>
+
+        <h1 th:text="${bookViewModel.getTitle()}"></h1>
+
         <div class="grid-x">
             <div class="cell small-24">
                 <h4>Invite participants</h4>
             </div>
             <div class="cell small-24">
-                <table>
+                <table th:if="${!participationViewModels.isEmpty()}">
                     <thead>
                     <tr>
                         <th width="80">ICON</th>
                         <th>Name</th>
                         <th width="400">Email</th>
-                        <th width="100">Status</th>
+                        <th width="100">isOwner</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>ICON</td>
-                        <td>John</td>
-                        <td>john@doo.com</td>
-                        <td>Accepted</td>
-                    </tr>
-                    <tr>
-                        <td>ICON</td>
-                        <td>John</td>
-                        <td>john@doo.com</td>
-                        <td>Accepted</td>
+                    <tr th:each="participationViewModel, itemStat : ${participationViewModels}">
+                        <td>...</td>
+                        <td th:text="${participationViewModel.getUserViewModel().getName()}"></td>
+                        <td th:text="${participationViewModel.getUserViewModel().getEmail()}"></td>
+                        <td th:text="${participationViewModel.isOwner}"></td>
+                        <td>
+                            <form method="post" th:action="@{/book/{id}/deleteParticipant/{participantId}(isInCreationProcess=${isInCreationProcess}, id=${bookViewModel.getId()}, participantId=${itemStat.index})}">
+                                <button type="submit" class="button">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
-                <input type="submit" class="button" value="Add participant">
+                <form method="post" th:action="@{/book/{id}/editParticipants/new(isInCreationProcess=true, id=${bookViewModel.getId()})}" th:object="${addUserForm}">
+                    <input type="text" placeholder="Enter email..." th:field="*{email}">
+                    <input type="submit" class="button" value="Add participant">
+                </form>
+
+                <a  th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Back to Book</a>
+
+                <a th:if="${isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Finish Process</a>
             </div>
         </div>
     </div>

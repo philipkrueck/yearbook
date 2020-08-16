@@ -1,38 +1,30 @@
 package de.pomc.yearbook.web.book;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import de.pomc.yearbook.web.questionnaire.QuestionViewModel;
+import lombok.*;
 
 import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class BookViewModel {
-
-    // TODO: add image
 
     @Getter
     private Long id;
 
     @Getter
+    @Setter
     private String title;
 
     @Getter
+    @Setter
     private String description;
 
-    @Getter
-    private List<QuestionnairePreviewViewModel> questionnairePreviewViewModels;
+    // TODO: add image
 
-
-    @Getter
-    private static Map<Long, BookViewModel> sampleData = Map.of(
-            (long) 1, new BookViewModel((long) 1, "Blue Mountain State 2020", "some description", QuestionnairePreviewViewModel.sampleData),
-            (long) 2, new BookViewModel((long) 2, "HSBA BI '21", "some description", QuestionnairePreviewViewModel.sampleData),
-            (long) 3, new BookViewModel((long) 3, "Stanford Law '19", "some description", QuestionnairePreviewViewModel.sampleData),
-            (long) 4, new BookViewModel((long) 4, "MIT Robotics 2020", "some description", QuestionnairePreviewViewModel.sampleData),
-            (long) 5, new BookViewModel((long) 5, "NYU Gender Sciences 2019", "some description", QuestionnairePreviewViewModel.sampleData)
-    );
-
+    public BookViewModel(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 }

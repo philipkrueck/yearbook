@@ -1,9 +1,6 @@
 package de.pomc.yearbook.user;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -14,6 +11,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -21,10 +19,24 @@ public class User {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    private String email;
+
+    private String twitterHandle;
+
+    private String location;
+
+    private String website;
+
     @Basic(optional = false)
     private String name;
 
     public User(String name) {
         this.name = name;
+    }
+
+    public User(Long id, String name, String email) {
+        this.name = name;
+        this.email = email;
+        this.id = id;
     }
 }

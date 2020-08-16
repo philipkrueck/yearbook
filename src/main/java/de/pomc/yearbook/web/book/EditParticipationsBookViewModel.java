@@ -1,5 +1,6 @@
 package de.pomc.yearbook.web.book;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 @AllArgsConstructor
-public class EditQuestionsViewModel {
+public class EditParticipationsBookViewModel {
 
     @Getter
     private Long id;
@@ -16,16 +17,9 @@ public class EditQuestionsViewModel {
     private String bookName;
 
     @Getter
-    @Setter
-    List<String> questions;
+    private List<ParticipationsViewModel> participants;
 
     @Getter
     @Setter
-    private String newQuestion;
-
-
-    public static List<String> sampleQuestions = List.of(
-        "What was your best study moment?",
-        "What was your favorite course"
-    );
+    private String newEmail;
 }

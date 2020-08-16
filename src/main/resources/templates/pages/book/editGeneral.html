@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Add Book | Yearbook</title>
+    <title id="pageTitle">Edit Book | Yearbook</title>
 </head>
 <body>
 
@@ -9,30 +9,27 @@
 
 <div class="grid-wrapper" id="createForm">
     <div class="grid-container" id="createFirstStep">
-
-        <p>ToDo: Showing the progress bar...</p>
-
         <div class="grid-x">
             <div class="cell">
-                <h1>Create a new Book</h1>
+                <h1>Edit General Information</h1>
             </div>
         </div>
         <div class="grid-x">
             <div class="cell small-12 medium-8">
                 <img src="https://via.placeholder.com/200x200.webp?text=Login">
             </div>
-            <label>Choose a cover image
+            <label>Choose a cover image.
                 <input type="file" accept="image/*" value="Upload a photo...">
             </label>
             <div class="cell small-12 medium-16">
-                <form method="post" th:action="@{/book/create}" th:object="${bookViewModel}">
-                    <label>Add a book name.
+                <form method="post" th:action="@{/book/{id}/editGeneral/update(id=${bookViewModel.getId()})}" th:object="${bookViewModel}">
+                    <label>Edit book name.
                         <input type="text" th:field="*{title}"/>
                     </label>
-                    <label>Describe the book you are creating.
+                    <label>Edit book description.
                         <input type="text" th:field="*{description}"/>
                     </label>
-                    <input class="button" type="submit" value="Create Book" />
+                    <input class="button" type="submit" value="Update Book" />
                 </form>
             </div>
         </div>
