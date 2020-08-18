@@ -1,4 +1,4 @@
-package de.pomc.yearbook;
+package de.pomc.yearbook.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
