@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Add Book | Yearbook</title>
+</head>
+<body>
+
+<header th:insert="fragments/header :: header"></header>
+
+<div class="grid-wrapper" id="createForm">
+    <div class="grid-container" id="createFirstStep">
+        <table>
+            <thead>
+            <tr>
+                <th width="400">Book Name</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bookViewModel : ${bookViewModels}">
+                <td>
+                    <a th:href="@{/book/{id}(id=${bookViewModel.getId()})}">
+                        <p th:text="${bookViewModel.getTitle()}"></p>
+                    </a>
+
+                </td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
+</body>
+</html>

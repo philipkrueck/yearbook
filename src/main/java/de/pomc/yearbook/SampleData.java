@@ -20,6 +20,7 @@ public class SampleData {
             List.of("If You Could Wedgie Any Historical Figure, Who Would You Pick?", " Would You Rather Be Able To Breathe Underwater Or Have The Agility Of A Cat?")
     );
 
+    @Getter
     public static List<User> users = List.of(
         new User((long) 0, "Frodo Baggins", "frodo.baggins@shire.com"),
         new User((long) 1, "Samwise Gamgee", "sam.gamgee@shire.com"),
