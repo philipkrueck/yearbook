@@ -1,4 +1,5 @@
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
     <header th:fragment="header" class="grid-wrapper" id="mastHead">
         <div class="grid-container">
@@ -7,8 +8,15 @@
                     <a href="/">Yearbook</a>
                 </div>
                 <div class="cell shrink" id="headerCTA">
-                    <a class="button small" href="/login">Sign up</a>
-                    <a class="button small" href="/login">Log in</a>
+                    <form method="post" sec:authorize="authenticated" th:action="@{/logout}">
+                        <button class="button" type="submit">
+                            logout
+                            <span th:text="${#httpServletRequest.remoteUser}" />
+                        </button>
+                    </form>
+                    <a class="button small" sec:authorize="anonymous" th:href="@{/}">Sign up</a>
+                    <a class="button small" sec:authorize="anonymous" th:href="@{/login}">Log in</a>
+                    <a class="button small" sec:authorize="hasRole('ADMIN')" th:href="@{/users/}">User Management</a>
                 </div>
             </div>
         </div>
