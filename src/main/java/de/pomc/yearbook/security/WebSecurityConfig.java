@@ -29,7 +29,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+            .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/profile", true)
+                .and()
+                .rememberMe()
+                .and()
+            .logout()
+                .logoutSuccessUrl("/journals/")
+                .permitAll();
     }
 
     @Bean
