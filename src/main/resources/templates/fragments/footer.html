@@ -1,10 +1,18 @@
 <html>
 <body>
+
 <div th:fragment="footer" class="grid-container">
     <div class="grid-x">
         <div class="cell auto"><small><a href="/">Return to Homepage <i class="material-icons">keyboard_return</i></a></small></div>
         <div class="cell shrink"><small>Made by P.O.M.C</small></div>
     </div>
+
+    <!-- foundation scripts -------------------------------- -->
+    <script th:src="@{/vendor/jquery.js}"></script>
+    <script th:src="@{/vendor/what-input.js}"></script>
+    <script th:src="@{/vendor/foundation.min.js}"></script>
+    <script> $(document).foundation(); </script>
 </div>
+
 </body>
 </html>
