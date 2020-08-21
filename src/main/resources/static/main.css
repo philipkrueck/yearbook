@@ -227,10 +227,53 @@ footer a {
 /* templates.pages.addBook
 --------------------------------------------- */
 
+#progressBarHeader {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#progressBar .cell {
+    margin-bottom: 40px;
+    padding-top: 5px;
+    border-top: 2px solid #cacaca;
+    color: #cacaca;
+    cursor: not-allowed;
+}
+
+#progressBar .current {
+    border-top: 2px solid #e74c3c;
+    color: #e74c3c;
+    cursor: auto;
+}
+
+#goToNextStep {
+    border-top: 2px solid #292c31;
+    padding-top: 15px;
+    margin: 40px auto;
+}
+
+.submitIconWrapper {
+    position: relative;
+}
+
+.submitIconWrapper input {
+    padding: .85em 1.2em .85em 1em;
+}
+
+.submitIcon {
+    display: inline-flex;
+    position: absolute;
+    align-items: center;
+    height: 40px;
+    margin: 5px 0 5px -18px;
+    padding-right: 8px;
+    background-color: #e74c3c;
+    border-radius: 3px;
+    color: #fff;
+}
+
 #createBookForm .grid-container {
-    margin-top: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #cacaca;
+    margin: 60px auto 70px;
 }
 
 img.bookAvater {
@@ -248,14 +291,14 @@ img.bookAvater {
 
 .questionBorderWrap {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     padding: 0 0 0 5px;
     background: linear-gradient(to bottom, red, purple);
 }
 
 .questionInner {
     background-color: #fff;
-    padding: 20px 20px 5px;
+    padding: 10px 20px 5px;
 }
 
 .questionBorderWrap:hover .removeQuestion{
@@ -265,16 +308,18 @@ img.bookAvater {
 .removeQuestion {
     position: absolute;
     display: none;
-    top: 40px;
+    top: 6px;
     right: 10px;
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     background-color: #ffffff;
     border-radius: 50%;
     text-align: center;
     cursor: pointer;
     -webkit-box-shadow: 5px 5px 8px 7px #EAEAEA;
     box-shadow: 5px 5px 8px 7px #EAEAEA;
+    /* background-color: white; */
+    transition: all .2s ease-in-out;
 }
 
 .removeQuestion span.material-icons {

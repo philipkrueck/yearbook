@@ -4,13 +4,35 @@
     <title id="pageTitle">Add Book | Yearbook</title>
 </head>
 <body>
-    <header th:insert="fragments/header :: header"></header>
+
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
+
+<!-- #progressBar -------------------------------- -->
+<div th:if="${isInCreationProcess}">
+    <div class="grid-wrapper">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x" id="progressBarHeader">
+                <div class="cell">
+                    <h6><small>Current Step: 3 of 3</small></h6>
+                </div>
+            </div>
+            <div class="grid-x grid-margin-x" id="progressBar">
+                <div class="cell small-8">
+                    <h6>Create a new Book</h6>
+                </div>
+                <div class="cell small-8">
+                    <h6>Add questions</h6>
+                </div>
+                <div class="cell small-8 current">
+                    <h6>Add Participants <span class="material-icons">arrow_right_alt</span></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="grid-container" id="createThirdStep">
-
-        <div th:if="${isInCreationProcess}">
-            <p>ToDo: Showing the progress bar...</p>
-        </div>
 
         <h1 th:text="${bookViewModel.getTitle()}"></h1>
 
@@ -48,11 +70,28 @@
                     <input type="submit" class="button" value="Add participant">
                 </form>
 
-                <a  th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Back to Book</a>
 
-                <a th:if="${isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Finish Process</a>
+
+
             </div>
         </div>
     </div>
+
+
+<!-- goToNextStep -------------------------------- -->
+<div class="grid-wrapper">
+    <div class="grid-container" id="goToNextStep">
+        <div class="grid-x">
+            <div class="cell auto">
+                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Back to Book</a>
+            </div>
+            <div th:if="${isInCreationProcess}" class="cell shrink submitIconWrapper">
+                <a th:if="${isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Finish Process</a>
+                <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
