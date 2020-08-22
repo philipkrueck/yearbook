@@ -4,6 +4,7 @@ import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -69,10 +70,13 @@ public class BookController {
         return "/pages/book/all";
     }
 
+    @PreAuthorize("authenticated")
     @GetMapping("/{id}/editGeneral")
     public String editGeneralInformation(@PathVariable("id") Long id, Model model) {
 
         Book book = getBook(id);
+
+        // TODO: check if current user can edit
 
         if (book == null) {
             throw new NotFoundException();
@@ -87,6 +91,7 @@ public class BookController {
         return "pages/book/editGeneral";
     }
 
+    @PreAuthorize("authenticated")
     @PostMapping("/{id}/editGeneral/update")
     public String updateGeneralInformation(@PathVariable("id") Long id, @ModelAttribute("bookViewModel") BookViewModel bookViewModel) {
 
@@ -96,12 +101,17 @@ public class BookController {
             throw new NotFoundException();
         }
 
+        if (!book.isOwnedByCurrentUser()) {
+            throw new ForbiddenException();
+        }
+
         book.setName(bookViewModel.getTitle());
         book.setDescription(bookViewModel.getDescription());
 
         return "redirect:/book/{id}";
     }
 
+    @PreAuthorize("authenticated")
     @GetMapping("/{id}/editQuestions")
     public String editQuestions(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, Model model) {
         Book book = getBook(id);
@@ -124,6 +134,7 @@ public class BookController {
         return "pages/book/editQuestions";
     }
 
+    @PreAuthorize("authenticated")
     @PostMapping("/{id}/editQuestions/new")
     public String addNewQuestion(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("newQuestionForm") NewQuestionForm newQuestionForm, RedirectAttributes redirectAttributes) {
 
@@ -131,6 +142,10 @@ public class BookController {
 
         if (book == null) {
             throw new NotFoundException();
+        }
+
+        if (!book.isOwnedByCurrentUser()) {
+            throw new ForbiddenException();
         }
 
         ArrayList<String> newList = new ArrayList<>(book.getQuestions());
@@ -144,6 +159,7 @@ public class BookController {
         return "redirect:/book/{id}/editQuestions";
     }
 
+    @PreAuthorize("authenticated")
     @GetMapping("/{id}/editParticipants")
     public String editParticipants(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, Model model) {
 
@@ -151,6 +167,8 @@ public class BookController {
         if (book == null) {
             throw new NotFoundException();
         }
+
+        // TODO: check if current user is allowed to edit the participants
 
         List<ParticipationViewModel> participationViewModels = getParticipationViewModels(book);
 
@@ -162,6 +180,7 @@ public class BookController {
         return "pages/book/editParticipants";
     }
 
+    @PreAuthorize("authenticated")
     @PostMapping("/{id}/editParticipants/new")
     public String addNewParticipant(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("addUserForm") AddUserForm addUserForm, RedirectAttributes redirectAttributes) {
 
@@ -170,6 +189,8 @@ public class BookController {
         if (book == null) {
             throw new NotFoundException();
         }
+
+        // TODO: check if current user is allowed to edit the participants
 
         User newParticipant = SampleData.users.stream()
                                                 .filter(user -> user.getEmail().equals(addUserForm.getEmail()))
@@ -193,12 +214,14 @@ public class BookController {
         return "redirect:/book/{id}/editParticipants";
     }
 
+    @PreAuthorize("authenticated")
     @GetMapping("/create")
     public String createNewBook(Model model) {
         model.addAttribute("bookViewModel", new BookViewModel("", "", false));
         return "pages/book/create";
     }
 
+    @PreAuthorize("authenticated")
     @PostMapping("/create")
     public String submitNewBookCreation(@ModelAttribute("bookViewModel") BookViewModel bookViewModel, RedirectAttributes redirectAttributes) {
 
@@ -222,12 +245,17 @@ public class BookController {
         return "redirect:/book/{nextId}/editQuestions";
     }
 
+    @PreAuthorize("authenticated")
     @PostMapping("/{id}/deleteQuestion/{questionIndex}")
     public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionIndex") int questionIndex, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, RedirectAttributes redirectAttributes) {
         Book book = getBook(id);
 
         if (book == null) {
             throw new NotFoundException();
+        }
+
+        if (!book.isOwnedByCurrentUser()) {
+            throw new ForbiddenException();
         }
 
         ArrayList<String> newList = new ArrayList<>(book.getQuestions());
@@ -241,6 +269,7 @@ public class BookController {
         return "redirect:/book/{id}/editQuestions";
     }
 
+    @PreAuthorize("authenticated")
     @PostMapping("/{id}/deleteParticipant/{participantId}")
     public String deleteParticipant(@PathVariable("id") Long id, @PathVariable("participantId") int participantId, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, RedirectAttributes redirectAttributes) {
         Book book = getBook(id);
@@ -248,6 +277,8 @@ public class BookController {
         if (book == null) {
             throw new NotFoundException();
         }
+
+        // TODO: Check if current user is allowed to perform this operation
 
         List<Participation> newPartcipations = new ArrayList<>(book.getParticipations());
 
