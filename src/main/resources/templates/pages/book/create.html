@@ -5,40 +5,70 @@
 </head>
 <body>
 
+<!-- header -------------------------------- -->
 <header th:insert="fragments/header :: header"></header>
 
-<div class="grid-wrapper" id="createForm">
-    <div class="grid-container" id="createFirstStep">
-
-        <p>ToDo: Showing the progress bar...</p>
-
-        <div class="grid-x">
+<!-- #progressBar -------------------------------- -->
+<div class="grid-wrapper">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x" id="progressBarHeader">
             <div class="cell">
-                <h1>Create a new Book</h1>
+                <h6><small>Current Step: 1 of 3</small></h6>
             </div>
         </div>
-        <div class="grid-x">
-            <div class="cell small-12 medium-8">
-                <img src="https://via.placeholder.com/200x200.webp?text=Login">
+        <div class="grid-x grid-margin-x" id="progressBar">
+            <div class="cell small-8 current">
+                <h6>Create a new Book<span class="material-icons">arrow_right_alt</span></h6>
             </div>
-            <label>Choose a cover image
-                <input type="file" accept="image/*" value="Upload a photo...">
-            </label>
-            <div class="cell small-12 medium-16">
-                <form method="post" th:action="@{/book/create}" th:object="${bookViewModel}">
-                    <label>Add a book name.
-                        <input type="text" th:field="*{title}"/>
-                    </label>
-                    <label>Describe the book you are creating.
-                        <input type="text" th:field="*{description}"/>
-                    </label>
-                    <input class="button" type="submit" value="Create Book" />
-                </form>
+            <div class="cell small-8">
+                <h6>Add questions</h6>
+            </div>
+            <div class="cell small-8">
+                <h6>Add Participants</h6>
             </div>
         </div>
     </div>
 </div>
 
+<!-- form -------------------------------- -->
+<form method="post" th:action="@{/book/create}" th:object="${bookViewModel}">
+    <!-- main -------------------------------- -->
+    <main class="grid-wrapper" id="createBookForm">
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell small-12 medium-6">
+                    <img class="bookAvater" src="https://via.placeholder.com/300x300.webp?text=ImageCover">
+                    <label for="bookAvatarUpload" class="button bookAvatarUpload"><span class="material-icons">create</span> Edit</label>
+                    <input type="file" id="bookAvatarUpload" class="show-for-sr">
+                </div>
+                <div class="cell small-12 medium-17 medium-offset-1">
+                    <label>Add a title
+                        <input type="text" th:field="*{title}"/>
+                    </label>
+                    <label>Describe the book you are creating.
+                        <input type="text" th:field="*{description}"/>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- goToNextStep -------------------------------- -->
+    <div class="grid-wrapper">
+        <div class="grid-container" id="goToNextStep">
+            <div class="grid-x">
+                <div class="cell auto">
+
+                </div>
+                <div class="cell shrink submitIconWrapper">
+                    <input class="button next" type="submit" value="Save and next" />
+                    <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 
 </body>
