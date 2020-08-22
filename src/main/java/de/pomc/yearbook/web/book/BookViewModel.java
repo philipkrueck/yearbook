@@ -21,10 +21,14 @@ public class BookViewModel {
     @Setter
     private String description;
 
+    @Getter
+    private boolean currentUserIsOwner;
+
     // TODO: add image
 
-    public BookViewModel(String title, String description) {
+    public BookViewModel(String title, String description, boolean currentUserIsOwner) {
         this.title = title;
         this.description = description;
+        this.currentUserIsOwner = currentUserIsOwner;
     }
 }

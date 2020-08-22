@@ -15,7 +15,7 @@
             <div class="cell shrink" id="viewHeaderInner">
                 <h1 th:text="${bookViewModel.getTitle()}"></h1>
                 <p th:text="${bookViewModel.getDescription()}"></p>
-                <a th:href="@{/book/{id}/editGeneral(id=${bookViewModel.getId()})}"><button class="button">Edit General information</button></a>
+                <a th:if="${bookViewModel.isCurrentUserIsOwner()}" th:href="@{/book/{id}/editGeneral(id=${bookViewModel.getId()})}"><button class="button">Edit General information</button></a>
             </div>
         </div>
     </div>
@@ -29,11 +29,10 @@
             <tr>
                 <th width="40">#</th>
                 <th width="400">Question</th>
-                <th width="40">
+                <th width="40" th:if="${bookViewModel.isCurrentUserIsOwner()}">
                     <a th:href="@{/book/{id}/editQuestions(id=${bookViewModel.getId()}, isInCreationProcess=false)}">
                         <button class="button">Edit Questions</button>
                     </a>
-
                 </th>
             </tr>
             </thead>

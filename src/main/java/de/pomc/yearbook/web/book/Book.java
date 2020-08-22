@@ -1,5 +1,6 @@
 package de.pomc.yearbook.web.book;
 
+import de.pomc.yearbook.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,9 @@ public class Book {
     private String description;
 
     @Getter
+    private User owner;
+
+    @Getter
     @Setter
     private List <String> questions;
 
@@ -34,11 +38,16 @@ public class Book {
 
     // TODO: add image
 
-    public Book(Long id, String name, String description) {
+    public Book(Long id, String name, String description, User owner) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.owner = owner;
         this.questions = new ArrayList<>();
         this.participations = new ArrayList<>();
+    }
+
+    public boolean isOwnedByCurrentUser() {
+        return owner != null && this.owner.getEmail().equals(User.getCurrentUsername());
     }
 }

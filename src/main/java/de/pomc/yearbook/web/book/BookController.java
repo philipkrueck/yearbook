@@ -185,7 +185,7 @@ public class BookController {
 
     @GetMapping("/create")
     public String createNewBook(Model model) {
-        model.addAttribute("bookViewModel", new BookViewModel("", ""));
+        model.addAttribute("bookViewModel", new BookViewModel("", "", false));
         return "pages/book/create";
     }
 
@@ -199,7 +199,7 @@ public class BookController {
                                             .max(Comparator.comparing(Long::intValue))
                                             .orElse((long) -1) + 1;
 
-        Book book = new Book(nextId, bookViewModel.getTitle(), bookViewModel.getDescription());
+        Book book = new Book(nextId, bookViewModel.getTitle(), bookViewModel.getDescription(), SampleData.getUsers().get(0));
 
         List<Book> books = new ArrayList<>(SampleData.getBooks());
         books.add(book);
