@@ -2,6 +2,7 @@ package de.pomc.yearbook.web.book;
 
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.user.User;
+import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,6 +78,10 @@ public class BookController {
             throw new NotFoundException();
         }
 
+        if (!book.isOwnedByCurrentUser()) {
+            throw new ForbiddenException();
+        }
+
         model.addAttribute("bookViewModel", BookViewModelConverter.bookViewModel(book));
 
         return "pages/book/editGeneral";
@@ -100,8 +105,13 @@ public class BookController {
     @GetMapping("/{id}/editQuestions")
     public String editQuestions(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, Model model) {
         Book book = getBook(id);
+
         if (book == null) {
             throw new NotFoundException();
+        }
+
+        if (!book.isOwnedByCurrentUser()) {
+            throw new ForbiddenException();
         }
 
         model.addAttribute("isInCreationProcess", isInCreationProcess);
