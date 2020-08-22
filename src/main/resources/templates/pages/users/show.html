@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Edit Questionnaire | Yearbook</title>
+</head>
+<body>
+
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
+
+<!-- #editBar -------------------------------- -->
+<div class="grid-wrapper" id="upperEditBar">
+    <div class="grid-container">
+        <h1>Users</h1>
+        <table>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            <tr th:each="userViewModel : ${userViewModels}">
+                <th>Profile Pic</th>
+                <th th:text="${userViewModel.getName()}"></th>
+                <th th:text="${userViewModel.getEmail()}"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
+</body>
+</html>

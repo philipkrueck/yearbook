@@ -24,6 +24,7 @@ build/
 .idea/libraries/*
 .idea/modules.xml
 .idea/dataSources.xml
+.idea/dataSources.local.xml
 
 *.iws
 *.iml

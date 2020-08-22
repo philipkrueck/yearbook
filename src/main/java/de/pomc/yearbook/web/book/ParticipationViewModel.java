@@ -1,6 +1,6 @@
 package de.pomc.yearbook.web.book;
 
-import de.pomc.yearbook.user.UserViewModel;
+import de.pomc.yearbook.web.UserViewModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
