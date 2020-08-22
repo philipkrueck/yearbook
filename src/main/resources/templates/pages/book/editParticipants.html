@@ -70,8 +70,7 @@
                     <input type="submit" class="button" value="Add participant">
                 </form>
 
-
-
+                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Back to Book</a>
 
             </div>
         </div>

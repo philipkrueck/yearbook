@@ -2,8 +2,6 @@ package de.pomc.yearbook.web.book;
 
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.user.User;
-import de.pomc.yearbook.user.UserViewModel;
-import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +32,13 @@ public class BookController {
                 .collect(Collectors.toList());
     }
 
+    private List<BookViewModel> publicBokViewModels() {
+        return SampleData.getBooks()
+                .stream()
+                .map(BookViewModelConverter::bookViewModel)
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/{id}")
     public String showBookView(Model model, @PathVariable("id") Long id) {
 
@@ -53,7 +58,17 @@ public class BookController {
         return "pages/book/show";
     }
 
-    @GetMapping("{id}/editGeneral")
+    @GetMapping("/all")
+    public String getAllBooks(Model model) {
+
+        List<Book> publishedBooks = SampleData.getBooks();
+
+        model.addAttribute("bookViewModels", publicBokViewModels());
+
+        return "/pages/book/all";
+    }
+
+    @GetMapping("/{id}/editGeneral")
     public String editGeneralInformation(@PathVariable("id") Long id, Model model) {
 
         Book book = getBook(id);
@@ -67,7 +82,7 @@ public class BookController {
         return "pages/book/editGeneral";
     }
 
-    @PostMapping("{id}/editGeneral/update")
+    @PostMapping("/{id}/editGeneral/update")
     public String updateGeneralInformation(@PathVariable("id") Long id, @ModelAttribute("bookViewModel") BookViewModel bookViewModel) {
 
         Book book = getBook(id);

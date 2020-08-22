@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">All Books | Yearbook</title>
+</head>
+<body>
+
+<!-- header -------------------------------- -->
+<header th:insert="fragments/header :: header"></header>
+
+<!-- .subheader -------------------------------- -->
+<div class="grid-wrapper subheader">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell small-24">
+                <h1 class="h3">See all Books</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- main -------------------------------- -->
+<main class="grid-wrapper">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+            <div class="cell small-24 cardWrapper" th:each="bookViewModel : ${bookViewModels}">
+                <a th:href="@{/book/{id}(id=${bookViewModel.getId()})}"><span th:text="${bookViewModel.getTitle()}"></span></a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
+</body>
+</html>
