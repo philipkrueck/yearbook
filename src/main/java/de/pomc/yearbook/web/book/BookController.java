@@ -2,8 +2,6 @@ package de.pomc.yearbook.web.book;
 
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.user.User;
-import de.pomc.yearbook.user.UserViewModel;
-import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

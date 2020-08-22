@@ -21,6 +21,10 @@ public class User {
 
     private String email;
 
+    private String role; // ToDo: model this with an enum
+
+    private String password;
+
     private String twitterHandle;
 
     private String location;

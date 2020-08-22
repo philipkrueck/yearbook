@@ -1,4 +1,4 @@
-package de.pomc.yearbook.user;
+package de.pomc.yearbook.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

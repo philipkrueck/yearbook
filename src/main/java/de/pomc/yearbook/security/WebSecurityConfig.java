@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/profile", true)
+                .usernameParameter("email")
                 .and()
                 .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
                 .and()
@@ -49,18 +50,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
-        UserDetails philip = User.builder()
-                .username("philip")
+        UserDetails frodo = User.builder()
+                .username("frodo.baggins@shire.com")
                 .password(passwordEncoder.encode("123456"))
                 .roles("ADMIN")
                 .build();
 
-        UserDetails malte = User.builder()
-                .username("malte")
+        UserDetails bilbo = User.builder()
+                .username("bilbo.baggins@shire.com")
                 .password(passwordEncoder.encode("123456"))
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(philip, malte);
+        return new InMemoryUserDetailsManager(frodo, bilbo);
     }
 }
