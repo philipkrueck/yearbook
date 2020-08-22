@@ -23,7 +23,7 @@ public class UserService {
             // prevent initialization if DB is not empty
             return;
         }
-        createUser((long) 0, "Frodo Baggins", "frodo.baggins@shire.com", "1234", "USER");
+        createUser((long) 0, "Frodo Baggins", "frodo.baggins@shire.com", "1234", "ADMIN");
         createUser((long) 1, "Samwise Gamgee", "sam.gamgee@shire.com", "1234", "USER");
         createUser((long) 2, "Gandalf the Gray", "gandalf.gray@hotmail.com", "1234", "USER");
         createUser((long) 3, "Legolas", "legolas@woodland.com", "1234", "USER");
