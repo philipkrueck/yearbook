@@ -1,27 +1,37 @@
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <body>
-    <header th:fragment="header" class="grid-wrapper" id="mastHead">
-        <div class="grid-container">
-            <div class="grid-x align-middle">
-                <div class="cell auto" id="headerLogo">
-                    <a href="/">Yearbook</a>
-                </div>
-                <div class="cell shrink" id="headerCTA">
-                    <form method="post" sec:authorize="authenticated" th:action="@{/logout}">
-                        <button class="button" type="submit">
-                            logout
-                            <span th:text="${#httpServletRequest.remoteUser}" />
-                        </button>
-                    </form>
+
+<div th:fragment="header" class="grid-container">
+    <div class="grid-x align-middle">
+        <div class="cell auto" id="headerLogo">
+            <a class="logo" href="/">Yearbook</a>
+        </div>
+        <!-- Only visible for logged out users -->
+        <!-- <div class="cell shrink">
+            <a id="headerSecCTA" href="/login">Sign in</a>
+            <a id="headerCTA" href="/login">Sign up</a>
+        </div> -->
+        <!-- End visible for logged out users -->
+        <!-- Start visible for logged in users -->
+        <div class="cell shrink">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li>
                     <a class="button small" sec:authorize="anonymous" th:href="@{/}">Sign up</a>
                     <a class="button small" sec:authorize="anonymous" th:href="@{/login}">Log in</a>
                     <a class="button small" sec:authorize="hasRole('ADMIN')" th:href="@{/users/}">User Management</a>
-                </div>
-            </div>
+                    <a href="/profile"><img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4"></a>
+                    <ul class="menu">
+                        <li><a class="textLink" href="#">Signed in as <br /> <strong>[username]</strong></a></li>
+                        <li><a class="textLink" href="/profile">Your profile</a></li>
+                        <li><a class="textLink" href="#">Sign out</a> </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </header>
+        <!-- End visible for logged in users -->
+    </div>
+</div>
 
 </body>
 </html>
-

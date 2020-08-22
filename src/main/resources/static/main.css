@@ -34,6 +34,14 @@ h2 {
     line-height: 1;
 }
 
+a.textLink {
+    color: #111111;
+}
+
+a.textLink:hover {
+    color: #e74c3c;
+}
+
 .button {
     background-color: #e74c3c;
     margin: 5px 0;
@@ -95,7 +103,6 @@ form {
     color: #ffffff;
     background-color: #27ae60;
 }
-
 
 /* templates.index
 --------------------------------------------- */
@@ -172,8 +179,60 @@ header#mastHead .button {
     margin: 0;
 }
 
-header#mastHead a {
+header#mastHead a.logo {
+    font-size: 16px;
     color: #f1f1f1;
+}
+
+header #headerSecCTA {
+    display: inline-block;
+    margin: 5px 8px;
+    color: #f1f1f1;
+    transition: all .2s ease-in-out;
+}
+
+header #headerCTA {
+    border: 1px solid #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: #f1f1f1;
+    transition: all .2s ease-in-out;
+}
+
+header #headerCTA:hover {
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+}
+
+header #headerSecCTA:hover {
+    color: #e74c3c;
+}
+
+#navBarAvatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%!important;
+}
+
+.dropdown .submenu {
+    background-clip: padding-box;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(149,157,165,.2);
+    font-size: 14px;
+}
+
+.submenu li:first-child {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.dropdown.menu>li>a {
+    padding: 0;
+}
+
+.dropdown.menu>li.is-dropdown-submenu-parent>a::after {
+    border: inset 5px;
+    border-color: #fff transparent transparent;
 }
 
 /* templates.fragments.footer
