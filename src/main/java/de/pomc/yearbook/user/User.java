@@ -1,6 +1,8 @@
 package de.pomc.yearbook.user;
 
 import lombok.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -19,10 +21,16 @@ public class User {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    @Basic(optional = false)
     private String email;
 
+    @Basic(optional = false)
     private String role; // ToDo: model this with an enum
 
+    @Basic(optional = false)
+    private String name;
+
+    @Basic(optional = false)
     private String password;
 
     private String twitterHandle;
@@ -31,16 +39,24 @@ public class User {
 
     private String website;
 
-    @Basic(optional = false)
-    private String name;
-
     public User(String name) {
         this.name = name;
     }
 
-    public User(Long id, String name, String email) {
+    public User(Long id, String name, String email, String password, String role) {
+        this.id = id;
         this.name = name;
         this.email = email;
-        this.id = id;
+        this.password = password;
+        this.role = role;
     }
+
+    public static String getCurrentUsername() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+        return null;
+    }
+
 }
