@@ -71,6 +71,20 @@ h1 .colored, h2 .colored, h3 .colored, h4 .colored, h5 .colored, h6 .colored {
     color: #e74c3c;
 }
 
+
+/* General Layout classes
+--------------------------------------------- */
+
+main {
+    min-height: 80vh;
+}
+
+.cardWrapper {
+    margin: 10px auto;
+    padding: 12px 16px;
+    background: #fff;
+}
+
 /* Forms
 --------------------------------------------- */
 
@@ -235,6 +249,12 @@ header #headerSecCTA:hover {
     border-color: #fff transparent transparent;
 }
 
+.subheader .grid-container {
+    margin: 30px auto;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
 /* templates.fragments.footer
 --------------------------------------------- */
 
@@ -373,12 +393,6 @@ button.button.round span {
 
 /* templates.pages.book.book
 --------------------------------------------- */
-
-#upperEditBar .grid-container {
-    margin: 30px auto;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #dbdbdb;
-}
 
 #lowerEditBar .grid-container {
     margin: 30px auto;

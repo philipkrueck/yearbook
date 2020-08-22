@@ -47,6 +47,7 @@
             <div class="grid-x align-center">
                 <div class="cell small-24 text-center">
                     <h2>Create yearbooks<br/><span class="colored">worth remembering.</span></h2>
+                    <p><small><a class="inlineButton" href="/book/all">See all books</a></small></p>
                 </div>
             </div>
             <div class="grid-x align-center">
@@ -54,7 +55,6 @@
                     <h5><a th:href="@{/book/{id}(id=${bookViewModel.getId()})}" th:text="${bookViewModel.getTitle()}"><span class="material-icons">arrow_right_alt</span></a></h5>
                 </div>
             </div>
-            <a href="/book/all" class="button">See all books</a>
         </div>
     </div>
 
