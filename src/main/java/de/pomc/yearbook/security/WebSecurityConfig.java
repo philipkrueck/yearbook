@@ -2,6 +2,7 @@ package de.pomc.yearbook.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,8 +24,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/users").hasRole("ADMIN")
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/book/create").authenticated()
+                .antMatchers("/book/**/editGeneral/**").authenticated()
+                .antMatchers("/book/**/editQuestions/**").authenticated()
+                .antMatchers("/book/**/editParticipants/**").authenticated()
+                .antMatchers("/questionnaire/**/edit/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/questionnaire/**/addComment").authenticated()
+                .antMatchers("/profile/**").authenticated()
                 .and()
             .formLogin()
                 .loginPage("/login").permitAll()

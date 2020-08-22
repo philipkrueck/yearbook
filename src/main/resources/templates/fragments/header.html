@@ -16,7 +16,7 @@
                 <li>
                     <a href="/profile"><img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4"></a>
                     <ul class="menu">
-                        <li><a class="textLink" href="#">Signed in as <br /> <strong>[username]</strong></a></li>
+                        <li><a class="textLink" href="#">Signed in as <br /> <strong th:text="${#httpServletRequest.remoteUser}"></strong></a></li>
                         <li><a class="textLink" href="/profile">Your profile</a></li>
                         <li><a class="textLink" sec:authorize="hasRole('ADMIN')" th:href="@{/users/}">User Management</a></li>
                         <li>
