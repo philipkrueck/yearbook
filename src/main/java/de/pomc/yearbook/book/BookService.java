@@ -23,6 +23,20 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
+    public Book getBookWithID(Long id) {
+        return SampleData.getBooks()
+                .stream()
+                .filter(x -> x.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<Book> getPublishedBooks() {
+        return SampleData.getBooks().stream()
+                .filter(Book::isPublished)
+                .collect(Collectors.toList());
+    }
+
     public List<Participation> getParticipationsOfCurrentUser() {
         List<Participation> participations = new ArrayList<>();
 

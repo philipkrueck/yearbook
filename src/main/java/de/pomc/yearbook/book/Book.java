@@ -33,13 +33,18 @@ public class Book {
     @Setter
     private List <Participation> participations;
 
+    @Getter
+    @Setter
+    private boolean published;
+
     // TODO: add image
 
-    public Book(Long id, String name, String description, User owner) {
+    public Book(Long id, String name, String description, User owner, boolean published) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.owner = owner;
+        this.published = published;
         this.questions = new ArrayList<>();
         this.participations = new ArrayList<>();
     }
