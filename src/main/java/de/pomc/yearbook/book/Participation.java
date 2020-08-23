@@ -26,7 +26,8 @@ public class Participation {
 
 
 
-    public Participation(User participant, boolean isOwner) {
+    public Participation(Long id, User participant, boolean isOwner) {
+        this.id = id;
         this.participant = participant;
         this.isOwner = isOwner;
     }

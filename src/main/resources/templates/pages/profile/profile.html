@@ -15,14 +15,14 @@
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
             <img id="avatarImage" src="https://via.placeholder.com/400x400.webp?text=Profilpic">
-            <h1 id="profileTitle"><span th:text="${userViewModel.getName()}" class="h4"></span> <br/> <span th:text="${userViewModel.getEmail()}" class="h5"></span></h1>
-            <p th:text="${userViewModel.getBio()}"></p>
-            <p th:text="${userViewModel.getTwitterHandle()}"></p>
-            <p th:text="${userViewModel.getLocation()}"></p>
-            <p th:text="${userViewModel.getWebsite()}"></p>
+            <h1 id="profileTitle"><span th:text="${user.getName()}" class="h4"></span> <br/> <span th:text="${user.getEmail()}" class="h5"></span></h1>
+            <p th:text="${user.getBio()}"></p>
+            <p th:text="${user.getTwitterHandle()}"></p>
+            <p th:text="${user.getLocation()}"></p>
+            <p th:text="${user.getWebsite()}"></p>
             <hr />
             <button id="openEditProfile" onclick="openEdit(this, 'editProfile');" class="button small medium-expanded">Edit profile</button>
-            <form id="editProfile" th:action="@{/profile/edit}" th:object="${userViewModel}" method="post">
+            <form id="editProfile" th:action="@{/profile/edit}" th:object="${userForm}" method="post">
                 <label>Avatar
                     <input type="file" accept="image/*" value="Upload a photo...">
                 </label>
@@ -66,12 +66,13 @@
             <div class="grid-x" id="participatingBooks">
                 <div class="cell small-24">
                     <h3>My Participations</h3>
+                    <p>ToDo: implement this properly, once the DB is setup</p>
                     <table>
                         <tr>
                             <th>Name</th>
                         </tr>
                         <tr th:each="participation : ${participations}">
-                            <th th:text="${participation.getBook().getName()}"></th>
+                            <th>book name</th>
                             <th><a th:href="@{/questionnaire/{id}(id=${participation.getId()})}">view</a></th>
                         </tr>
                     </table>

@@ -30,29 +30,29 @@ public class SampleData {
 
     public static List<List<Participation>> participationsList = List.of(
         List.of(
-            new Participation(users.get(0), false),
-            new Participation(users.get(1), false),
-            new Participation(users.get(2), true)
+            new Participation((long) 0, users.get(0), false),
+            new Participation((long) 1, users.get(1), false),
+            new Participation((long) 2, users.get(2), true)
         ),
         List.of(
-            new Participation(users.get(3), false),
-            new Participation(users.get(1), false),
-            new Participation(users.get(4), true)
+            new Participation((long) 3, users.get(3), false),
+            new Participation((long) 4, users.get(1), false),
+            new Participation((long) 5, users.get(4), true)
         ),
         List.of(
-            new Participation(users.get(4), false),
-            new Participation(users.get(3), false),
-            new Participation(users.get(1), true)
+            new Participation((long) 6, users.get(4), false),
+            new Participation((long) 7, users.get(3), false),
+            new Participation((long) 8, users.get(1), true)
         ),
         List.of(
-            new Participation(users.get(0), false),
-            new Participation(users.get(4), false),
-            new Participation(users.get(3), true)
+            new Participation((long) 9, users.get(0), false),
+            new Participation((long) 10, users.get(4), false),
+            new Participation((long) 11, users.get(3), true)
         ),
         List.of(
-            new Participation(users.get(2), false),
-            new Participation(users.get(1), false),
-            new Participation(users.get(0), true)
+            new Participation((long) 12, users.get(2), false),
+            new Participation((long) 13, users.get(1), false),
+            new Participation((long) 14, users.get(0), true)
         )
     );
 

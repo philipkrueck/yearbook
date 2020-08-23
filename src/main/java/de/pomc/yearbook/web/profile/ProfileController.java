@@ -3,7 +3,7 @@ package de.pomc.yearbook.web.profile;
 import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
-import de.pomc.yearbook.web.UserViewModelConverter;
+import de.pomc.yearbook.web.UserFormConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,9 +26,8 @@ public class ProfileController {
     public String showProfile(Model model) {
         User user = userService.findCurrentUser(); // user must not be null
 
-        UserViewModel userViewModel = UserViewModelConverter.userViewModel(user);
-
-        model.addAttribute("userViewModel", userViewModel);
+        model.addAttribute("userForm", UserFormConverter.userForm(user));
+        model.addAttribute("user", user);
         model.addAttribute("books", bookService.getBooksOfCurrentUser());
         model.addAttribute("participations", bookService.getParticipationsOfCurrentUser());
 
@@ -36,16 +35,16 @@ public class ProfileController {
     }
 
     @PostMapping("/edit")
-    public String editProfile(@ModelAttribute("profileViewModel") UserViewModel userViewModel) {
+    public String editProfile(@ModelAttribute("profileViewModel") UserForm userForm) {
 
         User user = userService.findCurrentUser();
 
-        user.setName(userViewModel.getName());
-        user.setEmail(userViewModel.getEmail());
-        user.setTwitterHandle(userViewModel.getTwitterHandle());
-        user.setLocation(userViewModel.getLocation());
-        user.setWebsite(userViewModel.getWebsite());
-        user.setBio(userViewModel.getBio());
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setTwitterHandle(userForm.getTwitterHandle());
+        user.setLocation(userForm.getLocation());
+        user.setWebsite(userForm.getWebsite());
+        user.setBio(userForm.getBio());
 
         userService.save(user);
 

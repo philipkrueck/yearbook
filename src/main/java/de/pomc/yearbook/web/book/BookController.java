@@ -29,11 +29,8 @@ public class BookController {
                 .orElse(null);
     }
 
-    private List<ParticipationViewModel> getParticipationViewModels(Book book) {
-        return book.getParticipations()
-                .stream()
-                .map(ParticipationViewModelConverter::participationViewModel)
-                .collect(Collectors.toList());
+    private List<Participation> getParticipations(Book book) {
+        return book.getParticipations();
     }
 
     private List<BookViewModel> publicBokViewModels() {
@@ -53,11 +50,11 @@ public class BookController {
         }
 
 
-        List<ParticipationViewModel> participationViewModels = getParticipationViewModels(book);
+        List<Participation> participations = getParticipations(book);
 
         model.addAttribute("bookViewModel", BookViewModelConverter.bookViewModel(book));
         model.addAttribute("questions", book.getQuestions());
-        model.addAttribute("participationViewModels", participationViewModels);
+        model.addAttribute("participations", participations);
 
         return "pages/book/show";
     }
@@ -172,10 +169,10 @@ public class BookController {
 
         // TODO: check if current user is allowed to edit the participants
 
-        List<ParticipationViewModel> participationViewModels = getParticipationViewModels(book);
+        List<Participation> participations = getParticipations(book);
 
         model.addAttribute("isInCreationProcess", isInCreationProcess);
-        model.addAttribute("participationViewModels", participationViewModels);
+        model.addAttribute("participationViewModels", participations);
         model.addAttribute("bookViewModel", BookViewModelConverter.bookViewModel(book));
         model.addAttribute("addUserForm", new AddUserForm());
 
@@ -206,7 +203,9 @@ public class BookController {
 
             // ToDo: check that participations doesn't include user
 
-            newParticipants.add(new Participation(newParticipant, false));
+            Long nextID = newParticipants.get(newParticipants.size()).getId() + 1;
+
+            newParticipants.add(new Participation(nextID, newParticipant, false));
 
             book.setParticipations(newParticipants);
         }

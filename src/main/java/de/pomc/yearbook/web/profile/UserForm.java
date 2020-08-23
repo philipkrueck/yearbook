@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserViewModel {
+public class UserForm {
 
     private String name;
 

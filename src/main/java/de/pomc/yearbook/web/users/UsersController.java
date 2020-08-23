@@ -1,8 +1,7 @@
 package de.pomc.yearbook.web.users;
 
 import de.pomc.yearbook.SampleData;
-import de.pomc.yearbook.web.profile.UserViewModel;
-import de.pomc.yearbook.web.UserViewModelConverter;
+import de.pomc.yearbook.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +16,7 @@ public class UsersController {
 
     @GetMapping
     public String getUsers(Model model) {
-        List<UserViewModel> userViewModels = SampleData.getUsers()
-                .stream()
-                .map(UserViewModelConverter::userViewModel)
-                .collect(Collectors.toList());
+        List<User> userViewModels = SampleData.getUsers();
 
         model.addAttribute("userViewModels", userViewModels);
 
