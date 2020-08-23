@@ -1,6 +1,6 @@
 package de.pomc.yearbook.web.book;
 
-import lombok.Getter;
+import de.pomc.yearbook.book.Book;
 
 public abstract class BookViewModelConverter {
 

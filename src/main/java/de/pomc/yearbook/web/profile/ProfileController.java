@@ -1,9 +1,9 @@
 package de.pomc.yearbook.web.profile;
 
+import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.UserViewModelConverter;
-import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProfileController {
 
     private final UserService userService;
+    private final BookService bookService;
 
     @PreAuthorize("authenticated")
     @GetMapping
@@ -28,7 +29,8 @@ public class ProfileController {
         UserViewModel userViewModel = UserViewModelConverter.userViewModel(user);
 
         model.addAttribute("userViewModel", userViewModel);
-        model.addAttribute("profileViewModel", new ProfileViewModel("petergriffin", "peter.griffin@gmail.com", "Hi, I'm Peter.", ProfileBookViewModel.sampleData, ProfileParticipationViewModel.sampleData));
+        model.addAttribute("books", bookService.getBooksOfCurrentUser());
+        model.addAttribute("participations", bookService.getParticipationsOfCurrentUser());
 
         return "pages/profile/profile";
     }

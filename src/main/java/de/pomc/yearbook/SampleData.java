@@ -1,12 +1,11 @@
 package de.pomc.yearbook;
 
 import de.pomc.yearbook.user.User;
-import de.pomc.yearbook.web.book.Book;
-import de.pomc.yearbook.web.book.Participation;
+import de.pomc.yearbook.book.Book;
+import de.pomc.yearbook.book.Participation;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // This acts as our dummy data base before we are adding services and repositories

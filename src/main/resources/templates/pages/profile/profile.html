@@ -50,14 +50,13 @@
             <div class="grid-x" id="ownedBooks">
                 <div class="cell small-24">
                     <h3>My Books</h3>
-                    <table>
+                    <table th:if="${!books.isEmpty()}">
                         <tr>
                             <th>Name</th>
                         </tr>
-                        <tr th:each="profileBookViewModel : ${profileViewModel.getProfileBookViewModels()}">
-                            <th th:text="${profileBookViewModel.getBookName()}"></th>
-                            <th><a th:href="@{/book/{id}(id=${profileBookViewModel.getId()})}">view</a></th>
-                            <th><a th:href="@{/book/{id}/edit(id=${profileBookViewModel.getId()})}">edit</a></th>
+                        <tr th:each="book : ${books}">
+                            <th th:text="${book.getName()}"></th>
+                            <th><a th:href="@{/book/{id}(id=${book.getId()})}">view</a></th>
                         </tr>
                     </table>
                     <a class="button" href="/book/create"><button>Add a new book</button></a>
@@ -71,10 +70,9 @@
                         <tr>
                             <th>Name</th>
                         </tr>
-                        <tr th:each="profileParticipationViewModel : ${profileViewModel.getProfileParticipationViewModels()}">
-                            <th th:text="${profileParticipationViewModel.getBookName()}"></th>
-                            <th><a th:href="@{/questionnaire/{id}(id=${profileParticipationViewModel.getQuestionnaireId()})}">view</a></th>
-                            <th><a th:href="@{/questionnaire/{id}/edit(id=${profileParticipationViewModel.getQuestionnaireId()})}">edit</a></th>
+                        <tr th:each="participation : ${participations}">
+                            <th th:text="${participation.getBook().getName()}"></th>
+                            <th><a th:href="@{/questionnaire/{id}(id=${participation.getId()})}">view</a></th>
                         </tr>
                     </table>
                 </div>

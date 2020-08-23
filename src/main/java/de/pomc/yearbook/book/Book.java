@@ -1,13 +1,10 @@
-package de.pomc.yearbook.web.book;
+package de.pomc.yearbook.book;
 
 import de.pomc.yearbook.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Basic;
-import javax.persistence.GeneratedValue;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package de.pomc.yearbook.web.book;
 
+import de.pomc.yearbook.book.Participation;
 import de.pomc.yearbook.web.profile.UserViewModel;
 import de.pomc.yearbook.web.UserViewModelConverter;
 
