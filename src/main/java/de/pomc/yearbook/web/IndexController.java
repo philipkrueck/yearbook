@@ -5,6 +5,8 @@ import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.book.BookViewModel;
 import de.pomc.yearbook.web.book.BookViewModelConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,10 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
+        if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/profile";
+        }
+
 
         List<BookViewModel> bookViewModels = SampleData.getBooks()
                                                         .stream()
