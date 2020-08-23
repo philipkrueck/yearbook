@@ -50,4 +50,13 @@ public class BookService {
 
         return participations;
     }
+
+    public Book save(Book book) {
+        List<Book> books = new ArrayList<>(SampleData.getBooks());
+        books.add(book);
+
+        SampleData.setBooks(books);
+
+        return book;
+    }
 }

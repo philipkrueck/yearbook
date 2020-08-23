@@ -2,6 +2,9 @@ package de.pomc.yearbook.web.book;
 
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.book.Book;
+import de.pomc.yearbook.book.BookService;
+import de.pomc.yearbook.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,37 +19,39 @@ import java.util.Comparator;
 import java.util.List;
 
 @Controller
-@RequestMapping("book/{id}/create")
+@RequestMapping("book/create")
+@RequiredArgsConstructor
 public class BookCreationController {
 
+    private final UserService userService;
+    private final BookService bookService;
+
     @PreAuthorize("authenticated")
-    @GetMapping("/create")
-    public String createNewBook(Model model) {
-        model.addAttribute("bookViewModel", new BookViewModel("", "", false));
+    @GetMapping()
+    public String showCreateNewBookView(Model model) {
+        model.addAttribute("newBookForm", new NewBookForm("", ""));
         return "pages/book/create";
     }
 
     @PreAuthorize("authenticated")
-    @PostMapping("/create")
-    public String submitNewBookCreation(@ModelAttribute("bookViewModel") BookViewModel bookViewModel, RedirectAttributes redirectAttributes) {
+    @PostMapping()
+    public String submitNewBookCreation(@ModelAttribute("newBookForm") NewBookForm newBookForm, RedirectAttributes redirectAttributes) {
 
         // ToDo: check validity of bookViewModel
 
+        // NOTE: once we have the DB, the id will be generated
         Long nextId = SampleData.getBooks().stream()
                 .map(Book::getId)
                 .max(Comparator.comparing(Long::intValue))
                 .orElse((long) -1) + 1;
 
-        Book book = new Book(nextId, bookViewModel.getTitle(), bookViewModel.getDescription(), SampleData.getUsers().get(0), false);
+        Book book = new Book(nextId, newBookForm.getTitle(), newBookForm.getDescription(), userService.findCurrentUser(), false);
 
-        List<Book> books = new ArrayList<>(SampleData.getBooks());
-        books.add(book);
-
-        SampleData.setBooks(books);
+        bookService.save(book);
 
         redirectAttributes.addAttribute("isInCreationProcess", true);
         redirectAttributes.addAttribute("nextId", nextId);
 
-        return "redirect:/book/{nextId}/editQuestions";
+        return "redirect:/book/{nextId}/edit/questions";
     }
 }
