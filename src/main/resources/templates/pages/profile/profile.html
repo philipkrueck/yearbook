@@ -15,18 +15,29 @@
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
             <img id="avatarImage" src="https://via.placeholder.com/400x400.webp?text=Profilpic">
-            <h1 id="profileTitle"><span th:text="${profileViewModel.getUsername()}" class="h4"></span> <br/> <span th:text="${profileViewModel.getEmail()}" class="h5"></span></h1>
-            <p th:text="${profileViewModel.getBio()}"></p>
+            <h1 id="profileTitle"><span th:text="${userViewModel.getName()}" class="h4"></span> <br/> <span th:text="${userViewModel.getEmail()}" class="h5"></span></h1>
+            <p th:text="${userViewModel.getBio()}"></p>
+            <p th:text="${userViewModel.getTwitterHandle()}"></p>
+            <p th:text="${userViewModel.getLocation()}"></p>
+            <p th:text="${userViewModel.getWebsite()}"></p>
             <hr />
             <button id="openEditProfile" onclick="openEdit(this, 'editProfile');" class="button small medium-expanded">Edit profile</button>
-            <form id="editProfile" th:action="@{/profile/edit}" th:object="${profileViewModel}" method="post">
+            <form id="editProfile" th:action="@{/profile/edit}" th:object="${userViewModel}" method="post">
                 <label>Avatar
                     <input type="file" accept="image/*" value="Upload a photo...">
                 </label>
                 <label>Bio</label>
                 <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
-                <label>Username</label>
-                <input type="text" th:field="*{username}">
+                <label>Name</label>
+                <input type="text" th:field="*{name}">
+                <label>Email</label>
+                <input type="text" th:field="*{email}">
+                <label>TwitterHandle</label>
+                <input type="text" th:field="*{twitterHandle}">
+                <label>Location</label>
+                <input type="text" th:field="*{location}">
+                <label>Website</label>
+                <input type="text" th:field="*{website}">
                 <div class="stack-for-small small expanded button-group">
                     <input class="success button" type="submit" value="Save">
                     <button id="closeEditProfile" class="secondary button" onclick="closeEdit('openEditProfile', 'editProfile')" value="Cancel">Cancel</button>

@@ -34,6 +34,8 @@ public class UserService {
         userRepository.save(new User(id, name, email, passwordEncoder.encode(password), role));
     }
 
+    public User save(User user) {return userRepository.save(user); }
+
     public List<User> findAll() { return userRepository.findAll(); }
 
     public User findCurrentUser() { return userRepository.findByEmail(User.getCurrentUsername()); }

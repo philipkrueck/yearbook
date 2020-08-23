@@ -39,6 +39,8 @@ public class User {
 
     private String website;
 
+    private String bio;
+
     public User(String name) {
         this.name = name;
     }

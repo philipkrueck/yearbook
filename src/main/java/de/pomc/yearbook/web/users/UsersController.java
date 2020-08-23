@@ -1,7 +1,7 @@
 package de.pomc.yearbook.web.users;
 
 import de.pomc.yearbook.SampleData;
-import de.pomc.yearbook.web.UserViewModel;
+import de.pomc.yearbook.web.profile.UserViewModel;
 import de.pomc.yearbook.web.UserViewModelConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
