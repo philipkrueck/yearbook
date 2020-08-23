@@ -37,7 +37,7 @@
     <div class="grid-container">
         <div class="grid-x">
             <div class="cell small-24 medium-7">
-                <h1 th:text="${bookViewModel.getTitle()}"></h1>
+                <h1 th:text="${book.getName()}"></h1>
                 <h4>Add questions for all participants.</h4>
                 <p>You can create your own custom question for your yearbook. You can get inspired be other yearbooks.</p>
             </div>
@@ -47,13 +47,13 @@
                         <div class="questionInner">
                             <span th:text="${itemStat.index + 1} + '.'"> </span>
                             <span th:text="${question}"></span>
-                            <form method="post" th:action="@{/book/{id}/deleteQuestion/{questionId}(isInCreationProcess=${isInCreationProcess}, id=${bookViewModel.getId()}, questionId=${itemStat.index})}">
+                            <form method="post" th:action="@{/book/{id}/deleteQuestion/{questionId}(isInCreationProcess=${isInCreationProcess}, id=${book.getId()}, questionId=${itemStat.index})}">
                                 <button type="submit" class="removeQuestion"><span class="material-icons">remove</span></button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <form method="post" th:action="@{/book/{id}/editQuestions/new(isInCreationProcess=${isInCreationProcess} ,id=${bookViewModel.getId()})}" th:object="${newQuestionForm}">
+                <form method="post" th:action="@{/book/{id}/edit/questions/new(isInCreationProcess=${isInCreationProcess} ,id=${book.getId()})}" th:object="${newQuestionForm}">
                 <div class="cell small-24 questionBorderWrap">
                     <div class="questionInner">
                         <input type="text" placeholder="Type to add question title" th:field="*{question}"/>
@@ -71,10 +71,10 @@
     <div class="grid-container" id="goToNextStep">
         <div class="grid-x">
             <div class="cell auto">
-                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Back to Book</a>
+                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${book.getId()})}">Back to Book</a>
             </div>
             <div th:if="${isInCreationProcess}" class="cell shrink submitIconWrapper">
-                <a class="button" th:href="@{/book/{id}/editParticipants(isInCreationProcess=true, id=${bookViewModel.getId()})}">Save and next</a>
+                <a class="button" th:href="@{/book/{id}/edit/participants(isInCreationProcess=true, id=${book.getId()})}">Save and next</a>
                 <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
             </div>
         </div>
