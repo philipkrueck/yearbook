@@ -15,7 +15,16 @@ build/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea/
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/libraries/*
+.idea/modules.xml
+.idea/dataSources.xml
+
 
 *.iws
 *.iml
