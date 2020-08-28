@@ -5,6 +5,9 @@
 </head>
 <body>
 
+<!-- #overlay -------------------------------- -->
+<div id="overlay"></div>
+
 <!-- header -------------------------------- -->
 <header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
@@ -21,26 +24,34 @@
             <p th:text="${user.getLocation()}"></p>
             <p th:text="${user.getWebsite()}"></p>
             <hr />
-            <button id="openEditProfile" onclick="openEdit(this, 'editProfile');" class="button small medium-expanded">Edit profile</button>
+            <button class="button small medium-expanded profileTrigger" id="editProfileTrigger">Edit profile</button>
+            <button class="button small medium-expanded passwordTrigger">Change password</button>
+
             <form id="editProfile" th:action="@{/profile/edit}" th:object="${userForm}" method="post">
                 <label>Avatar
                     <input type="file" accept="image/*" value="Upload a photo...">
                 </label>
-                <label>Bio</label>
-                <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
-                <label>Name</label>
-                <input type="text" th:field="*{name}">
-                <label>Email</label>
-                <input type="text" th:field="*{email}">
-                <label>TwitterHandle</label>
-                <input type="text" th:field="*{twitterHandle}">
-                <label>Location</label>
-                <input type="text" th:field="*{location}">
-                <label>Website</label>
-                <input type="text" th:field="*{website}">
+                <label>Bio
+                    <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
+                </label>
+                <label>Name
+                    <input type="text" th:field="*{name}">
+                </label>
+                <label>Email
+                    <input type="text" th:field="*{email}">
+                </label>
+                <label>TwitterHandle
+                    <input type="text" th:field="*{twitterHandle}">
+                </label>
+                <label>Location
+                    <input type="text" th:field="*{location}">
+                </label>
+                <label>Website
+                    <input type="text" th:field="*{website}">
+                </label>
                 <div class="stack-for-small small expanded button-group">
                     <input class="success button" type="submit" value="Save">
-                    <button id="closeEditProfile" class="secondary button" onclick="closeEdit('openEditProfile', 'editProfile')" value="Cancel">Cancel</button>
+                    <button class="secondary button profileTrigger" value="Cancel">Cancel</button>
                 </div>
             </form>
         </aside>
@@ -82,28 +93,53 @@
     </div>
 </div>
 
+<!-- #overlay -------------------------------- -->
+<div class="grid-wrapper" id="changePassword">
+    <div class="grid-container">
+        <div class="grid-x align-right">
+            <div class="cell shrink passwordTrigger">
+                <span class="material-icons">close</span>
+            </div>
+        </div>
+        <div class="grid-x align-center">
+            <div class="cell small-16">
+                <h4>Change password</h4>
+                <form action="#">
+                    <label>Old password
+                        <input type="password" required>
+                    </label>
+                    <label>New password
+                        <input type="password" required>
+                    </label>
+                    <label>Confirm new password
+                        <input type="password" required>
+                    </label>
+                    <div class="stack-for-small small expanded button-group">
+                        <input class="success button" type="submit" value="Update Password">
+                        <button class="secondary button passwordTrigger" value="Cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 
 <!-- script -------------------------------- -->
 <script type="text/javascript">
-    function openEdit(ctrl, id) {
-        var d = ctrl;
-        var e = document.getElementById(id);
-        if(e.style.display == 'block')
-            e.style.display = 'none',
-            d.style.dislay = 'block';
-        else
-            e.style.display = 'block',
-            d.style.display = 'none';
-    }
 
-    function closeEdit(show, hide) {
-        var d = document.getElementById(show);
-        var e = document.getElementById(hide);
-        d.style.display = 'block';
-        e.style.display = 'none';
-    }
+    $(".passwordTrigger").click(function() {
+        $("#overlay").fadeToggle();
+        $("#changePassword").fadeToggle();
+    });
+
+    $(".profileTrigger").click(function() {
+        $("#editProfile").fadeToggle();
+        $("#editProfileTrigger").fadeToggle();
+    });
+
 </script>
 
 </body>
