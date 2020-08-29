@@ -1,9 +1,9 @@
 package de.pomc.yearbook.web;
 
 import de.pomc.yearbook.SampleData;
+import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.user.UserService;
-import de.pomc.yearbook.web.book.BookViewModel;
-import de.pomc.yearbook.web.book.BookViewModelConverter;
+import de.pomc.yearbook.web.book.BookFormConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class IndexController {
 
     private final UserService userService;
+    private final BookService bookService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -26,13 +27,7 @@ public class IndexController {
             return "redirect:/profile";
         }
 
-
-        List<BookViewModel> bookViewModels = SampleData.getBooks()
-                                                        .stream()
-                                                        .map(BookViewModelConverter::bookViewModel)
-                                                        .collect(Collectors.toList());
-
-        model.addAttribute("bookViewModels", bookViewModels);
+        model.addAttribute("publishedBooks", bookService.getPublishedBooks());
         return "index";
     }
 

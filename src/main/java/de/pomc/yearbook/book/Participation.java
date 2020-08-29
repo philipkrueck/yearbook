@@ -22,14 +22,14 @@ public class Participation {
 
 
     @Getter
-    private boolean isOwner;
+    private boolean isAdmin;
 
 
 
-    public Participation(Long id, User participant, boolean isOwner) {
+    public Participation(Long id, User participant, boolean isAdmin) {
         this.id = id;
         this.participant = participant;
-        this.isOwner = isOwner;
+        this.isAdmin = isAdmin;
     }
 
     public boolean currentUserIsOwner() {

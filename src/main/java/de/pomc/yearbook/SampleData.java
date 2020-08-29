@@ -45,7 +45,7 @@ public class SampleData {
             new Participation((long) 8, users.get(1), true)
         ),
         List.of(
-            new Participation((long) 9, users.get(0), false),
+            new Participation((long) 9, users.get(0), true),
             new Participation((long) 10, users.get(4), false),
             new Participation((long) 11, users.get(3), true)
         ),

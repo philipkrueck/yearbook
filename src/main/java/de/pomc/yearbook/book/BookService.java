@@ -19,7 +19,7 @@ public class BookService {
 
     public List<Book> getBooksOfCurrentUser() {
         return SampleData.getBooks().stream()
-                .filter(Book::isOwnedByCurrentUser)
+                .filter(Book::currentUserIsOwner)
                 .collect(Collectors.toList());
     }
 

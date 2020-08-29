@@ -34,14 +34,14 @@
 
     <div class="grid-container" id="createThirdStep">
 
-        <h1 th:text="${bookViewModel.getTitle()}"></h1>
+        <h1 th:text="${book.getName()}"></h1>
 
         <div class="grid-x">
             <div class="cell small-24">
                 <h4>Invite participants</h4>
             </div>
             <div class="cell small-24">
-                <table th:if="${!participationViewModels.isEmpty()}">
+                <table th:if="${!participations.isEmpty()}">
                     <thead>
                     <tr>
                         <th width="80">ICON</th>
@@ -52,25 +52,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="participationViewModel, itemStat : ${participationViewModels}">
+                    <tr th:each="participation : ${participations}">
                         <td>...</td>
-                        <td th:text="${participationViewModel.getUserViewModel().getName()}"></td>
-                        <td th:text="${participationViewModel.getUserViewModel().getEmail()}"></td>
-                        <td th:text="${participationViewModel.isOwner}"></td>
+                        <td th:text="${participation.getParticipant().getName()}"></td>
+                        <td th:text="${participation.getParticipant().getEmail()}"></td>
+                        <td th:text="${participation.isAdmin()}"></td>
                         <td>
-                            <form method="post" th:action="@{/book/{id}/deleteParticipant/{participantId}(isInCreationProcess=${isInCreationProcess}, id=${bookViewModel.getId()}, participantId=${itemStat.index})}">
+                            <form method="post" th:action="@{/book/{id}/edit/participants/delete/{participantId}(isInCreationProcess=${isInCreationProcess}, id=${book.getId()}, participantId=${participation.getId()})}">
                                 <button type="submit" class="button">Delete</button>
                             </form>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <form method="post" th:action="@{/book/{id}/editParticipants/new(isInCreationProcess=true, id=${bookViewModel.getId()})}" th:object="${addUserForm}">
+                <form method="post" th:action="@{/book/{id}/edit/participants/new(isInCreationProcess=${isInCreationProcess}, id=${book.getId()})}" th:object="${addUserForm}">
                     <input type="text" placeholder="Enter email..." th:field="*{email}">
                     <input type="submit" class="button" value="Add participant">
                 </form>
 
-                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Back to Book</a>
+                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${book.getId()})}">Back to Book</a>
 
             </div>
         </div>
@@ -82,10 +82,10 @@
     <div class="grid-container" id="goToNextStep">
         <div class="grid-x">
             <div class="cell auto">
-                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Back to Book</a>
+                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${book.getId()})}">Back to Book</a>
             </div>
             <div th:if="${isInCreationProcess}" class="cell shrink submitIconWrapper">
-                <a th:if="${isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${bookViewModel.getId()})}">Finish Process</a>
+                <a th:if="${isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${book.getId()})}">Finish Process</a>
                 <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
             </div>
         </div>

@@ -29,7 +29,7 @@ public class BookEditQuestionsController {
             throw new NotFoundException();
         }
 
-        if (!book.isOwnedByCurrentUser()) {
+        if (!book.currentUserIsOwner()) {
             throw new ForbiddenException();
         }
 

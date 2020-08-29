@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 @Controller
 @RequestMapping("book/create")
@@ -29,13 +27,13 @@ public class BookCreationController {
     @PreAuthorize("authenticated")
     @GetMapping()
     public String showCreateNewBookView(Model model) {
-        model.addAttribute("newBookForm", new NewBookForm("", ""));
+        model.addAttribute("bookForm", new BookForm("", ""));
         return "pages/book/create";
     }
 
     @PreAuthorize("authenticated")
     @PostMapping()
-    public String submitNewBookCreation(@ModelAttribute("newBookForm") NewBookForm newBookForm, RedirectAttributes redirectAttributes) {
+    public String submitNewBookCreation(@ModelAttribute("bookForm") BookForm bookForm, RedirectAttributes redirectAttributes) {
 
         // ToDo: check validity of bookViewModel
 
@@ -45,13 +43,12 @@ public class BookCreationController {
                 .max(Comparator.comparing(Long::intValue))
                 .orElse((long) -1) + 1;
 
-        Book book = new Book(nextId, newBookForm.getTitle(), newBookForm.getDescription(), userService.findCurrentUser(), false);
+        Book book = new Book(nextId, bookForm.getName(), bookForm.getDescription(), userService.findCurrentUser(), false);
 
         bookService.save(book);
 
         redirectAttributes.addAttribute("isInCreationProcess", true);
-        redirectAttributes.addAttribute("nextId", nextId);
-
+        redirectAttributes.addAttribute("nextId", book.getId());
         return "redirect:/book/{nextId}/edit/questions";
     }
 }

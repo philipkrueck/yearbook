@@ -39,4 +39,6 @@ public class UserService {
     public List<User> findAll() { return userRepository.findAll(); }
 
     public User findCurrentUser() { return userRepository.findByEmail(User.getCurrentUsername()); }
+
+    public User findUserByEmail(String email) { return userRepository.findByEmail(email); }
 }

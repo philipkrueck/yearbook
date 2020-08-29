@@ -49,7 +49,12 @@ public class Book {
         this.participations = new ArrayList<>();
     }
 
-    public boolean isOwnedByCurrentUser() {
+    public boolean currentUserIsOwner() {
         return owner != null && this.owner.getEmail().equals(User.getCurrentUsername());
+    }
+
+    public boolean currentUserIsAdmin() {
+        return participations.stream().
+                anyMatch(participant -> participant.getParticipant().getEmail().equals(User.getCurrentUsername()) && participant.isAdmin());
     }
 }

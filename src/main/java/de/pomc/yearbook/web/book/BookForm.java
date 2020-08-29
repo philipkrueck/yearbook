@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class NewBookForm {
-    private String title;
+public class BookForm {
+    private String name;
     private String description;
 }

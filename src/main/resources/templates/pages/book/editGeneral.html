@@ -22,9 +22,9 @@
                 <input type="file" accept="image/*" value="Upload a photo...">
             </label>
             <div class="cell small-12 medium-16">
-                <form method="post" th:action="@{/book/{id}/edit/general/update(id=${bookViewModel.getId()})}" th:object="${bookViewModel}">
+                <form method="post" th:action="@{/book/{id}/edit/general/update(id=${book.getId()})}" th:object="${bookForm}">
                     <label>Edit book name.
-                        <input type="text" th:field="*{title}"/>
+                        <input type="text" th:field="*{name}"/>
                     </label>
                     <label>Edit book description.
                         <input type="text" th:field="*{description}"/>
