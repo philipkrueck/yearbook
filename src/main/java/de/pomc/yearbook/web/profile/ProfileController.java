@@ -34,16 +34,12 @@ public class ProfileController {
     }
 
     @PostMapping("/edit")
-    public String editProfile(@ModelAttribute("profileViewModel") UserForm userForm) {
+    public String editProfile(@ModelAttribute("userForm") UserForm userForm) {
 
+        // ToDo: Validate userForm
         User user = userService.findCurrentUser();
 
-        user.setFirstName(userForm.getFirstName());
-        user.setEmail(userForm.getEmail());
-        user.setTwitterHandle(userForm.getTwitterHandle());
-        user.setLocation(userForm.getLocation());
-        user.setWebsite(userForm.getWebsite());
-        user.setBio(userForm.getBio());
+        UserFormConverter.update(user, userForm);
 
         userService.save(user);
 
