@@ -54,7 +54,7 @@
                     <tbody>
                     <tr th:each="participation : ${participations}">
                         <td>...</td>
-                        <td th:text="${participation.getParticipant().getName()}"></td>
+                        <td th:text="${participation.getParticipant().getFullName()}"></td>
                         <td th:text="${participation.getParticipant().getEmail()}"></td>
                         <td th:text="${participation.isAdmin()}"></td>
                         <td>
