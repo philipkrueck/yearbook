@@ -29,6 +29,7 @@ public class ProfileController {
         model.addAttribute("user", user);
         model.addAttribute("books", bookService.getBooksOfCurrentUser());
         model.addAttribute("participations", bookService.getParticipationsOfCurrentUser());
+        model.addAttribute("changePasswordForm", new ChangePasswordForm());
 
         return "pages/profile/profile";
     }
