@@ -50,7 +50,10 @@ public class IndexController {
             return "redirect:";
         }
 
-        // ToDo: Make sure no user with the same email exists
+        if(userService.findUserByEmail(newAccountForm.getEmail()) != null){
+            return "redirect:?EmailExists";
+        }
+
         User user = NewAccountFormConverter.userFromForm(newAccountForm, passwordEncoder);
         userService.save(user);
 
