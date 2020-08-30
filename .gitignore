@@ -15,17 +15,7 @@ build/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea/compiler.xml
-.idea/gradle.xml
-.idea/jarRepositories.xml
-.idea/misc.xml
-.idea/vcs.xml
-.idea/workspace.xml
-.idea/libraries/*
-.idea/modules.xml
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-
+.idea
 *.iws
 *.iml
 *.ipr
@@ -40,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### macOS ###
+.DS_Store

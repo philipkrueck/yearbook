@@ -18,20 +18,20 @@
                     <h4>Discover the unique Yearbook experience.</h4>
                     <p class="">Join Yearbook today.</p>
                     <div class="grid-x align-center formGroup" id="registration">
-                        <form>
-                            <label>Surname
-                                <input type="text">
+                        <form method="post" th:action="@{/newAccount}" th:object="${newAccountForm}">
+                            <label>First Name
+                                <input type="text" th:field="*{firstName}">
                             </label>
                             <label>Last name
-                                <input type="text">
+                                <input type="text" th:field="*{lastName}">
                             </label>
                             <label>Email
-                                <input type="email">
+                                <input type="email" th:field="*{email}">
                             </label>
                             <label>Password
-                                <input type="password">
+                                <input type="password" th:field="*{password}">
                             </label>
-                            <input class="button" type="submit" href="/login" value="Sign Up"/>
+                            <input class="button" type="submit" value="Sign Up"/>
                         </form>
                     </div>
                     <div class="grid-x align-center-middle formGroup" id="formAddOn">
@@ -51,8 +51,8 @@
                 </div>
             </div>
             <div class="grid-x align-center">
-                <div class="cell small-8 medium-4 featuredCard" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')" th:each="bookViewModel : ${bookViewModels}">
-                    <h5><a th:href="@{/book/{id}(id=${bookViewModel.getId()})}" th:text="${bookViewModel.getTitle()}"><span class="material-icons">arrow_right_alt</span></a></h5>
+                <div class="cell small-8 medium-4 featuredCard" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')" th:each="book : ${publishedBooks}">
+                    <h5><a th:href="@{/book/{id}(id=${book.getId()})}" th:text="${book.getName()}"><span class="material-icons">arrow_right_alt</span></a></h5>
                 </div>
             </div>
         </div>

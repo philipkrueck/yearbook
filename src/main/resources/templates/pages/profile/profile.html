@@ -5,6 +5,9 @@
 </head>
 <body>
 
+<!-- #overlay -------------------------------- -->
+<div id="overlay"></div>
+
 <!-- header -------------------------------- -->
 <header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
@@ -15,21 +18,43 @@
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
             <img id="avatarImage" src="https://via.placeholder.com/400x400.webp?text=Profilpic">
-            <h1 id="profileTitle"><span th:text="${profileViewModel.getUsername()}" class="h4"></span> <br/> <span th:text="${profileViewModel.getEmail()}" class="h5"></span></h1>
-            <p th:text="${profileViewModel.getBio()}"></p>
+            <h1 id="profileTitle"><span th:text="${user.getFullName()}" class="h4"></span> <br/> <span th:text="${user.getEmail()}" class="h5"></span></h1>
+            <p th:text="${user.getBio()}"></p>
+            <p th:text="${user.getTwitterHandle()}"></p>
+            <p th:text="${user.getLocation()}"></p>
+            <p th:text="${user.getWebsite()}"></p>
             <hr />
-            <button id="openEditProfile" onclick="openEdit(this, 'editProfile');" class="button small medium-expanded">Edit profile</button>
-            <form id="editProfile" th:action="@{/profile/edit}" th:object="${profileViewModel}" method="post">
+            <button class="button small medium-expanded profileTrigger" id="editProfileTrigger">Edit profile</button>
+            <button class="button small medium-expanded passwordTrigger">Change password</button>
+
+            <form id="editProfile" th:action="@{/profile/edit}" th:object="${userForm}" method="post">
                 <label>Avatar
                     <input type="file" accept="image/*" value="Upload a photo...">
                 </label>
-                <label>Bio</label>
-                <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
-                <label>Username</label>
-                <input type="text" th:field="*{username}">
+                <label>Bio
+                    <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
+                </label>
+                <label>First Name
+                    <input type="text" th:field="*{firstName}">
+                </label>
+                <label>Last Name
+                    <input type="text" th:field="*{lastName}">
+                </label>
+                <label>Email
+                    <input type="text" th:field="*{email}">
+                </label>
+                <label>TwitterHandle
+                    <input type="text" th:field="*{twitterHandle}">
+                </label>
+                <label>Location
+                    <input type="text" th:field="*{location}">
+                </label>
+                <label>Website
+                    <input type="text" th:field="*{website}">
+                </label>
                 <div class="stack-for-small small expanded button-group">
                     <input class="success button" type="submit" value="Save">
-                    <button id="closeEditProfile" class="secondary button" onclick="closeEdit('openEditProfile', 'editProfile')" value="Cancel">Cancel</button>
+                    <button class="secondary button profileTrigger" value="Cancel">Cancel</button>
                 </div>
             </form>
         </aside>
@@ -39,14 +64,13 @@
             <div class="grid-x" id="ownedBooks">
                 <div class="cell small-24">
                     <h3>My Books</h3>
-                    <table>
+                    <table th:if="${!books.isEmpty()}">
                         <tr>
                             <th>Name</th>
                         </tr>
-                        <tr th:each="profileBookViewModel : ${profileViewModel.getProfileBookViewModels()}">
-                            <th th:text="${profileBookViewModel.getBookName()}"></th>
-                            <th><a th:href="@{/book/{id}(id=${profileBookViewModel.getId()})}">view</a></th>
-                            <th><a th:href="@{/book/{id}/edit(id=${profileBookViewModel.getId()})}">edit</a></th>
+                        <tr th:each="book : ${books}">
+                            <th th:text="${book.getName()}"></th>
+                            <th><a th:href="@{/book/{id}(id=${book.getId()})}">view</a></th>
                         </tr>
                     </table>
                     <a class="button" href="/book/create"><button>Add a new book</button></a>
@@ -56,14 +80,14 @@
             <div class="grid-x" id="participatingBooks">
                 <div class="cell small-24">
                     <h3>My Participations</h3>
+                    <p>ToDo: implement this properly, once the DB is setup</p>
                     <table>
                         <tr>
                             <th>Name</th>
                         </tr>
-                        <tr th:each="profileParticipationViewModel : ${profileViewModel.getProfileParticipationViewModels()}">
-                            <th th:text="${profileParticipationViewModel.getBookName()}"></th>
-                            <th><a th:href="@{/questionnaire/{id}(id=${profileParticipationViewModel.getQuestionnaireId()})}">view</a></th>
-                            <th><a th:href="@{/questionnaire/{id}/edit(id=${profileParticipationViewModel.getQuestionnaireId()})}">edit</a></th>
+                        <tr th:each="participation : ${participations}">
+                            <th>book name</th>
+                            <th><a th:href="@{/questionnaire/{id}(id=${participation.getId()})}">view</a></th>
                         </tr>
                     </table>
                 </div>
@@ -72,28 +96,53 @@
     </div>
 </div>
 
+<!-- #overlay -------------------------------- -->
+<div class="grid-wrapper" id="changePassword">
+    <div class="grid-container">
+        <div class="grid-x align-right">
+            <div class="cell shrink passwordTrigger">
+                <span class="material-icons">close</span>
+            </div>
+        </div>
+        <div class="grid-x align-center">
+            <div class="cell small-16">
+                <h4>Change password</h4>
+                <form action="#">
+                    <label>Old password
+                        <input type="password" required>
+                    </label>
+                    <label>New password
+                        <input type="password" required>
+                    </label>
+                    <label>Confirm new password
+                        <input type="password" required>
+                    </label>
+                    <div class="stack-for-small small expanded button-group">
+                        <input class="success button" type="submit" value="Update Password">
+                        <button class="secondary button passwordTrigger" value="Cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 
 <!-- script -------------------------------- -->
 <script type="text/javascript">
-    function openEdit(ctrl, id) {
-        var d = ctrl;
-        var e = document.getElementById(id);
-        if(e.style.display == 'block')
-            e.style.display = 'none',
-            d.style.dislay = 'block';
-        else
-            e.style.display = 'block',
-            d.style.display = 'none';
-    }
 
-    function closeEdit(show, hide) {
-        var d = document.getElementById(show);
-        var e = document.getElementById(hide);
-        d.style.display = 'block';
-        e.style.display = 'none';
-    }
+    $(".passwordTrigger").click(function() {
+        $("#overlay").fadeToggle();
+        $("#changePassword").fadeToggle();
+    });
+
+    $(".profileTrigger").click(function() {
+        $("#editProfile").fadeToggle();
+        $("#editProfileTrigger").fadeToggle();
+    });
+
 </script>
 
 </body>

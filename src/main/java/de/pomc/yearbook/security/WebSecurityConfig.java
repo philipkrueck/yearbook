@@ -2,6 +2,7 @@ package de.pomc.yearbook.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -16,6 +17,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import java.util.concurrent.TimeUnit;
 
+@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -25,9 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/users").hasRole("ADMIN")
                 .antMatchers("/book/create").authenticated()
-                .antMatchers("/book/**/editGeneral/**").authenticated()
-                .antMatchers("/book/**/editQuestions/**").authenticated()
-                .antMatchers("/book/**/editParticipants/**").authenticated()
+                .antMatchers("/book/**/edit/**").authenticated()
                 .antMatchers("/questionnaire/**/edit/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/questionnaire/**/addComment").authenticated()
                 .antMatchers("/profile/**").authenticated()
@@ -57,6 +57,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 }

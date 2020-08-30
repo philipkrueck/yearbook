@@ -1,12 +1,11 @@
 package de.pomc.yearbook;
 
 import de.pomc.yearbook.user.User;
-import de.pomc.yearbook.web.book.Book;
-import de.pomc.yearbook.web.book.Participation;
+import de.pomc.yearbook.book.Book;
+import de.pomc.yearbook.book.Participation;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // This acts as our dummy data base before we are adding services and repositories
@@ -22,49 +21,49 @@ public class SampleData {
 
     @Getter
     public static List<User> users = List.of(
-        new User((long) 0, "Frodo Baggins", "frodo.baggins@shire.com", "1234", "USER"),
-        new User((long) 1, "Samwise Gamgee", "sam.gamgee@shire.com", "1234", "USER"),
-        new User((long) 2, "Gandalf the Gray", "gandalf.gray@hotmail.com", "1234", "USER"),
-        new User((long) 3, "Legolas", "legolas@woodland.com", "1234", "USER"),
-        new User((long) 4, "Gimli the Dwarf", "gimli.dwarf@blueMountain.com", "1234", "USER")
+        new User((long) 0, "Frodo", "Baggins", "frodo.baggins@shire.com", "1234", "USER"),
+        new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", "1234", "USER"),
+        new User((long) 2, "Gandalf",  "the Gray", "gandalf.gray@hotmail.com", "1234", "USER"),
+        new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", "1234", "USER"),
+        new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", "1234", "USER")
     );
 
     public static List<List<Participation>> participationsList = List.of(
         List.of(
-            new Participation(users.get(0), false),
-            new Participation(users.get(1), false),
-            new Participation(users.get(2), true)
+            new Participation((long) 0, users.get(0), false),
+            new Participation((long) 1, users.get(1), false),
+            new Participation((long) 2, users.get(2), true)
         ),
         List.of(
-            new Participation(users.get(3), false),
-            new Participation(users.get(1), false),
-            new Participation(users.get(4), true)
+            new Participation((long) 3, users.get(3), false),
+            new Participation((long) 4, users.get(1), false),
+            new Participation((long) 5, users.get(4), true)
         ),
         List.of(
-            new Participation(users.get(4), false),
-            new Participation(users.get(3), false),
-            new Participation(users.get(1), true)
+            new Participation((long) 6, users.get(4), false),
+            new Participation((long) 7, users.get(3), false),
+            new Participation((long) 8, users.get(1), true)
         ),
         List.of(
-            new Participation(users.get(0), false),
-            new Participation(users.get(4), false),
-            new Participation(users.get(3), true)
+            new Participation((long) 9, users.get(0), true),
+            new Participation((long) 10, users.get(4), false),
+            new Participation((long) 11, users.get(3), true)
         ),
         List.of(
-            new Participation(users.get(2), false),
-            new Participation(users.get(1), false),
-            new Participation(users.get(0), true)
+            new Participation((long) 12, users.get(2), false),
+            new Participation((long) 13, users.get(1), false),
+            new Participation((long) 14, users.get(0), true)
         )
     );
 
     @Getter
     @Setter
     public static List<Book> books = List.of(
-        new Book((long) 0, "Blue Mountain State 2020", "some description", users.get(0), questionsList.get(0), participationsList.get(0)),
-        new Book((long) 1, "HSBA BI '21", "some description", users.get(1), questionsList.get(1), participationsList.get(1)),
-        new Book((long) 2, "Stanford Law '19", "some description", users.get(1), questionsList.get(2), participationsList.get(2)),
-        new Book((long) 3, "MIT Robotics 2020", "some description", users.get(1), questionsList.get(3), participationsList.get(3)),
-        new Book((long) 4, "NYU Gender Sciences 2019", "some description", users.get(1), questionsList.get(4), participationsList.get(4))
+        new Book((long) 0, "Blue Mountain State 2020", "some description", users.get(0), questionsList.get(0), participationsList.get(0), true),
+        new Book((long) 1, "HSBA BI '21", "some description", users.get(1), questionsList.get(1), participationsList.get(1), true),
+        new Book((long) 2, "Stanford Law '19", "some description", users.get(1), questionsList.get(2), participationsList.get(2), true),
+        new Book((long) 3, "MIT Robotics 2020", "some description", users.get(1), questionsList.get(3), participationsList.get(3), true),
+        new Book((long) 4, "NYU Gender Sciences 2019", "some description", users.get(1), questionsList.get(4), participationsList.get(4), true)
     );
 
 }
