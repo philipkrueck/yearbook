@@ -9,9 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
@@ -48,7 +50,12 @@ public class BookEditQuestionsController {
 
     @PreAuthorize("authenticated")
     @PostMapping("/new")
-    public String addNewQuestion(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("newQuestionForm") NewQuestionForm newQuestionForm, RedirectAttributes redirectAttributes) {
+    public String addNewQuestion(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("newQuestionForm") @Valid NewQuestionForm newQuestionForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if(bindingResult.hasErrors()){
+            return "redirect:/book/{id}/edit/questions?isInCreationProcess=true";
+        }
+
         Book book = getBook(id);
 
         ArrayList<String> newList = new ArrayList<>(book.getQuestions());
