@@ -3,7 +3,6 @@ package de.pomc.yearbook.web.profile;
 import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
-import de.pomc.yearbook.web.UserFormConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -39,7 +38,7 @@ public class ProfileController {
 
         User user = userService.findCurrentUser();
 
-        user.setName(userForm.getName());
+        user.setFirstName(userForm.getFirstName());
         user.setEmail(userForm.getEmail());
         user.setTwitterHandle(userForm.getTwitterHandle());
         user.setLocation(userForm.getLocation());

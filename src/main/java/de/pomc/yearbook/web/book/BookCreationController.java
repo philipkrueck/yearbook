@@ -27,7 +27,7 @@ public class BookCreationController {
     @PreAuthorize("authenticated")
     @GetMapping()
     public String showCreateNewBookView(Model model) {
-        model.addAttribute("bookForm", new BookForm("", ""));
+        model.addAttribute("bookForm", new BookForm());
         return "pages/book/create";
     }
 

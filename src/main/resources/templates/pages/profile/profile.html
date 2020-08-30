@@ -18,7 +18,7 @@
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
             <img id="avatarImage" src="https://via.placeholder.com/400x400.webp?text=Profilpic">
-            <h1 id="profileTitle"><span th:text="${user.getName()}" class="h4"></span> <br/> <span th:text="${user.getEmail()}" class="h5"></span></h1>
+            <h1 id="profileTitle"><span th:text="${user.getFirstName()}" class="h4"></span> <br/> <span th:text="${user.getEmail()}" class="h5"></span></h1>
             <p th:text="${user.getBio()}"></p>
             <p th:text="${user.getTwitterHandle()}"></p>
             <p th:text="${user.getLocation()}"></p>
@@ -35,7 +35,7 @@
                     <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
                 </label>
                 <label>Name
-                    <input type="text" th:field="*{name}">
+                    <input type="text" th:field="*{firstName}">
                 </label>
                 <label>Email
                     <input type="text" th:field="*{email}">

@@ -1,6 +1,8 @@
 package de.pomc.yearbook.user;
 
 import lombok.*;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,7 +30,10 @@ public class User {
     private String role; // ToDo: model this with an enum
 
     @Basic(optional = false)
-    private String name;
+    private String firstName;
+
+    @Basic(optional = false)
+    private String lastName;
 
     @Basic(optional = false)
     private String password;
@@ -41,22 +46,27 @@ public class User {
 
     private String bio;
 
-    public User(String name) {
-        this.name = name;
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = "USER";
     }
 
-    public User(Long id, String name, String email, String password, String role) {
+    public User(Long id, String firstName, String lastName, String email, String password, String role) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
     public static String getCurrentUsername() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return authentication.getName();
         }
         return null;
     }

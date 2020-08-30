@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class UserForm {
 
-    private String name;
+    private String firstName;
 
     private String email;
 

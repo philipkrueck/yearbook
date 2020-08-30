@@ -23,18 +23,14 @@ public class UserService {
             // prevent initialization if DB is not empty
             return;
         }
-        createUser((long) 0, "Frodo Baggins", "frodo.baggins@shire.com", "1234", "ADMIN");
-        createUser((long) 1, "Samwise Gamgee", "sam.gamgee@shire.com", "1234", "USER");
-        createUser((long) 2, "Gandalf the Gray", "gandalf.gray@hotmail.com", "1234", "USER");
-        createUser((long) 3, "Legolas", "legolas@woodland.com", "1234", "USER");
-        createUser((long) 4, "Gimli the Dwarf", "gimli.dwarf@blueMountain.com", "1234", "USER");
+        save(new User((long) 0, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER"));
+        save(new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("1234"), "USER"));
+        save(new User((long) 2, "Gandalf",  "the Gray", "gandalf.gray@hotmail.com", passwordEncoder.encode("1234"), "USER"));
+        save(new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("1234"), "USER"));
+        save(new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("1234"), "USER"));
     }
 
-    private void createUser(long id, String name, String email, String password, String role) {
-        userRepository.save(new User(id, name, email, passwordEncoder.encode(password), role));
-    }
-
-    public User save(User user) {return userRepository.save(user); }
+    public User save(User user) { return userRepository.save(user); }
 
     public List<User> findAll() { return userRepository.findAll(); }
 

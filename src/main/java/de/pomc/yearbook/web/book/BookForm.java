@@ -6,10 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class BookForm {
     private String name;
     private String description;
+
+    public BookForm() {
+        this.name = "";
+        this.description = "";
+    }
 }
