@@ -14,7 +14,7 @@
     <div class="grid-container">
         <div class="grid-x align-middle">
             <div class="cell auto">
-                <h1 class="h4">View Questionnaire <small th:text="${questionnaireViewModel.getBookName()}"></small></h1>
+                <h1 class="h4">View Questionnaire <small th:text="${participation.getParticipant().getFullName()}"></small></h1>
             </div>
             <div class="cell shrink">
                 <a class="button small" href="/questionnaire/1/back">Go back to book</a>
@@ -32,29 +32,30 @@
                 <img src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
             </div>
             <div class="cell small-24 medium-16">
-                <h1 th:text="${questionnaireViewModel.getName()}"></h1>
+                <h1 th:text="${book.getName()}"></h1>
                 <div class="questionBlock">
-                    <div th:each="questionViewModel : ${questionnaireViewModel.getQuestionViewModels()}">
-                        <h5 th:text="${questionViewModel.getQuestion()}"></h5>
-                        <p th:text="${questionViewModel.getAnswer()}"></p>
+                    <div th:each="i : ${participation.getNonBlankAnswerIndices()}"}>
+                        <h5 th:text="${book.getQuestions().get(i)}"></h5>
+                        <p th:text="${participation.getAnswers().get(i)}"></p>
                     </div>
                 </div>
                 <div class="publishedComments">
                     <hr/>
-                    <h5 th:text="'Comments about ' + ${questionnaireViewModel.getName()}"></h5>
-                    <div th:each="commentViewModel : ${questionnaireViewModel.getCommentViewModels()}">
-                        <blockquote th:text="${commentViewModel.getComment()} + ' - ' + ${commentViewModel.getAuthor()}"></blockquote>
+                    <h5 th:text="'Comments about ' + ${participation.getParticipant().getFullName()}"></h5>
+                    <div th:each="comment : ${participation.getComments()}">
+                        <blockquote th:text="${comment.getComment()} + ' - ' + ${comment.getAuthor().getFullName()}"></blockquote>
+                        <button th:if="${comment.authorIsCurrentUser()}" class="button">Edit</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="grid-container">
+    <div class="grid-container" th:if="${commentForm != null}">
         <div class="grid-x align-right">
             <div class="cell small-22 medium-16">
                 <hr />
                 <h4>What do you remember about John Doe?<br/><small>Add a comment.</small></h4>
-                <form method="post" th:action="@{/questionnaire/1/addComment}" th:object="${commentForm}">
+                <form method="post" th:action="@{/participation/1/addComment}" th:object="${commentForm}">
                     <label>Your comment
                         <input type="text" th:field="*{comment}" />
                     </label>

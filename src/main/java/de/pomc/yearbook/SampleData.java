@@ -1,8 +1,9 @@
 package de.pomc.yearbook;
 
+import de.pomc.yearbook.participation.Comment;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.book.Book;
-import de.pomc.yearbook.book.Participation;
+import de.pomc.yearbook.participation.Participation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,32 +28,65 @@ public class SampleData {
         new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", "1234", "USER"),
         new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", "1234", "USER")
     );
+    
+    @Getter
+    private static List<String> defaultAnswers = List.of(
+        "Not sure", "Great Question", "Say that again?"
+    );
+
+    @Getter
+    @Setter
+    private static List<Comment> comments = List.of(
+        new Comment("Great Guy", users.get(0)),
+        new Comment("Has a great voice", users.get(1)),
+        new Comment("Is way too slow", users.get(2)),
+        new Comment("small dude", users.get(3))
+    );
+
+    @Getter
+    public static List<Participation> participations = List.of(
+            new Participation((long) 0, users.get(0), false, defaultAnswers, comments),
+            new Participation((long) 1, users.get(1), false, defaultAnswers, comments),
+            new Participation((long) 2, users.get(2), true, defaultAnswers, comments),
+            new Participation((long) 3, users.get(3), false, defaultAnswers, comments),
+            new Participation((long) 4, users.get(1), false, defaultAnswers, comments),
+            new Participation((long) 5, users.get(4), true, defaultAnswers, comments),
+            new Participation((long) 6, users.get(4), false, defaultAnswers, comments),
+            new Participation((long) 7, users.get(3), false, defaultAnswers, comments),
+            new Participation((long) 8, users.get(1), true, defaultAnswers, comments),
+            new Participation((long) 9, users.get(0), true, defaultAnswers, comments),
+            new Participation((long) 10, users.get(4), false, defaultAnswers, comments),
+            new Participation((long) 11, users.get(3), true, defaultAnswers, comments),
+            new Participation((long) 12, users.get(2), false, defaultAnswers, comments),
+            new Participation((long) 13, users.get(1), false, defaultAnswers, comments),
+            new Participation((long) 14, users.get(0), true, defaultAnswers, comments)
+    );
 
     public static List<List<Participation>> participationsList = List.of(
         List.of(
-            new Participation((long) 0, users.get(0), false),
-            new Participation((long) 1, users.get(1), false),
-            new Participation((long) 2, users.get(2), true)
+            participations.get(0),
+            participations.get(1),
+            participations.get(2)
         ),
         List.of(
-            new Participation((long) 3, users.get(3), false),
-            new Participation((long) 4, users.get(1), false),
-            new Participation((long) 5, users.get(4), true)
+            participations.get(3),
+            participations.get(4),
+            participations.get(5)
         ),
         List.of(
-            new Participation((long) 6, users.get(4), false),
-            new Participation((long) 7, users.get(3), false),
-            new Participation((long) 8, users.get(1), true)
+            participations.get(6),
+            participations.get(7),
+            participations.get(8)
         ),
         List.of(
-            new Participation((long) 9, users.get(0), true),
-            new Participation((long) 10, users.get(4), false),
-            new Participation((long) 11, users.get(3), true)
+            participations.get(9),
+            participations.get(10),
+            participations.get(11)
         ),
         List.of(
-            new Participation((long) 12, users.get(2), false),
-            new Participation((long) 13, users.get(1), false),
-            new Participation((long) 14, users.get(0), true)
+            participations.get(12),
+            participations.get(13),
+            participations.get(14)
         )
     );
 
