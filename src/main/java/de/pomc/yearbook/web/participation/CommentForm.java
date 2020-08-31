@@ -1,4 +1,4 @@
-package de.pomc.yearbook.web.questionnaire;
+package de.pomc.yearbook.web.participation;
 
 import lombok.Getter;
 import lombok.Setter;

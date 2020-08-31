@@ -7,7 +7,6 @@ import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.participation.ParticipationService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
-import de.pomc.yearbook.web.questionnaire.CommentForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
