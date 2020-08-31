@@ -3,6 +3,7 @@ package de.pomc.yearbook.participation;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.user.User;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Participation {
     private User participant;
 
     @Getter
+    @Setter
     private List<String> answers = new ArrayList<>();
 
     @Getter

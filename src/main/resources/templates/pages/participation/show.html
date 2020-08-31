@@ -54,7 +54,7 @@
         <div class="grid-x align-right">
             <div class="cell small-22 medium-16">
                 <hr />
-                <h4>What do you remember about John Doe?<br/><small>Add a comment.</small></h4>
+                <h4 th:text="${'What do you remember about ' + participation.getParticipant().getFirstName() +'?'}"></h4>
                 <form method="post" th:action="@{/participation/1/addComment}" th:object="${commentForm}">
                     <label>Your comment
                         <input type="text" th:field="*{comment}" />

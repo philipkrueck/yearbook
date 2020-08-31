@@ -28,4 +28,8 @@ public class ParticipationService {
 
         return comment;
     }
+
+    public Participation save(Participation participation) {
+        return participation;
+    }
 }

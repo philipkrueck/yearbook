@@ -30,6 +30,7 @@ public class SampleData {
     );
     
     @Getter
+    @Setter
     private static List<String> defaultAnswers = List.of(
         "Not sure", "Great Question", "Say that again?"
     );
