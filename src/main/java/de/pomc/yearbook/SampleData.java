@@ -22,11 +22,11 @@ public class SampleData {
 
     @Getter
     public static List<User> users = List.of(
-        new User((long) 0, "Frodo", "Baggins", "frodo.baggins@shire.com", "1234", "USER"),
         new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", "1234", "USER"),
         new User((long) 2, "Gandalf",  "the Gray", "gandalf.gray@hotmail.com", "1234", "USER"),
         new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", "1234", "USER"),
-        new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", "1234", "USER")
+        new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", "1234", "USER"),
+        new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", "1234", "USER")
     );
     
     @Getter

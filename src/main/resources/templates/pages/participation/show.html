@@ -17,8 +17,8 @@
                 <h1 class="h4">View Questionnaire <small th:text="${participation.getParticipant().getFullName()}"></small></h1>
             </div>
             <div class="cell shrink">
-                <a class="button small" href="/questionnaire/1/back">Go back to book</a>
-                <a class="button small" href="/questionnaire/1/edit">edit</a>
+                <a class="button small" th:href="@{/book/{id}(id=${1})}">Go back to book</a>
+                <a class="button small" th:if="${showEditButton}" th:href="@{/participation/{id}/edit(id=${participation.getId()})}">edit</a>
             </div>
         </div>
     </div>

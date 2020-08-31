@@ -5,6 +5,7 @@ import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.participation.Comment;
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.participation.ParticipationService;
+import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.questionnaire.CommentForm;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,14 @@ public class ParticipationController {
     private final ParticipationService participationService;
     private final UserService userService;
 
+    private boolean currentUserIsParticipant(Participation participation) {
+        User user = userService.findCurrentUser();
+        if (user == null) {
+            return false;
+        }
+        return participation.getParticipant().getId().equals(user.getId());
+    }
+
     @GetMapping
     public String showParticipationView(Model model, @PathVariable("id") Long id) {
         Participation participation = participationService.getParticipationWithID(id);
@@ -34,6 +43,8 @@ public class ParticipationController {
 
         // ToDo: add commentForm only if user is part of the book
         model.addAttribute("commentForm", new CommentForm());
+
+        model.addAttribute("showEditButton", currentUserIsParticipant(participation));
 
         return "pages/participation/show";
     }
