@@ -1,5 +1,6 @@
 package de.pomc.yearbook.book;
 
+import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -3,7 +3,7 @@ package de.pomc.yearbook.web.book;
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
-import de.pomc.yearbook.book.Participation;
+import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
@@ -91,7 +91,7 @@ public class BookEditParticipantsController {
 
             // Note: This id will be generated once we have the database up and running
             Long nextID = newParticipants.isEmpty() ? 0 : newParticipants.get(newParticipants.size()-1).getId() + 1;
-            newParticipants.add(new Participation(nextID, newParticipant, false));
+            newParticipants.add(new Participation(nextID, newParticipant, false, SampleData.getDefaultAnswers(), SampleData.getComments()));
 
             book.setParticipations(newParticipants);
         }

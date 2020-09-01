@@ -87,7 +87,7 @@
                         </tr>
                         <tr th:each="participation : ${participations}">
                             <th>book name</th>
-                            <th><a th:href="@{/questionnaire/{id}(id=${participation.getId()})}">view</a></th>
+                            <th><a th:href="@{/participation/{id}(id=${participation.getId()})}">view</a></th>
                         </tr>
                     </table>
                 </div>
@@ -107,15 +107,15 @@
         <div class="grid-x align-center">
             <div class="cell small-16">
                 <h4>Change password</h4>
-                <form action="#">
+                <form method="post" th:action="@{/profile/changePassword}" th:object="${changePasswordForm}">
                     <label>Old password
-                        <input type="password" required>
+                        <input type="password" th:field="*{oldPasword}" required>
                     </label>
                     <label>New password
-                        <input type="password" required>
+                        <input type="password" th:field="*{newPasswordOne}" required>
                     </label>
                     <label>Confirm new password
-                        <input type="password" required>
+                        <input type="password" th:field="*{newPasswordTwo}" required>
                     </label>
                     <div class="stack-for-small small expanded button-group">
                         <input class="success button" type="submit" value="Update Password">

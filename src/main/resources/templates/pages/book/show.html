@@ -58,7 +58,7 @@
                 <div class="cardContent">
                     <p th:if="${participation.isAdmin()}" class="badge">Owner</p>
                     <h4 th:text="${participation.getParticipant().getFullName()}"></h4>
-                    <a class="inlineButton" th:href="@{/questionnaire/{id}(id=${participation.getId()})}">View Questionnaire</a>
+                    <a class="inlineButton" th:href="@{/participation/{id}(id=${participation.getId()})}">View Questionnaire</a>
                 </div>
             </div>
         </div>
