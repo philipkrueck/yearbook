@@ -11,7 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("participation/{id}")
@@ -50,7 +53,11 @@ public class ParticipationController {
 
     @PreAuthorize("authenticated")
     @PostMapping("/addComment")
-    public String addComment(@PathVariable("id") Long id, @ModelAttribute("commentForm") CommentForm commentForm) {
+    public String addComment(@PathVariable("id") Long id, @ModelAttribute("commentForm") @Valid CommentForm commentForm, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+            return "redirect:/participation/{id}";
+        }
 
         // Todo: check that current user is participant of book of this participation
 
