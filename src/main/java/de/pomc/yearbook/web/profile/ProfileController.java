@@ -51,7 +51,7 @@ public class ProfileController {
     }
 
     @PostMapping("/edit")
-    public String editProfile(@ModelAttribute("userForm") UserForm userForm) {
+    public String editProfile(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()){
             return "redirect:/profile";
@@ -67,23 +67,21 @@ public class ProfileController {
 
         userService.save(user);
 
+        //TODO: add feature for new authentication if email was changed
+
         return "redirect:/profile";
     }
 
     @PostMapping("/changePassword")
-    public String changePassword(@ModelAttribute("changePasswordForm") ChangePasswordForm changePasswordForm) {
-        // ToDo: validate ChangePasswordForm
+    public String changePassword(@ModelAttribute("changePasswordForm") @Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()
+            || (!changePasswordForm.getNewPasswordOne().equals(changePasswordForm.getNewPasswordTwo()))
+            || (!passwordEncoder.matches(changePasswordForm.getOldPasword(), user.getPassword()))){
+            return "redirect:/profile#changePassword";
+        }
 
         User user = getCurrentUser();
-
-        // Maybe we can add this logic to the form validation?
-        if (!changePasswordForm.getNewPasswordOne().equals(changePasswordForm.getNewPasswordTwo())) {
-            return "redirect:/profile#changePassword";
-        }
-
-        if (!passwordEncoder.matches(changePasswordForm.getOldPasword(), user.getPassword())) {
-            return "redirect:/profile#changePassword";
-        }
 
         user.setPassword(passwordEncoder.encode(changePasswordForm.getNewPasswordOne()));
         userService.save(user);

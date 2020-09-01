@@ -21,6 +21,7 @@ public class UserForm {
     @NotBlank(message = "Feld darf nicht leer sein.")
     private String lastName;
 
+    @NotBlank(message = "Feld darf nicht leer sein.")
     @Email(message = "Bitte geben Sie eine Email-Adresse ein.")
     private String email;
 
