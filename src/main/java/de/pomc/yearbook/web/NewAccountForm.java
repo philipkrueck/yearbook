@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
@@ -13,9 +14,9 @@ import javax.validation.constraints.Pattern;
 @Setter
 public class NewAccountForm {
 
-    @NotEmpty(message = "Feld darf nicht leer sein.")
+    @NotBlank(message = "Feld darf nicht leer sein.")
     private String firstName;
-    @NotEmpty(message = "Feld darf nicht leer sein.")
+    @NotBlank(message = "Feld darf nicht leer sein.")
     private String lastName;
     @Email(message = "Bitte geben Sie eine Email-Adresse ein.")
     private String email;
