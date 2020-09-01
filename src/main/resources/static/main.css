@@ -77,6 +77,7 @@ h1 .colored, h2 .colored, h3 .colored, h4 .colored, h5 .colored, h6 .colored {
 
 main {
     min-height: 80vh;
+    margin: 60px auto;
 }
 
 .cardWrapper {
@@ -116,6 +117,10 @@ form {
 .button.success, .button.success.disabled, .button.success.disabled:focus, .button.success.disabled:hover, .button.success[disabled], .button.success[disabled]:focus, .button.success[disabled]:hover {
     color: #ffffff;
     background-color: #27ae60;
+}
+
+select {
+    margin-bottom: 0;
 }
 
 /* templates.index
@@ -292,10 +297,6 @@ footer a {
 
 /* templates.pages.profile
 --------------------------------------------- */
-
-#profileContainer {
-    margin: 60px auto;
-}
 
 #avatarImage {
     border-radius: 50%;
