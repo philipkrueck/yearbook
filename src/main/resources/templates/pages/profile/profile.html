@@ -87,7 +87,7 @@
                         </tr>
                         <tr th:each="participation : ${participations}">
                             <th>book name</th>
-                            <th><a th:href="@{/questionnaire/{id}(id=${participation.getId()})}">view</a></th>
+                            <th><a th:href="@{/participation/{id}(id=${participation.getId()})}">view</a></th>
                         </tr>
                     </table>
                 </div>

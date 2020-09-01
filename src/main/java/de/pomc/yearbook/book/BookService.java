@@ -2,11 +2,10 @@ package de.pomc.yearbook.book;
 
 
 import de.pomc.yearbook.SampleData;
-import de.pomc.yearbook.user.User;
+import de.pomc.yearbook.participation.Participation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
