@@ -21,6 +21,7 @@
                         <form method="post" th:action="@{/newAccount}" th:object="${newAccountForm}">
                             <label>First Name
                                 <input type="text" th:field="*{firstName}">
+                                <span class="some-danger ui class here" th:errors="*{firstName}"/>
                             </label>
                             <label>Last name
                                 <input type="text" th:field="*{lastName}">

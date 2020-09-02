@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.swing.*;
 import javax.validation.Valid;
 
 @Controller
@@ -74,14 +75,13 @@ public class ProfileController {
 
     @PostMapping("/changePassword")
     public String changePassword(@ModelAttribute("changePasswordForm") @Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult) {
+        User user = getCurrentUser();
 
         if(bindingResult.hasErrors()
             || (!changePasswordForm.getNewPasswordOne().equals(changePasswordForm.getNewPasswordTwo()))
             || (!passwordEncoder.matches(changePasswordForm.getOldPasword(), user.getPassword()))){
             return "redirect:/profile#changePassword";
         }
-
-        User user = getCurrentUser();
 
         user.setPassword(passwordEncoder.encode(changePasswordForm.getNewPasswordOne()));
         userService.save(user);

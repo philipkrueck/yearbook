@@ -47,7 +47,7 @@ public class IndexController {
     @PostMapping("newAccount")
     public String createAccount(@ModelAttribute("newAccountForm") @Valid NewAccountForm newAccountForm, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return "redirect:";
+            return "index";
         }
 
         if(userService.findUserByEmail(newAccountForm.getEmail()) != null){
