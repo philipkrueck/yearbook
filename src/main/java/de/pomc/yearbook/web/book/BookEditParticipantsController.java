@@ -42,9 +42,9 @@ public class BookEditParticipantsController {
 
         // TODO: Check if current user is allowed to perform this operation
 
-        List<Participation> newPartcipations = new ArrayList<>(book.getParticipations());
-        newPartcipations.remove(participantId);
-        book.setParticipations(newPartcipations);
+        // List<Participation> newPartcipations = new ArrayList<>(book.getParticipations());
+        // newPartcipations.remove(participantId);
+        // book.setParticipations(newPartcipations);
 
         redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
         return "redirect:/book/{id}/edit/participants";
@@ -59,7 +59,7 @@ public class BookEditParticipantsController {
 
 
         model.addAttribute("isInCreationProcess", isInCreationProcess);
-        model.addAttribute("participations", book.getParticipations());
+        // model.addAttribute("participations", book.getParticipations());
         model.addAttribute("book", book);
         model.addAttribute("addUserForm", new AddUserForm());
 
@@ -85,15 +85,15 @@ public class BookEditParticipantsController {
         if (newParticipant == null) {
             System.out.println("Could not find email in DB");
         } else {
-            List<Participation> newParticipants = new ArrayList<>(book.getParticipations());
+            // List<Participation> newParticipants = new ArrayList<>(book.getParticipations());
 
             // ToDo: check that participations doesn't include user
 
             // Note: This id will be generated once we have the database up and running
-            Long nextID = newParticipants.isEmpty() ? 0 : newParticipants.get(newParticipants.size()-1).getId() + 1;
-            newParticipants.add(new Participation(nextID, newParticipant, false, SampleData.getDefaultAnswers(), SampleData.getComments()));
+            // Long nextID = newParticipants.isEmpty() ? 0 : newParticipants.get(newParticipants.size()-1).getId() + 1;
+            // newParticipants.add(new Participation(nextID, newParticipant, false, SampleData.getDefaultAnswers(), SampleData.getComments()));
 
-            book.setParticipations(newParticipants);
+            // book.setParticipations(newParticipants);
         }
 
         redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);

@@ -2,44 +2,44 @@ package de.pomc.yearbook.book;
 
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+@Entity
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Book {
 
-    @Getter
+    @Id
+    @GeneratedValue
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Getter
-    @Setter
+    @Basic(optional = false)
     private String name;
 
-    @Getter
-    @Setter
+    @Basic(optional = false)
     private String description;
 
-    @Getter
+    @ManyToOne(optional = false)
     private User owner;
 
-    @Getter
-    @Setter
-    private List <String> questions;
+    // TODO: Add relationship here
+    @Transient
+    private List<String> questions;
 
-    @Getter
-    @Setter
-    private List <Participation> participations;
+    // private List <Participation> participations;
 
-    @Getter
-    @Setter
+    @Basic(optional = false)
     private boolean published;
 
     // TODO: add image
 
+    // ToDo: remove this init once SampleData is gone
     public Book(Long id, String name, String description, User owner, boolean published) {
         this.id = id;
         this.name = name;
@@ -47,7 +47,26 @@ public class Book {
         this.owner = owner;
         this.published = published;
         this.questions = new ArrayList<>();
-        this.participations = new ArrayList<>();
+        // this.participations = new ArrayList<>();
+    }
+
+    // ToDo: remove this init once SampleData is gone
+    public Book(Long id, String name, String description, User owner, List<String> questions, boolean published) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+        this.published = published;
+        this.questions = new ArrayList<>();
+        // this.participations = new ArrayList<>();
+    }
+
+    public Book(String name, String description, User owner) {
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+        this.published = false;
+        this.questions = new ArrayList<>();
     }
 
     public boolean currentUserIsOwner() {
@@ -55,7 +74,8 @@ public class Book {
     }
 
     public boolean currentUserIsAdmin() {
-        return participations.stream().
-                anyMatch(participant -> participant.getParticipant().getEmail().equals(User.getCurrentUsername()) && participant.isAdmin());
+        return true;
+                //participations.stream().
+                //anyMatch(participant -> participant.getParticipant().getEmail().equals(User.getCurrentUsername()) && participant.isAdmin());
     }
 }

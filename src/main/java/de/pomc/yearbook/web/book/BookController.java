@@ -30,7 +30,7 @@ public class BookController {
 
         model.addAttribute("book", book);
         model.addAttribute("questions", book.getQuestions());
-        model.addAttribute("participations", book.getParticipations());
+        // model.addAttribute("participations", book.getParticipations());
 
         return "pages/book/show";
     }
