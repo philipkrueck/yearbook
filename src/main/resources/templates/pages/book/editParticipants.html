@@ -6,7 +6,7 @@
 <body>
 
 <!-- header -------------------------------- -->
-<header th:insert="fragments/header :: header"></header>
+<header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
 <!-- #progressBar -------------------------------- -->
 <div th:if="${isInCreationProcess}">
@@ -91,6 +91,9 @@
         </div>
     </div>
 </div>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 
 </body>
 </html>
