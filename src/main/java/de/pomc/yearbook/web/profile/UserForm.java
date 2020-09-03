@@ -22,4 +22,6 @@ public class UserForm {
     private String website;
 
     private String bio;
+
+    private byte[] image;
 }

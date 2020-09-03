@@ -5,14 +5,17 @@ import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/profile")
@@ -33,13 +36,18 @@ public class ProfileController {
         return user;
     }
 
+    @SneakyThrows
     @PreAuthorize("authenticated")
     @GetMapping
     public String showProfile(Model model) {
         User user = getCurrentUser();
 
+        byte[] encodeBase64 = Base64.encode(user.getImage());
+        String base64Encoded = new String(encodeBase64, "UTF-8");
+
         model.addAttribute("userForm", UserFormConverter.userForm(user));
         model.addAttribute("user", user);
+        model.addAttribute("userImage", base64Encoded);
         model.addAttribute("books", bookService.getBooksOfCurrentUser());
         model.addAttribute("participations", bookService.getParticipationsOfCurrentUser());
         model.addAttribute("changePasswordForm", new ChangePasswordForm());
@@ -47,11 +55,14 @@ public class ProfileController {
         return "pages/profile/profile";
     }
 
+    @SneakyThrows
     @PostMapping("/edit")
-    public String editProfile(@ModelAttribute("userForm") UserForm userForm) {
+    public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, final @RequestParam("image") MultipartFile image) {
 
         // ToDo: Validate userForm
         User user = getCurrentUser();
+
+        userForm.setImage(image.getBytes());
 
         UserFormConverter.update(user, userForm);
 
