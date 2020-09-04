@@ -76,7 +76,6 @@ h1 .colored, h2 .colored, h3 .colored, h4 .colored, h5 .colored, h6 .colored {
 --------------------------------------------- */
 
 main {
-    min-height: 80vh;
     margin: 60px auto;
 }
 
@@ -123,8 +122,22 @@ select {
     margin-bottom: 0;
 }
 
+.radioWrapper {
+    display: flex;
+    align-items: flex-end;
+}
+
+fieldset label {
+    line-height: 1.2;
+    margin: 10px;
+}
+
 /* templates.index
 --------------------------------------------- */
+
+#indexHero {
+    margin-top: 0;
+}
 
 #indexHero > .grid-x {
     height: 100vh;
