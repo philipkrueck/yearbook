@@ -17,8 +17,7 @@
 
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
-            <img id="avatarImage" th:src="*{'data:image/jpeg;base64,'+ userImage}">
-            <!-- < img            th:src="*{'data:image/png;base64,'+image}" alt="" />-->
+            <img id="avatarImage" th:src="${(userImage != null && !#strings.isEmpty(userImage)) ? 'data:image/jpeg;base64,'+ userImage : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
             <h1 id="profileTitle"><span th:text="${user.getFullName()}" class="h4"></span> <br/> <span th:text="${user.getEmail()}" class="h5"></span></h1>
             <p th:text="${user.getBio()}"></p>
             <p th:text="${user.getTwitterHandle()}"></p>

@@ -42,12 +42,16 @@ public class ProfileController {
     public String showProfile(Model model) {
         User user = getCurrentUser();
 
-        byte[] encodeBase64 = Base64.encode(user.getImage());
-        String base64Encoded = new String(encodeBase64, "UTF-8");
-
         model.addAttribute("userForm", UserFormConverter.userForm(user));
         model.addAttribute("user", user);
-        model.addAttribute("userImage", base64Encoded);
+
+        byte[] userImage = user.getImage();
+        if (userImage != null && userImage.length > 0) {
+            byte[] encodeBase64 = Base64.encode(user.getImage());
+            String base64Encoded = new String(encodeBase64, "UTF-8");
+            model.addAttribute("userImage", base64Encoded);
+        }
+
         model.addAttribute("books", bookService.getBooksOfCurrentUser());
         model.addAttribute("participations", bookService.getParticipationsOfCurrentUser());
         model.addAttribute("changePasswordForm", new ChangePasswordForm());
