@@ -48,16 +48,18 @@
             <div th:each="participation : ${participations}" class="cell small-24 cardWrapper">
                 <div class="grid-x align-middle grid-padding-x">
                     <div class="cell shrink">
-                        <a href="/profile"><img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4"></a>
+                        <img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4">
                     </div>
                     <div class="cell auto">
                         <b th:text="${participation.getParticipant().getFullName()}"></b> | <span th:text="${participation.getParticipant().getEmail()}"></span>
                     </div>
                     <div class="cell shrink">
-                        <select>
-                            <option value="owner">Owner</option>
-                            <option value="participant">Participant</option>
-                        </select>
+                        <form action="#">
+                            <select onchange="this.form.submit()">
+                                <option value="owner">Owner</option>
+                                <option value="participant">Participant</option>
+                            </select>
+                        </form>
                     </div>
                     <div class="cell shrink">
                         <button type="button" class="alert button">Delete</button>
