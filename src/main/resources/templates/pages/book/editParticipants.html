@@ -66,6 +66,7 @@
                     </tbody>
                 </table>
                 <form method="post" th:action="@{/book/{id}/edit/participants/new(isInCreationProcess=${isInCreationProcess}, id=${book.getId()})}" th:object="${addUserForm}">
+                    <span class="formError" th:errors="*{email}"/>
                     <input type="text" placeholder="Enter email..." th:field="*{email}">
                     <input type="submit" class="button" value="Add participant">
                 </form>

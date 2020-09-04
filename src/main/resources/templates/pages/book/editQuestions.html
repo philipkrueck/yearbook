@@ -56,6 +56,7 @@
                 <form method="post" th:action="@{/book/{id}/edit/questions/new(isInCreationProcess=${isInCreationProcess} ,id=${book.getId()})}" th:object="${newQuestionForm}">
                 <div class="cell small-24 questionBorderWrap">
                     <div class="questionInner">
+                        <span class="formError" th:errors="*{question}"/>
                         <input type="text" placeholder="Type to add question title" th:field="*{question}"/>
                     </div>
                 </div>
