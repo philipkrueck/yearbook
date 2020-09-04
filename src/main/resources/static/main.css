@@ -135,7 +135,7 @@ fieldset label {
 /* templates.index
 --------------------------------------------- */
 
-#indexHero {
+#indexHero, #loginWrapper {
     margin-top: 0;
 }
 
@@ -297,6 +297,32 @@ footer a {
     color: #f1f1f1;
 }
 
+/* sideMenu
+--------------------------------------------- */
+
+nav.sideMenu {
+    background-color: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+}
+
+nav.sideMenu a {
+    display: block;
+    padding: 8px 16px;
+    color: #111111;
+    font-size: 11px;
+    border-bottom: 1px solid #eaecef;
+}
+
+nav.sideMenu a:hover {
+    background-color: #f6f8fa;
+}
+
+nav.sideMenu a.current {
+    border-left: 2px solid #e74c3c;
+    cursor: default;
+}
+
 /* templates.pages.login
 --------------------------------------------- */
 
@@ -400,10 +426,6 @@ footer a {
 
 #createBookForm .grid-container {
     margin: 60px auto 70px;
-}
-
-img.bookAvater {
-    border-radius: 50%;
 }
 
 .bookAvatarUpload {
