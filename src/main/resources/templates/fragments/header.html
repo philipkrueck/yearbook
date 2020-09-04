@@ -8,10 +8,10 @@
             <a class="logo" href="/">Yearbook</a>
         </div>
 
-        <a id="headerSecCTA" href="/login">Sign in</a>
-        <a id="headerCTA" href="/">Sign up</a>
+        <a sec:authorize="anonymous" id="headerSecCTA" href="/login">Sign in</a>
+        <a sec:authorize="anonymous" id="headerCTA" href="/">Sign up</a>
 
-        <div class="cell shrink">
+        <div sec:authorize="authenticated" class="cell shrink">
             <ul class="dropdown menu" data-dropdown-menu>
                 <li>
                     <a href="/profile"><img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4"></a>

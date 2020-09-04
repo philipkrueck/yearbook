@@ -11,8 +11,8 @@
 <!-- header -------------------------------- -->
 <header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
-<!-- #profileContainer -------------------------------- -->
-<div class="grid-container" id="profileContainer">
+<!-- main -------------------------------- -->
+<main class="grid-container">
     <div class="grid-x grid-margin-x">
 
         <!-- Sidebar -------------------------------- -->
@@ -60,7 +60,7 @@
         </aside>
 
         <!-- Main -------------------------------- -->
-        <main class="cell small-12 medium-17 medium-offset-1">
+        <div class="cell small-12 medium-17 medium-offset-1">
             <div class="grid-x" id="ownedBooks">
                 <div class="cell small-24">
                     <h3>My Books</h3>
@@ -92,9 +92,9 @@
                     </table>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
-</div>
+</main>
 
 <!-- #overlay -------------------------------- -->
 <div class="grid-wrapper" id="changePassword">
