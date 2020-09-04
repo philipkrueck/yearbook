@@ -38,7 +38,7 @@ public class BookCreationController {
     public String submitNewBookCreation(@ModelAttribute("bookForm") @Valid BookForm bookForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if(bindingResult.hasErrors()){
-            return "redirect:/book/create";
+            return "/pages/book/create";
         }
 
         // NOTE: once we have the DB, the id will be generated
