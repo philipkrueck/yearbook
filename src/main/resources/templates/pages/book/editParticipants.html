@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
     <title id="pageTitle">Add Book | Yearbook</title>
 </head>
 <body>
 
 <!-- header -------------------------------- -->
-<header th:insert="fragments/header :: header"></header>
+<header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
 <!-- #progressBar -------------------------------- -->
 <div th:if="${isInCreationProcess}">
@@ -32,50 +32,47 @@
     </div>
 </div>
 
-    <div class="grid-container" id="createThirdStep">
-
-        <h1 th:text="${book.getName()}"></h1>
-
+<!-- .subheader -------------------------------- -->
+<div class="grid-wrapper subheader">
+    <div class="grid-container">
         <div class="grid-x">
-            <div class="cell small-24">
-                <h4>Invite participants</h4>
-            </div>
-            <div class="cell small-24">
-                <table th:if="${!participations.isEmpty()}">
-                    <thead>
-                    <tr>
-                        <th width="80">ICON</th>
-                        <th>Name</th>
-                        <th width="400">Email</th>
-                        <th width="100">isOwner</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="participation : ${participations}">
-                        <td>...</td>
-                        <td th:text="${participation.getParticipant().getFullName()}"></td>
-                        <td th:text="${participation.getParticipant().getEmail()}"></td>
-                        <td th:text="${participation.isAdmin()}"></td>
-                        <td>
-                            <form method="post" th:action="@{/book/{id}/edit/participants/delete/{participantId}(isInCreationProcess=${isInCreationProcess}, id=${book.getId()}, participantId=${participation.getId()})}">
-                                <button type="submit" class="button">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <form method="post" th:action="@{/book/{id}/edit/participants/new(isInCreationProcess=${isInCreationProcess}, id=${book.getId()})}" th:object="${addUserForm}">
-                    <input type="text" placeholder="Enter email..." th:field="*{email}">
-                    <input type="submit" class="button" value="Add participant">
-                </form>
-
-                <a th:if="${!isInCreationProcess}" class="button" th:href="@{/book/{id}(id=${book.getId()})}">Back to Book</a>
-
-            </div>
+            <h1 class="h3"><small th:text="${book.getName()}"></small><br />Invite participants</h1>
         </div>
     </div>
+</div>
 
+<!-- main -------------------------------- -->
+<main class="grid-wrapper">
+    <div class="grid-container">
+        <div th:if="${!participations.isEmpty()}" class="grid-x">
+            <div th:each="participation : ${participations}" class="cell small-24 cardWrapper">
+                <div class="grid-x align-middle grid-padding-x">
+                    <div class="cell shrink">
+                        <a href="/profile"><img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4"></a>
+                    </div>
+                    <div class="cell auto">
+                        <b th:text="${participation.getParticipant().getFullName()}"></b> | <span th:text="${participation.getParticipant().getEmail()}"></span>
+                    </div>
+                    <div class="cell shrink">
+                        <select>
+                            <option value="owner">Owner</option>
+                            <option value="participant">Participant</option>
+                        </select>
+                    </div>
+                    <div class="cell shrink">
+                        <button type="button" class="alert button">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-x">
+            <form method="post" th:action="@{/book/{id}/edit/participants/new(isInCreationProcess=${isInCreationProcess}, id=${book.getId()})}" th:object="${addUserForm}">
+                <input type="text" placeholder="Enter email..." th:field="*{email}">
+                <input type="submit" class="button" value="Add participant">
+            </form>
+        </div>
+    </div>
+</main>
 
 <!-- goToNextStep -------------------------------- -->
 <div class="grid-wrapper">
@@ -91,6 +88,9 @@
         </div>
     </div>
 </div>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 
 </body>
 </html>
