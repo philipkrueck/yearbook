@@ -6,7 +6,7 @@
 <body>
 
 <!-- header -------------------------------- -->
-<header th:insert="fragments/header :: header"></header>
+<header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
 <!-- #progressBar -------------------------------- -->
 <div class="grid-wrapper">
@@ -50,6 +50,19 @@
                         <span class="formError" th:errors="*{description}"/>
                         <input type="text" th:field="*{description}"/>
                     </label>
+                    <hr />
+                    <fieldset>
+                        <legend>Choose Visibility</legend>
+                        <div class="cell radioWrapper">
+                            <input type="radio" name="visibility" value="Public" id="visibilityPublic" required>
+                            <label for="visibilityPublic"><strong>Public</strong><br />Your book will be visible to all visitors on Yearbook.</label>
+                        </div>
+                        <div class="cell radioWrapper">
+                            <input type="radio" name="visibility" value="Private" id="visibilityPrivate">
+                            <label for="visibilityPrivate"><strong>Private</strong><br />Your book will only be visible to you and your participants.</label>
+                        </div>
+                    </fieldset>
+                    <hr/>
                 </div>
             </div>
         </div>
