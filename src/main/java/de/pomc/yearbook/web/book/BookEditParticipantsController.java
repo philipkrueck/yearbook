@@ -71,10 +71,9 @@ public class BookEditParticipantsController {
     @PostMapping("/new")
     public String addNewParticipant(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("addUserForm") @Valid AddUserForm addUserForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if(bindingResult.hasErrors()){
-            redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
-            return "redirect:/book/{id}/edit/participants";
-        }
+        //if(bindingResult.hasErrors()){
+            //return "/pages/book/{id}/edit/participants";
+        //}
 
         Book book = getBook(id);
 

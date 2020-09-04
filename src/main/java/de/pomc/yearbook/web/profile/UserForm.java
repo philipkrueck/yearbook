@@ -25,7 +25,6 @@ public class UserForm {
     @Email(message = "Bitte geben Sie eine Email-Adresse ein.")
     private String email;
 
-    //@Pattern(regexp = "^@")
     private String twitterHandle;
 
     private String location;

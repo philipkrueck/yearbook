@@ -52,9 +52,9 @@ public class BookEditQuestionsController {
     @PostMapping("/new")
     public String addNewQuestion(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("newQuestionForm") @Valid NewQuestionForm newQuestionForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if(bindingResult.hasErrors()){
-            return "redirect:/book/{id}/edit/questions?isInCreationProcess=true";
-        }
+        //if(bindingResult.hasErrors()){
+           // return "/pages/book/{id}/edit/questions";
+        //}
 
         Book book = getBook(id);
 

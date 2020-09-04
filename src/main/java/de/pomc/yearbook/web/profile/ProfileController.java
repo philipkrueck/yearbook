@@ -55,13 +55,13 @@ public class ProfileController {
     public String editProfile(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()){
-            return "redirect:/profile";
+            return "pages/profile/profile";
         }
 
         User user = userService.findCurrentUser();
 
         if(userService.findUserByEmail(userForm.getEmail()) != null && !user.getEmail().equals(userForm.getEmail())){
-            return "redirect:/profile?EmailExists";
+            return "pages/profile/profile?EmailExists";
         }
 
         UserFormConverter.update(user, userForm);
@@ -80,7 +80,7 @@ public class ProfileController {
         if(bindingResult.hasErrors()
             || (!changePasswordForm.getNewPasswordOne().equals(changePasswordForm.getNewPasswordTwo()))
             || (!passwordEncoder.matches(changePasswordForm.getOldPasword(), user.getPassword()))){
-            return "redirect:/profile#changePassword";
+            return "pages/profile/profile#changePassword";
         }
 
         user.setPassword(passwordEncoder.encode(changePasswordForm.getNewPasswordOne()));

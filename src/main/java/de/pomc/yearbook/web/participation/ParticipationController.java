@@ -55,9 +55,9 @@ public class ParticipationController {
     @PostMapping("/addComment")
     public String addComment(@PathVariable("id") Long id, @ModelAttribute("commentForm") @Valid CommentForm commentForm, BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()){
-            return "redirect:/participation/{id}";
-        }
+       // if(bindingResult.hasErrors()){
+       //     return "pages/participation/show";
+        // }
 
         // Todo: check that current user is participant of book of this participation
 
