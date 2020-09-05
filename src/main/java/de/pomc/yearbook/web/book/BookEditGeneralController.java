@@ -17,7 +17,8 @@ public class BookEditGeneralController {
 
     private final BookService bookService;
 
-    private Book getBook(Long id) {
+    @ModelAttribute("book")
+    public Book getBook(Long id) {
         Book book = bookService.getBookWithID(id);
 
         if (book == null) {
@@ -34,11 +35,7 @@ public class BookEditGeneralController {
     @PreAuthorize("authenticated")
     @GetMapping
     public String showEditGeneralInformation(@PathVariable("id") Long id, Model model) {
-        Book book = getBook(id);
-
-        model.addAttribute("book", book);
-        model.addAttribute("bookForm", BookFormConverter.bookForm(book));
-
+        model.addAttribute("bookForm", BookFormConverter.bookForm(getBook(id)));
         return "pages/book/editGeneral";
     }
 
@@ -46,7 +43,7 @@ public class BookEditGeneralController {
     @PostMapping("/update")
     public String updateGeneralInformation(@PathVariable("id") Long id, @ModelAttribute("bookForm") BookForm bookForm) {
         // ToDo: validate BookForm
-
+        
         Book book = getBook(id);
         BookFormConverter.update(book, bookForm);
 
