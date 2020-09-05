@@ -43,7 +43,7 @@ public class BookEditGeneralController {
     @PostMapping("/update")
     public String updateGeneralInformation(@PathVariable("id") Long id, @ModelAttribute("bookForm") BookForm bookForm) {
         // ToDo: validate BookForm
-        
+
         Book book = getBook(id);
         BookFormConverter.update(book, bookForm);
 
