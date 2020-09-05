@@ -5,6 +5,7 @@ package de.pomc.yearbook.dummyData;
 
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
+import de.pomc.yearbook.participation.Comment;
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.participation.ParticipationService;
 import de.pomc.yearbook.user.User;
@@ -27,18 +28,26 @@ public class InMemoryTestingData {
     private final ParticipationService participationService;
     private final PasswordEncoder passwordEncoder;
 
+    private User sam;
+    private User gandalf;
+    private User legolas;
+    private User gimli;
+    private User frodo;
+
+
     @EventListener(ApplicationStartedEvent.class)
     public void init() {
+        sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("1234"), "USER");
+        gandalf = new User((long) 2, "Gandalf",  "the Gray", "gandalf.gray@hotmail.com", passwordEncoder.encode("1234"), "USER");
+        legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("1234"), "USER");
+        gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("1234"), "USER");
+        frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
+
         // init users
         if (!userService.findAll().isEmpty()) {
             // prevent duplicate initialization if DB is not empty
             return;
         }
-        User sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("1234"), "USER");
-        User gandalf = new User((long) 2, "Gandalf",  "the Gray", "gandalf.gray@hotmail.com", passwordEncoder.encode("1234"), "USER");
-        User legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("1234"), "USER");
-        User gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("1234"), "USER");
-        User frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
 
         List.of(sam, gandalf, legolas, gimli, frodo)
                 .forEach(userService::save);
@@ -115,8 +124,19 @@ public class InMemoryTestingData {
 
     private void addParticipations(List<Participation> participations, Book book) {
         for (Participation participation: participations) {
+            addSomeComments(participation);
             bookService.addParticipation(book, participation);
         }
+    }
+
+    // ToDo: Maybe we can generate some comments here instead of using static comments
+    private void addSomeComments(Participation participation) {
+        List<Comment> comments = List.of(
+                new Comment("Great guy", sam),
+                new Comment("brilliant person", gandalf)
+        );
+
+        comments.forEach(comment -> participationService.addComment(comment, participation));
     }
 
 }

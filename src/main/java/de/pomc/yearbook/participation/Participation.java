@@ -35,7 +35,7 @@ public class Participation {
 
     @Getter
     @Setter
-    @Transient // ToDo: add relationship here
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "participation") // ToDo: add relationship here
     private List<Comment> comments = new ArrayList<>();
 
     @Getter
