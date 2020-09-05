@@ -6,10 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -45,6 +42,9 @@ public class User {
     private String website;
 
     private String bio;
+
+    @Lob
+    private byte[] image;
 
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
