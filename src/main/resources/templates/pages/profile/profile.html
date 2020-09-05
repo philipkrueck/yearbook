@@ -17,7 +17,7 @@
 
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
-            <img id="avatarImage" src="https://via.placeholder.com/400x400.webp?text=Profilpic">
+            <img id="avatarImage" th:src="${(userImage != null && !#strings.isEmpty(userImage)) ? 'data:image/jpeg;base64,'+ userImage : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
             <h1 id="profileTitle"><span th:text="${user.getFullName()}" class="h4"></span> <br/> <span th:text="${user.getEmail()}" class="h5"></span></h1>
             <p th:text="${user.getBio()}"></p>
             <p th:text="${user.getTwitterHandle()}"></p>
@@ -27,9 +27,9 @@
             <button class="button small medium-expanded profileTrigger" id="editProfileTrigger">Edit profile</button>
             <button class="button small medium-expanded passwordTrigger">Change password</button>
 
-            <form id="editProfile" th:action="@{/profile/edit}" th:object="${userForm}" method="post">
+            <form id="editProfile" th:action="@{/profile/edit}" th:object="${userForm}" method="post" enctype="multipart/form-data">
                 <label>Avatar
-                    <input type="file" accept="image/*" value="Upload a photo...">
+                    <input type="file" accept="image/*" value="Upload a photo..." th:field="*{image}">
                 </label>
                 <label>Bio
                     <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
