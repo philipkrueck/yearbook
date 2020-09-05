@@ -6,7 +6,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,12 +34,22 @@ public class Book {
     @Transient
     private List<String> questions;
 
-    // private List <Participation> participations;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "book")
+    private Set<Participation> participations;
 
     @Basic(optional = false)
     private boolean published;
 
     // TODO: add image
+
+    public Book(String name, String description, User owner) {
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+        this.published = false;
+        this.questions = new ArrayList<>();
+        this.participations = new HashSet<>();
+    }
 
     // ToDo: remove this init once SampleData is gone
     public Book(Long id, String name, String description, User owner, boolean published) {
@@ -59,14 +71,6 @@ public class Book {
         this.published = published;
         this.questions = new ArrayList<>();
         // this.participations = new ArrayList<>();
-    }
-
-    public Book(String name, String description, User owner) {
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.published = false;
-        this.questions = new ArrayList<>();
     }
 
     public boolean currentUserIsOwner() {

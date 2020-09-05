@@ -34,6 +34,11 @@ public class BookService {
         return bookRepository.findBooksByOwner(currentUser);
     }
 
+    public void addParticipation(Book book, Participation participation) {
+        participation.setBook(book);
+        book.getParticipations().add(participation);
+    }
+
     public Book getBookWithID(Long id) {
         return bookRepository.findById(id).orElse(null);
     }

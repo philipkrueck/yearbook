@@ -5,6 +5,7 @@ package de.pomc.yearbook.dummyData;
 
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
+import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.participation.ParticipationService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
@@ -55,11 +56,67 @@ public class InMemoryTestingData {
         Book bookFour = new Book("MIT Robotics 2020", "description", gimli);
         Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo);
 
+        // init participations
+        if (!bookService.findAll().isEmpty()) {
+            // prevent duplicate initialization if DB is not empty
+            return;
+        }
+
+        List<Participation> bookOneParticipations = List.of(
+            new Participation(sam, false),
+            new Participation(gandalf, false),
+            new Participation(legolas, false),
+            new Participation(gimli, false),
+            new Participation(frodo, true)
+        );
+
+        List<Participation> bookTwoParticipations = List.of(
+            new Participation(sam, true),
+            new Participation(gandalf, true),
+            new Participation(legolas, false),
+            new Participation(gimli, false),
+            new Participation(frodo, true)
+        );
+
+        List<Participation> bookThreeParticipations = List.of(
+            new Participation(sam, false),
+            new Participation(gandalf, true),
+            new Participation(legolas, true),
+            new Participation(gimli, false),
+            new Participation(frodo, true)
+        );
+
+        List<Participation> bookFourParticipations = List.of(
+            new Participation(sam, false),
+            new Participation(gandalf, false),
+            new Participation(legolas, true),
+            new Participation(gimli, true),
+            new Participation(frodo, false)
+        );
+
+        List<Participation> bookFiveParticipations = List.of(
+            new Participation(sam, false),
+            new Participation(gandalf, false),
+            new Participation(legolas, false),
+            new Participation(gimli, true),
+            new Participation(frodo, true)
+        );
+
+        addParticipations(bookOneParticipations, bookOne);
+        addParticipations(bookTwoParticipations, bookTwo);
+        addParticipations(bookThreeParticipations, bookThree);
+        addParticipations(bookFourParticipations, bookFour);
+        addParticipations(bookFiveParticipations, bookFive);
+
         List.of(bookOne, bookTwo, bookThree, bookFour, bookFive)
                 .forEach(bookService::save);
 
-        // init participations
+    }
 
+    private void addParticipations(List<Participation> participations, Book book) {
+        for (Participation participation: participations) {
+            bookService.addParticipation(book, participation);
+        }
     }
 
 }

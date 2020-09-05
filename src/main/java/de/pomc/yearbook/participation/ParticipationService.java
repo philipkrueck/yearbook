@@ -13,6 +13,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ParticipationService {
 
+    private final ParticipationRepository participationRepository;
+
+    public Participation save(Participation participation) {
+        return participationRepository.save(participation);
+    }
+
     public Participation getParticipationWithID(Long id) {
         return SampleData.participations
                 .stream()
@@ -27,9 +33,5 @@ public class ParticipationService {
         SampleData.setComments(comments);
 
         return comment;
-    }
-
-    public Participation save(Participation participation) {
-        return participation;
     }
 }
