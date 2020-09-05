@@ -7,14 +7,13 @@ import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.util.Base64;
 import javax.validation.Valid;
 
 @Controller
@@ -36,7 +35,7 @@ public class ProfileController {
         return user;
     }
 
-    @SneakyThrows
+    @SneakyThrows // is used here as the encoding must always succeed and would indicate a programming error otherwise
     @PreAuthorize("authenticated")
     @GetMapping
     public String showProfile(Model model) {
@@ -47,7 +46,7 @@ public class ProfileController {
 
         byte[] userImage = user.getImage();
         if (userImage != null && userImage.length > 0) {
-            byte[] encodeBase64 = Base64.encode(user.getImage());
+            byte[] encodeBase64 = Base64.getEncoder().encode(user.getImage());
             String base64Encoded = new String(encodeBase64, "UTF-8");
             model.addAttribute("userImage", base64Encoded);
         }
@@ -59,7 +58,7 @@ public class ProfileController {
         return "pages/profile/profile";
     }
 
-    @SneakyThrows
+    @SneakyThrows // ... is used here as the encoding must always succeed and would indicate a programming error otherwise
     @PostMapping("/edit")
     public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, final @RequestParam("image") MultipartFile image) {
 

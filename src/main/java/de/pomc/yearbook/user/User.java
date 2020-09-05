@@ -43,7 +43,7 @@ public class User {
 
     private String bio;
 
-    @Column(columnDefinition = "BLOB")
+    @Lob
     private byte[] image;
 
     public User(String firstName, String lastName, String email, String password) {
