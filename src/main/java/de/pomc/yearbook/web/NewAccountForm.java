@@ -16,10 +16,14 @@ public class NewAccountForm {
 
     @NotBlank(message = "Feld darf nicht leer sein.")
     private String firstName;
+
     @NotBlank(message = "Feld darf nicht leer sein.")
     private String lastName;
+
+    @NotBlank(message = "Feld darf nicht leer sein.")
     @Email(message = "Bitte geben Sie eine Email-Adresse ein.")
     private String email;
+
     @Pattern(
             regexp = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})",
             message = "Das Passwort muss zwischen 8 und 40 Zeichen lang sein, " +
