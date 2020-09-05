@@ -28,6 +28,7 @@ public class InMemoryTestingData {
 
     @EventListener(ApplicationStartedEvent.class)
     public void init() {
+        // init users
         if (!userService.findAll().isEmpty()) {
             // prevent duplicate initialization if DB is not empty
             return;
@@ -41,16 +42,23 @@ public class InMemoryTestingData {
         List.of(sam, gandalf, legolas, gimli, frodo)
                 .forEach(userService::save);
 
+        // init books
+        if (!bookService.findAll().isEmpty()) {
+            // prevent duplicate initialization if DB is not empty
+            return;
+        }
         List<String> questions = List.of("question one", "question two", "question three");
 
-        Book bookOne = new Book("Title", "description", sam);
-        Book bookTwo = new Book("Title", "description", gandalf);
-        Book bookThree = new Book("Title", "description", legolas);
-        Book bookFour = new Book("Title", "description", gimli);
-        Book bookFive = new Book("Title", "description", frodo);
+        Book bookOne = new Book("Blue Mountain State 2020", "description", sam);
+        Book bookTwo = new Book("HSBA BI '21", "description", gandalf);
+        Book bookThree = new Book("Stanford Law '19", "description", legolas);
+        Book bookFour = new Book("MIT Robotics 2020", "description", gimli);
+        Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo);
 
         List.of(bookOne, bookTwo, bookThree, bookFour, bookFive)
                 .forEach(bookService::save);
+
+        // init participations
 
     }
 

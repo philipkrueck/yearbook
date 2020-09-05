@@ -21,6 +21,10 @@ public class BookService {
     private final BookRepository bookRepository;
     private final UserService userService;
 
+    public List<Book> findAll() {
+        return bookRepository.findAll();
+    }
+
     public List<Book> getBooksOfCurrentUser() {
         User currentUser = userService.findCurrentUser();
         if (currentUser == null) {
