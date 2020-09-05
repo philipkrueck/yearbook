@@ -18,7 +18,7 @@ public class BookEditGeneralController {
     private final BookService bookService;
 
     @ModelAttribute("book")
-    public Book getBook(Long id) {
+    public Book getBook(@PathVariable("id") Long id) {
         Book book = bookService.getBookWithID(id);
 
         if (book == null) {
