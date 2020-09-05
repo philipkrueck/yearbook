@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/book/{id}/edit/general")
@@ -41,8 +44,10 @@ public class BookEditGeneralController {
 
     @PreAuthorize("authenticated")
     @PostMapping("/update")
-    public String updateGeneralInformation(@PathVariable("id") Long id, @ModelAttribute("bookForm") BookForm bookForm) {
-        // ToDo: validate BookForm
+    public String updateGeneralInformation(@PathVariable("id") Long id, @ModelAttribute("bookForm") @Valid BookForm bookForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "pages/book/editGeneral";
+        }
 
         Book book = getBook(id);
         BookFormConverter.update(book, bookForm);

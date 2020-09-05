@@ -68,12 +68,11 @@ public class ProfileController {
 
     @SneakyThrows // ... is used here as the encoding must always succeed and would indicate a programming error otherwise
     @PostMapping("/edit")
-    public String editProfile(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) {
+    public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, final @RequestParam("image") MultipartFile image) {
 
         if(bindingResult.hasErrors()){
             return "pages/profile/profile";
         }
-    public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, final @RequestParam("image") MultipartFile image) {
 
         User user = userService.findCurrentUser();
 
