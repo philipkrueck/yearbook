@@ -43,9 +43,11 @@
                 </div>
                 <div class="cell small-12 medium-17 medium-offset-1">
                     <label>Add a title
+                        <span class="formError" th:errors="*{name}"/>
                         <input type="text" th:field="*{name}"/>
                     </label>
                     <label>Describe the book you are creating.
+                        <span class="formError" th:errors="*{description}"/>
                         <input type="text" th:field="*{description}"/>
                     </label>
                     <hr />

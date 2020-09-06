@@ -8,12 +8,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Comparator;
 
 @Controller
@@ -33,9 +35,11 @@ public class BookCreationController {
 
     @PreAuthorize("authenticated")
     @PostMapping()
-    public String submitNewBookCreation(@ModelAttribute("bookForm") BookForm bookForm, RedirectAttributes redirectAttributes) {
+    public String submitNewBookCreation(@ModelAttribute("bookForm") @Valid BookForm bookForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        // ToDo: check validity of bookViewModel
+        if(bindingResult.hasErrors()){
+            return "/pages/book/create";
+        }
 
         // NOTE: once we have the DB, the id will be generated
         Long nextId = SampleData.getBooks().stream()

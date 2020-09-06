@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
     <title id="pageTitle">Add Book | Yearbook</title>
 </head>
@@ -69,6 +69,7 @@
         </div>
         <div class="grid-x">
             <form method="post" th:action="@{/book/{id}/edit/participants/new(isInCreationProcess=${isInCreationProcess}, id=${book.getId()})}" th:object="${addUserForm}">
+                <span class="formError" th:errors="*{email}"/>
                 <input type="text" placeholder="Enter email..." th:field="*{email}">
                 <input type="submit" class="button" value="Add participant">
             </form>

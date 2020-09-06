@@ -57,6 +57,7 @@
                 <h4 th:text="${'What do you remember about ' + participation.getParticipant().getFirstName() +'?'}"></h4>
                 <form method="post" th:action="@{/participation/1/addComment}" th:object="${commentForm}">
                     <label>Your comment
+                        <span class="formError" th:errors="*{comment}"/>
                         <input type="text" th:field="*{comment}" />
                     </label>
                     <input type="submit" class="button" value="Submit comment" />

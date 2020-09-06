@@ -14,9 +14,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,10 +45,15 @@ public class IndexController {
     public String showLoginView() { return "pages/login/login"; }
 
     @PostMapping("newAccount")
-    public String createAccount(@ModelAttribute("newAccountForm") NewAccountForm newAccountForm) {
-        // ToDo: Validate NewAccountForm
+    public String createAccount(@ModelAttribute("newAccountForm") @Valid NewAccountForm newAccountForm, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "index";
+        }
 
-        // ToDo: Make sure no user with the same email exists
+        if(userService.findUserByEmail(newAccountForm.getEmail()) != null){
+            return "redirect:?EmailExists";
+        }
+
         User user = NewAccountFormConverter.userFromForm(newAccountForm, passwordEncoder);
         userService.save(user);
 

@@ -11,9 +11,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.Base64;
+import javax.validation.Valid;
+
+import javax.swing.*;
 import javax.validation.Valid;
 
 @Controller
@@ -62,8 +70,15 @@ public class ProfileController {
     @PostMapping("/edit")
     public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, final @RequestParam("image") MultipartFile image) {
 
-        // ToDo: Validate userForm
-        User user = getCurrentUser();
+        if(bindingResult.hasErrors()){
+            return "pages/profile/profile";
+        }
+
+        User user = userService.findCurrentUser();
+
+        if(userService.findUserByEmail(userForm.getEmail()) != null && !user.getEmail().equals(userForm.getEmail())){
+            return "pages/profile/profile?EmailExists";
+        }
 
         userForm.setImage(image.getBytes());
 
@@ -71,22 +86,19 @@ public class ProfileController {
 
         userService.save(user);
 
+        //TODO: add feature for new authentication if email was changed
+
         return "redirect:/profile";
     }
 
     @PostMapping("/changePassword")
-    public String changePassword(@ModelAttribute("changePasswordForm") ChangePasswordForm changePasswordForm) {
-        // ToDo: validate ChangePasswordForm
-
+    public String changePassword(@ModelAttribute("changePasswordForm") @Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult) {
         User user = getCurrentUser();
 
-        // Maybe we can add this logic to the form validation?
-        if (!changePasswordForm.getNewPasswordOne().equals(changePasswordForm.getNewPasswordTwo())) {
-            return "redirect:/profile#changePassword";
-        }
-
-        if (!passwordEncoder.matches(changePasswordForm.getOldPasword(), user.getPassword())) {
-            return "redirect:/profile#changePassword";
+        if(bindingResult.hasErrors()
+            || (!changePasswordForm.getNewPasswordOne().equals(changePasswordForm.getNewPasswordTwo()))
+            || (!passwordEncoder.matches(changePasswordForm.getOldPasword(), user.getPassword()))){
+            return "pages/profile/profile#changePassword";
         }
 
         user.setPassword(passwordEncoder.encode(changePasswordForm.getNewPasswordOne()));

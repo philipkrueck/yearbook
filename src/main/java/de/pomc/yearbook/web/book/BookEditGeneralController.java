@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/book/{id}/edit/general")
@@ -17,7 +20,8 @@ public class BookEditGeneralController {
 
     private final BookService bookService;
 
-    private Book getBook(Long id) {
+    @ModelAttribute("book")
+    public Book getBook(@PathVariable("id") Long id) {
         Book book = bookService.getBookWithID(id);
 
         if (book == null) {
@@ -34,18 +38,16 @@ public class BookEditGeneralController {
     @PreAuthorize("authenticated")
     @GetMapping
     public String showEditGeneralInformation(@PathVariable("id") Long id, Model model) {
-        Book book = getBook(id);
-
-        model.addAttribute("book", book);
-        model.addAttribute("bookForm", BookFormConverter.bookForm(book));
-
+        model.addAttribute("bookForm", BookFormConverter.bookForm(getBook(id)));
         return "pages/book/editGeneral";
     }
 
     @PreAuthorize("authenticated")
     @PostMapping("/update")
-    public String updateGeneralInformation(@PathVariable("id") Long id, @ModelAttribute("bookForm") BookForm bookForm) {
-        // ToDo: validate BookForm
+    public String updateGeneralInformation(@PathVariable("id") Long id, @ModelAttribute("bookForm") @Valid BookForm bookForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "pages/book/editGeneral";
+        }
 
         Book book = getBook(id);
         BookFormConverter.update(book, bookForm);

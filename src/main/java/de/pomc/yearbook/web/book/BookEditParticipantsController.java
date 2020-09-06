@@ -11,9 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +69,12 @@ public class BookEditParticipantsController {
 
     @PreAuthorize("authenticated")
     @PostMapping("/new")
-    public String addNewParticipant(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("addUserForm") AddUserForm addUserForm, RedirectAttributes redirectAttributes) {
+    public String addNewParticipant(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("addUserForm") @Valid AddUserForm addUserForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        //if(bindingResult.hasErrors()){
+            //return "/pages/book/{id}/edit/participants";
+        //}
+
         Book book = getBook(id);
 
         // TODO: check if current user is allowed to edit the participants
