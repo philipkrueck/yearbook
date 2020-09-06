@@ -30,7 +30,6 @@ public class Internationalization implements WebMvcConfigurer {
     {
         CookieLocaleResolver resolver = new CookieLocaleResolver();
         resolver.setDefaultLocale(new Locale("en_US"));
-        //return new CookieLocaleResolver();
         return resolver;
     }
 
