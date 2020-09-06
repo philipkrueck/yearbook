@@ -52,6 +52,8 @@ public class BookEditGeneralController {
         Book book = getBook(id);
         BookFormConverter.update(book, bookForm);
 
+        bookService.save(book);
+
         return "redirect:/book/{id}";
     }
 }

@@ -19,6 +19,8 @@ public class BookForm {
     @Size(min = 5, max = 100, message = "Die Beschreibung muss zwischen 5 und 100 Zeichen lang sein.")
     private String description;
 
+    private boolean published;
+
     public BookForm() {
         this.name = "";
         this.description = "";
