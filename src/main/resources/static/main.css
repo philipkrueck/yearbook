@@ -265,6 +265,11 @@ header #headerSecCTA:hover {
     color: #e74c3c;
 }
 
+.menu .is-active>a {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
 /* templates.fragments.footer
 --------------------------------------------- */
 
