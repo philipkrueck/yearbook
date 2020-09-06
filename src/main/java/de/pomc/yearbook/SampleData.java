@@ -94,11 +94,11 @@ public class SampleData {
     @Getter
     @Setter
     public static List<Book> books = List.of(
-        new Book((long) 0, "Blue Mountain State 2020", "some description", users.get(0), questionsList.get(0), participationsList.get(0), true),
-        new Book((long) 1, "HSBA BI '21", "some description", users.get(1), questionsList.get(1), participationsList.get(1), true),
-        new Book((long) 2, "Stanford Law '19", "some description", users.get(1), questionsList.get(2), participationsList.get(2), true),
-        new Book((long) 3, "MIT Robotics 2020", "some description", users.get(1), questionsList.get(3), participationsList.get(3), true),
-        new Book((long) 4, "NYU Gender Sciences 2019", "some description", users.get(1), questionsList.get(4), participationsList.get(4), true)
+        new Book((long) 0, "Blue Mountain State 2020", "some description", users.get(0), questionsList.get(0), true),
+        new Book((long) 1, "HSBA BI '21", "some description", users.get(1), questionsList.get(1), true),
+        new Book((long) 2, "Stanford Law '19", "some description", users.get(1), questionsList.get(2), true),
+        new Book((long) 3, "MIT Robotics 2020", "some description", users.get(1), questionsList.get(3), true),
+        new Book((long) 4, "NYU Gender Sciences 2019", "some description", users.get(1), questionsList.get(4), true)
     );
 
 }

@@ -3,6 +3,8 @@ package de.pomc.yearbook.book;
 
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.participation.Participation;
+import de.pomc.yearbook.user.User;
+import de.pomc.yearbook.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +18,42 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookService {
 
+    private final BookRepository bookRepository;
+    private final UserService userService;
+
+    public List<Book> findAll() {
+        return bookRepository.findAll();
+    }
+
     public List<Book> getBooksOfCurrentUser() {
-        return SampleData.getBooks().stream()
-                .filter(Book::currentUserIsOwner)
-                .collect(Collectors.toList());
+        User currentUser = userService.findCurrentUser();
+        if (currentUser == null) {
+            return new ArrayList<>();
+        }
+
+        return bookRepository.findBooksByOwner(currentUser);
+    }
+
+    public void addParticipation(Book book, Participation participation) {
+        participation.setBook(book);
+        book.getParticipations().add(participation);
+    }
+
+    public void addQuestion(Book book, Question question) {
+        question.setBook(book);
+        book.getQuestions().add(question);
+    }
+
+    public void setQuestions(Book book, List<Question> questions) {
+        questions.forEach(question -> question.setBook(book));
+        book.setQuestions(questions);
     }
 
     public Book getBookWithID(Long id) {
-        return SampleData.getBooks()
-                .stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+        return bookRepository.findById(id).orElse(null);
     }
 
+    // ToDo: add further calls to bookService
     public List<Book> getPublishedBooks() {
         return SampleData.getBooks().stream()
                 .filter(Book::isPublished)
@@ -39,23 +63,10 @@ public class BookService {
     public List<Participation> getParticipationsOfCurrentUser() {
         List<Participation> participations = new ArrayList<>();
 
-        SampleData.getBooks().forEach(book -> {
-            book.getParticipations().forEach(participation -> {
-               if (participation.currentUserIsOwner()) {
-                   participations.add(participation);
-               }
-            });
-        });
-
         return participations;
     }
 
     public Book save(Book book) {
-        List<Book> books = new ArrayList<>(SampleData.getBooks());
-        books.add(book);
-
-        SampleData.setBooks(books);
-
-        return book;
+        return bookRepository.save(book);
     }
 }
