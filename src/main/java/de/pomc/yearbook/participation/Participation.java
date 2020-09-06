@@ -25,8 +25,8 @@ public class Participation {
 
     @Getter
     @Setter
-    @Transient // ToDo: add relationship here
-    private List<String> answers = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "participation")
+    private List<Answer> answers;
 
     @Getter
     @Setter
@@ -52,11 +52,17 @@ public class Participation {
 
 
     // ToDo: remove this constructor, once dummy data is gone
+
+    @Transient
+    @Getter
+    @Setter
+    List<String> oldAnswers;
+
     public Participation(Long id, User participant, boolean isAdmin, List<String> answers, List<Comment> comments) {
         this.id = id;
         this.participant = participant;
         this.isAdmin = isAdmin;
-        this.answers = answers;
+        this.oldAnswers = answers;
         this.comments = comments;
     }
 
@@ -66,8 +72,8 @@ public class Participation {
 
     public List<Integer> getNonBlankAnswerIndices() {
         List<Integer> nonBlankAnswerIndices = new ArrayList<>();
-        for (int i = 0; i < answers.size(); i++) {
-            String answer = answers.get(i);
+        for (int i = 0; i < oldAnswers.size(); i++) {
+            String answer = oldAnswers.get(i);
             if (!(answer == null) &&  !answer.isBlank()) {
                 nonBlankAnswerIndices.add(i);
             }

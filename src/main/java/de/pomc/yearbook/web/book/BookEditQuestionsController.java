@@ -58,9 +58,7 @@ public class BookEditQuestionsController {
 
         Book book = getBook(id);
 
-        ArrayList<String> newList = new ArrayList<>(book.getQuestions());
-        newList.add(newQuestionForm.getQuestion());
-        book.setQuestions(newList);
+        // ToDo: add question
 
         redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
         return "redirect:/book/{id}/edit/questions";
@@ -72,9 +70,7 @@ public class BookEditQuestionsController {
     public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionIndex") int questionIndex, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, RedirectAttributes redirectAttributes) {
         Book book = getBook(id);
 
-        ArrayList<String> newList = new ArrayList<>(book.getQuestions());
-        newList.remove(questionIndex);
-        book.setQuestions(newList);
+        // ToDo: delete question
 
         redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
         return "redirect:/book/{id}/edit/questions";

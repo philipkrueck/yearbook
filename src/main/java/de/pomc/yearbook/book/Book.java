@@ -30,9 +30,8 @@ public class Book {
     @ManyToOne(optional = false)
     private User owner;
 
-    // TODO: Add relationship here
-    @Transient
-    private List<String> questions;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "book")
+    private List<Question> questions;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "book")
     private Set<Participation> participations;

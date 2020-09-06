@@ -42,7 +42,7 @@ public class ParticipationEditController {
     @PreAuthorize("authenticated")
     public String showEditParticipationView(@PathVariable("id") Long id, Model model) {
 
-        model.addAttribute("editAnswersForm", new EditAnswersForm(getParticipation(id).getAnswers()));
+        model.addAttribute("editAnswersForm", new EditAnswersForm(getParticipation(id).getOldAnswers()));
 
         // ToDo: use participation.getBook() in future
         model.addAttribute("book", SampleData.getBooks().get(0));
@@ -56,7 +56,7 @@ public class ParticipationEditController {
         // ToDo: add form validation here
         Participation participation = participationService.getParticipationWithID(id);
 
-        participation.setAnswers(editAnswersForm.getAnswers());
+        participation.setOldAnswers(editAnswersForm.getAnswers());
 
         participationService.save(participation);
 

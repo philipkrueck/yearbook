@@ -39,6 +39,16 @@ public class BookService {
         book.getParticipations().add(participation);
     }
 
+    public void addQuestion(Book book, Question question) {
+        question.setBook(book);
+        book.getQuestions().add(question);
+    }
+
+    public void setQuestions(Book book, List<Question> questions) {
+        questions.forEach(question -> question.setBook(book));
+        book.setQuestions(questions);
+    }
+
     public Book getBookWithID(Long id) {
         return bookRepository.findById(id).orElse(null);
     }

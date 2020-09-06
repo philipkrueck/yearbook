@@ -5,6 +5,8 @@ package de.pomc.yearbook.dummyData;
 
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
+import de.pomc.yearbook.book.Question;
+import de.pomc.yearbook.participation.Answer;
 import de.pomc.yearbook.participation.Comment;
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.participation.ParticipationService;
@@ -38,7 +40,7 @@ public class InMemoryTestingData {
     @EventListener(ApplicationStartedEvent.class)
     public void init() {
         sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("1234"), "USER");
-        gandalf = new User((long) 2, "Gandalf",  "the Gray", "gandalf.gray@hotmail.com", passwordEncoder.encode("1234"), "USER");
+        gandalf = new User((long) 2, "Gandalf", "the Gray", "gandalf.gray@hotmail.com", passwordEncoder.encode("1234"), "USER");
         legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("1234"), "USER");
         gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("1234"), "USER");
         frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
@@ -72,53 +74,67 @@ public class InMemoryTestingData {
         }
 
         List<Participation> bookOneParticipations = List.of(
-            new Participation(sam, false),
-            new Participation(gandalf, false),
-            new Participation(legolas, false),
-            new Participation(gimli, false),
-            new Participation(frodo, true)
+                new Participation(sam, false),
+                new Participation(gandalf, false),
+                new Participation(legolas, false),
+                new Participation(gimli, false),
+                new Participation(frodo, true)
         );
 
         List<Participation> bookTwoParticipations = List.of(
-            new Participation(sam, true),
-            new Participation(gandalf, true),
-            new Participation(legolas, false),
-            new Participation(gimli, false),
-            new Participation(frodo, true)
+                new Participation(sam, true),
+                new Participation(gandalf, true),
+                new Participation(legolas, false),
+                new Participation(gimli, false),
+                new Participation(frodo, true)
         );
 
         List<Participation> bookThreeParticipations = List.of(
-            new Participation(sam, false),
-            new Participation(gandalf, true),
-            new Participation(legolas, true),
-            new Participation(gimli, false),
-            new Participation(frodo, true)
+                new Participation(sam, false),
+                new Participation(gandalf, true),
+                new Participation(legolas, true),
+                new Participation(gimli, false),
+                new Participation(frodo, true)
         );
 
         List<Participation> bookFourParticipations = List.of(
-            new Participation(sam, false),
-            new Participation(gandalf, false),
-            new Participation(legolas, true),
-            new Participation(gimli, true),
-            new Participation(frodo, false)
+                new Participation(sam, false),
+                new Participation(gandalf, false),
+                new Participation(legolas, true),
+                new Participation(gimli, true),
+                new Participation(frodo, false)
         );
 
         List<Participation> bookFiveParticipations = List.of(
-            new Participation(sam, false),
-            new Participation(gandalf, false),
-            new Participation(legolas, false),
-            new Participation(gimli, true),
-            new Participation(frodo, true)
+                new Participation(sam, false),
+                new Participation(gandalf, false),
+                new Participation(legolas, false),
+                new Participation(gimli, true),
+                new Participation(frodo, true)
         );
 
-        addParticipations(bookOneParticipations, bookOne);
-        addParticipations(bookTwoParticipations, bookTwo);
-        addParticipations(bookThreeParticipations, bookThree);
-        addParticipations(bookFourParticipations, bookFour);
-        addParticipations(bookFiveParticipations, bookFive);
+        List<List<Question>> questionsList = List.of(
+                List.of(new Question("What is your favorite movie?"), new Question("What is your favorite book?"), new Question("What is your favorite ice cream flavor")),
+                List.of(new Question("Is cereal soup? Why or why not?"), new Question("What’s the best Wi-Fi name you’ve seen?"), new Question("How do you feel about putting pineapple on pizza?")),
+                List.of(new Question("Toilet paper, over or under?"), new Question("What would be the absolute worst name you could give your child?"), new Question("What sport would be the funniest to add a mandatory amount of alcohol to?")),
+                List.of(new Question("What Part Of Your Body Could Use A Little Lotion?"), new Question("What Part Of The Human Face Is Your Favorite?")),
+                List.of(new Question("If You Could Wedgie Any Historical Figure, Who Would You Pick?"), new Question("Would You Rather Be Able To Breathe Underwater Or Have The Agility Of A Cat?"))
+        );
 
-        List.of(bookOne, bookTwo, bookThree, bookFour, bookFive)
-                .forEach(bookService::save);
+        List<Book> books = List.of(bookOne, bookTwo, bookThree, bookFour, bookFive);
+        List<List<Participation>> bookParticipations = List.of(bookOneParticipations, bookTwoParticipations, bookThreeParticipations, bookFourParticipations, bookFiveParticipations);
+
+        for (int i = 0; i <= 4; i++) {
+            Book book = books.get(i);
+            List<Participation> participations = bookParticipations.get(i);
+
+            addParticipations(participations, book);
+            addQuestions(book, questionsList.get(i));
+
+            addAnswers(participations.get(0));
+            bookService.save(book);
+        }
+
 
     }
 
@@ -137,6 +153,18 @@ public class InMemoryTestingData {
         );
 
         comments.forEach(comment -> participationService.addComment(comment, participation));
+    }
+
+    private void addQuestions(Book book, List<Question> questions) {
+        bookService.setQuestions(book, questions);
+    }
+
+    private void addAnswers(Participation participation) {
+        // add answers
+        List<Answer> answers = List.of(
+                new Answer("answer 1"), new Answer("answer 2")
+        );
+        participationService.setAnswers(participation, answers);
     }
 
 }
