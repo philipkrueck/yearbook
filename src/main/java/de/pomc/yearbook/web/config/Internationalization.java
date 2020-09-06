@@ -39,7 +39,6 @@ public class Internationalization implements WebMvcConfigurer {
         return localeChangeInterceptor;
     }
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry)
     {
