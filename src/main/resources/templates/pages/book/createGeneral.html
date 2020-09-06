@@ -54,11 +54,11 @@
                     <fieldset>
                         <legend>Choose Visibility</legend>
                         <div class="cell radioWrapper">
-                            <input type="radio" name="visibility" value="Public" id="visibilityPublic" required>
+                            <input th:field="*{published}" type="radio" name="visibility" value="1" id="visibilityPublic" required>
                             <label for="visibilityPublic"><strong>Public</strong><br />Your book will be visible to all visitors on Yearbook.</label>
                         </div>
                         <div class="cell radioWrapper">
-                            <input type="radio" name="visibility" value="Private" id="visibilityPrivate">
+                            <input th:field="*{published}" type="radio" name="visibility" value="0" id="visibilityPrivate">
                             <label for="visibilityPrivate"><strong>Private</strong><br />Your book will only be visible to you and your participants.</label>
                         </div>
                     </fieldset>

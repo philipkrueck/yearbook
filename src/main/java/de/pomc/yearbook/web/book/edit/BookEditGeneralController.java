@@ -1,7 +1,9 @@
-package de.pomc.yearbook.web.book;
+package de.pomc.yearbook.web.book.edit;
 
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
+import de.pomc.yearbook.web.book.BookForm;
+import de.pomc.yearbook.web.book.BookFormConverter;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;

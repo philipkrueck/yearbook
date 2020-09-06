@@ -1,9 +1,11 @@
-package de.pomc.yearbook.web.book;
+package de.pomc.yearbook.web.book.create;
 
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.user.UserService;
+import de.pomc.yearbook.web.book.BookForm;
+import de.pomc.yearbook.web.book.BookFormConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,38 +23,31 @@ import java.util.Comparator;
 @Controller
 @RequestMapping("book/create")
 @RequiredArgsConstructor
-public class BookCreationController {
+public class BookCreateGeneralController {
 
     private final UserService userService;
     private final BookService bookService;
 
     @PreAuthorize("authenticated")
-    @GetMapping()
+    @GetMapping
     public String showCreateNewBookView(Model model) {
         model.addAttribute("bookForm", new BookForm());
-        return "pages/book/create";
+        return "pages/book/createGeneral";
     }
 
     @PreAuthorize("authenticated")
-    @PostMapping()
+    @PostMapping
     public String submitNewBookCreation(@ModelAttribute("bookForm") @Valid BookForm bookForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if(bindingResult.hasErrors()){
-            return "/pages/book/create";
+            return "pages/book/createGeneral";
         }
 
-        // NOTE: once we have the DB, the id will be generated
-        Long nextId = SampleData.getBooks().stream()
-                .map(Book::getId)
-                .max(Comparator.comparing(Long::intValue))
-                .orElse((long) -1) + 1;
-
-        Book book = new Book(nextId, bookForm.getName(), bookForm.getDescription(), userService.findCurrentUser(), false);
+        Book book = BookFormConverter.book(bookForm, userService.findCurrentUser()); // user must be there!
 
         bookService.save(book);
 
-        redirectAttributes.addAttribute("isInCreationProcess", true);
-        redirectAttributes.addAttribute("nextId", book.getId());
-        return "redirect:/book/{nextId}/edit/questions";
+        redirectAttributes.addAttribute("bookId", book.getId());
+        return "redirect:/book/{bookId}/create/questions";
     }
 }

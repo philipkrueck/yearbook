@@ -1,4 +1,4 @@
-package de.pomc.yearbook.web.book;
+package de.pomc.yearbook.web.book.edit;
 
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.book.Book;
@@ -6,6 +6,7 @@ import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
+import de.pomc.yearbook.web.book.AddUserForm;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
