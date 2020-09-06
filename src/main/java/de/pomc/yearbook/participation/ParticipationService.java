@@ -19,6 +19,10 @@ public class ParticipationService {
         return participationRepository.save(participation);
     }
 
+    public List<Participation> findAll() {
+        return participationRepository.findAll();
+    }
+
     public void addComment(Comment comment, Participation participation) {
         comment.setParticipation(participation);
         participation.getComments().add(comment);

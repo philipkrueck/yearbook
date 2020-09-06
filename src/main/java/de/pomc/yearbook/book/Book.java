@@ -72,6 +72,15 @@ public class Book {
         // this.participations = new ArrayList<>();
     }
 
+    public boolean currentUserIsParticipant() {
+        for (Participation participation: participations) {
+            if (participation.getParticipant().getEmail().equals(User.getCurrentUsername())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean currentUserIsOwner() {
         return owner != null && this.owner.getEmail().equals(User.getCurrentUsername());
     }
@@ -80,5 +89,9 @@ public class Book {
         return true;
                 //participations.stream().
                 //anyMatch(participant -> participant.getParticipant().getEmail().equals(User.getCurrentUsername()) && participant.isAdmin());
+    }
+
+    public boolean isOwner(Participation participation) {
+        return owner.getEmail().equals(participation.getParticipant().getEmail());
     }
 }

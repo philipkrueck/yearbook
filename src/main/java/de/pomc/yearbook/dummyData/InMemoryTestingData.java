@@ -67,8 +67,11 @@ public class InMemoryTestingData {
         Book bookFour = new Book("MIT Robotics 2020", "description", gimli);
         Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo);
 
+        bookOne.setPublished(true);
+        bookTwo.setPublished(true);
+
         // init participations
-        if (!bookService.findAll().isEmpty()) {
+        if (!participationService.findAll().isEmpty()) {
             // prevent duplicate initialization if DB is not empty
             return;
         }

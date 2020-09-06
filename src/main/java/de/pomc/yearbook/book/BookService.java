@@ -53,11 +53,8 @@ public class BookService {
         return bookRepository.findById(id).orElse(null);
     }
 
-    // ToDo: add further calls to bookService
     public List<Book> getPublishedBooks() {
-        return SampleData.getBooks().stream()
-                .filter(Book::isPublished)
-                .collect(Collectors.toList());
+        return bookRepository.findPublishedBooks();
     }
 
     public List<Participation> getParticipationsOfCurrentUser() {

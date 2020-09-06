@@ -39,7 +39,7 @@
             <tbody>
             <tr th:each="question, itemStat : ${questions}">
                 <td th:text="${itemStat.index + 1} + '.'"></td>
-                <td th:text="${question}"></td>
+                <td th:text="${question.getQuestion()}"></td>
                 <td></td>
             </tr>
             </tbody>
@@ -56,7 +56,8 @@
             <div class="cell small-12 medium-6 questionnaireCard" th:each="participation : ${participations}">
                 <img src="https://via.placeholder.com/300x150.webp?text=Profilpic" alt="Profil Pic">
                 <div class="cardContent">
-                    <p th:if="${participation.isAdmin()}" class="badge">Owner</p>
+                    <p th:if="${book.isOwner(participation)}" class="badge">Owner</p>
+                    <p th:if="${!book.isOwner(participation) && participation.isAdmin()}" class="badge">Admin</p>
                     <h4 th:text="${participation.getParticipant().getFullName()}"></h4>
                     <a class="inlineButton" th:href="@{/participation/{id}(id=${participation.getId()})}">View Questionnaire</a>
                 </div>
