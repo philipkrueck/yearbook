@@ -85,6 +85,15 @@ main {
     background: #fff;
 }
 
+.cardShadow {
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+    transition: box-shadow .35s ease;
+}
+
+.cardShadow:hover {
+    box-shadow: 10px 10px 20px 0 rgba(0,0,0,.1);
+}
+
 /* Forms
 --------------------------------------------- */
 
@@ -140,7 +149,7 @@ fieldset label {
 }
 
 #indexHero > .grid-x {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 #indexHeroLeft {
@@ -163,39 +172,11 @@ fieldset label {
 }
 
 .featuredCard {
-    height: 400px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: auto 10px;
-    display: flex;
-    padding: 0 10px;
+    margin: 20px 0;
 }
 
-.featuredCard h5 {
-    vertical-align: bottom;
-    display: flex;
-    align-self: flex-end;
-}
-
-.featuredCard h5 a {
-    color: #f1f1f1;
-}
-
-.featuredCard h5 a:hover {
-    color: #c0392b;
-}
-
-.featuredCard:nth-child(1), .featuredCard:nth-child(5) {
-    margin-top: -20px;
-}
-
-.featuredCard:nth-child(2), .featuredCard:nth-child(4) {
-    margin-top: 20px;
-}
-
-.featuredCard:nth-child(3) {
-    margin-top: 60px;
+.featuredCard .innerText {
+    padding: 15px 15px 20px;
 }
 
 /* templates.fragments.header
