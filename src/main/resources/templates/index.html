@@ -16,27 +16,32 @@
         </div>
         <div class="grid-x small-24 medium-12 align-center-middle" id="indexHeroRight">
             <div class="cell small-20 medium-12">
-                <h4>Discover the unique Yearbook experience.</h4>
-                <p class="">Join Yearbook today.</p>
+                <h4 th:text="#{index.claim2}"></h4>
+                <p class="" th:text="#{index.join}"></p>
                 <div class="grid-x align-center formGroup" id="registration">
                     <form method="post" th:action="@{/newAccount}" th:object="${newAccountForm}">
-                        <label>First Name
+                        <label>
+                            <span th:text="#{general.firstName}"></span>
                             <input type="text" th:field="*{firstName}">
                         </label>
-                        <label>Last name
+                        <label>
+                            <span th:text="#{general.lastName}"></span>
                             <input type="text" th:field="*{lastName}">
                         </label>
-                        <label>Email
+                        <label>
+                            <span th:text="#{general.email}"></span>
                             <input type="email" th:field="*{email}">
                         </label>
-                        <label>Password
+                        <label>
+                            <span th:text="#{general.password}"></span>
                             <input type="password" th:field="*{password}">
                         </label>
-                        <input class="button" type="submit" value="Sign Up"/>
+                        <input class="button" type="submit" th:value="#{index.signUp}"/>
                     </form>
                 </div>
                 <div class="grid-x align-center-middle formGroup" id="formAddOn">
-                    <span>Already have an account? <a href="/login" class="inlineButton">Login</a></span>
+                    <span th:text="#{index.haveAnAccount}"></span>
+                    <a href="/login" class="inlineButton" th:text="#{general.login}"></a>
                 </div>
             </div>
         </div>
@@ -48,8 +53,12 @@
     <div class="grid-container">
         <div class="grid-x align-center">
             <div class="cell small-24 text-center">
-                <h2>Create yearbooks<br/><span class="colored">worth remembering.</span></h2>
-                <p><small><a class="inlineButton" href="/book/all">See all books</a></small></p>
+                <h2 th:inline="text">
+                    [[#{index.createYearbooks}]]
+                    <br/>
+                    <span class="colored" th:text="#{index.worthRemembering}"></span>
+                </h2>
+                <p><small><a class="inlineButton" href="/book/all" th:text="#{index.seeAllBooks}"></a></small></p>
             </div>
         </div>
         <div class="grid-x align-center grid-margin-x">

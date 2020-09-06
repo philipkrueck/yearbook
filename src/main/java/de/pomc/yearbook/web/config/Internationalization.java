@@ -1,5 +1,6 @@
 package de.pomc.yearbook.web.config;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +28,10 @@ public class Internationalization implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver()
     {
-        return new CookieLocaleResolver();
+        CookieLocaleResolver resolver = new CookieLocaleResolver();
+        resolver.setDefaultLocale(new Locale("en_US"));
+        //return new CookieLocaleResolver();
+        return resolver;
     }
 
     @Bean
