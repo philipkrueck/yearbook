@@ -17,20 +17,22 @@
 
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
-            <img id="avatarImage" th:src="${(userImage != null && !#strings.isEmpty(userImage)) ? 'data:image/jpeg;base64,'+ userImage : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
-            <h1 id="profileTitle"><span th:text="${user.getFullName()}" class="h4"></span> <br/> <span th:text="${user.getEmail()}" class="h5"></span></h1>
+            <form action="#">
+                <img id="avatarImage" th:src="${(userImage != null && !#strings.isEmpty(userImage)) ? 'data:image/jpeg;base64,'+ userImage : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
+                <label for="profilePicUpload" class="button imageUpload"><span class="material-icons">create</span> Edit</label>
+                <input type="file" onchange="this.form.submit()" id="profilePicUpload" class="show-for-sr">
+            </form>
+            <h5 th:text="${user.getFullName()}"></h5>
+            <h6 th:text="${user.getEmail()}"></h6>
             <p th:text="${user.getBio()}"></p>
             <p th:text="${user.getTwitterHandle()}"></p>
             <p th:text="${user.getLocation()}"></p>
             <p th:text="${user.getWebsite()}"></p>
             <hr />
-            <button class="button small medium-expanded profileTrigger" id="editProfileTrigger">Edit profile</button>
-            <button class="button small medium-expanded passwordTrigger">Change password</button>
+            <button class="button small secondary medium-expanded profileTrigger" id="editProfileTrigger">Edit profile</button>
+            <button class="button small secondary medium-expanded passwordTrigger">Change password</button>
 
             <form id="editProfile" th:action="@{/profile/edit}" th:object="${userForm}" method="post" enctype="multipart/form-data">
-                <label>Avatar
-                    <input type="file" accept="image/*" value="Upload a photo..." th:field="*{image}">
-                </label>
                 <label>Bio
                     <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
                 </label>
@@ -68,33 +70,43 @@
         <div class="cell small-12 medium-17 medium-offset-1">
             <div class="grid-x" id="ownedBooks">
                 <div class="cell small-24">
-                    <h3>My Books</h3>
-                    <table th:if="${!books.isEmpty()}">
-                        <tr>
-                            <th>Name</th>
-                        </tr>
-                        <tr th:each="book : ${books}">
-                            <th th:text="${book.getName()}"></th>
-                            <th><a th:href="@{/book/{id}(id=${book.getId()})}">view</a></th>
-                        </tr>
-                    </table>
-                    <a class="button" href="/book/create"><button>Add a new book</button></a>
+                    <h5>My Books</h5><hr/>
+                    <div th:if="${!books.isEmpty()}" class="grid-x">
+                        <div class="cell small-8 medium-8 featuredCard cardShadow" th:each="book : ${books}">
+                            <a th:href="@{/book/{id}(id=${book.getId()})}">
+                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
+                                <div class="innerText">
+                                    <h5 th:text="${book.getName()}"></h5>
+                                    <p th:text="${book.getDescription()}"></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <button class="button" href="/book/create">New Book</button>
                 </div>
             </div>
             <hr />
             <div class="grid-x" id="participatingBooks">
                 <div class="cell small-24">
-                    <h3>My Participations</h3>
-                    <p>ToDo: implement this properly, once the DB is setup</p>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                        </tr>
-                        <tr th:each="participation : ${participations}">
-                            <th>book name</th>
-                            <th><a th:href="@{/participation/{id}(id=${participation.getId()})}">view</a></th>
-                        </tr>
-                    </table>
+                    <h5>Participations</h5><hr/>
+                    <div class="callout secondary">
+                        <h5>You do not have any participations yet!</h5>
+                        <p>Ask one of your friends to get invited to a yearbook.</p>
+                        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="grid-x">
+                        <div class="cell small-8 medium-8 featuredCard cardShadow" th:each="participation : ${participations}">
+                            <a th:href="@{/participation/{id}(id=${participation.getId()})}">
+                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
+                                <div class="innerText">
+                                    <h5>Headline</h5>
+                                    <p>Description</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

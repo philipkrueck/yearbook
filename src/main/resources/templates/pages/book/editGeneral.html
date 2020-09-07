@@ -33,8 +33,8 @@
                 <form method="post" th:action="@{/book/{id}/edit/general/update(id=${book.getId()})}" th:object="${bookForm}">
                     <div class="cell">
                         <img class="bookAvater" src="https://via.placeholder.com/800x200.webp?text=ImageCover">
-                        <label for="bookAvatarUpload" class="button bookAvatarUpload"><span class="material-icons">create</span> Edit</label>
-                        <input type="file" id="bookAvatarUpload" class="show-for-sr">
+                        <label for="imageUpload" class="button imageUpload"><span class="material-icons">create</span> Edit</label>
+                        <input type="file" id="imageUpload" class="show-for-sr">
                     </div>
                     <div class="cell">
                         <label>Edit book name.
