@@ -57,12 +57,6 @@ public class BookService {
         return bookRepository.findPublishedBooks();
     }
 
-    public List<Participation> getParticipationsOfCurrentUser() {
-        List<Participation> participations = new ArrayList<>();
-
-        return participations;
-    }
-
     public Book save(Book book) {
         return bookRepository.save(book);
     }

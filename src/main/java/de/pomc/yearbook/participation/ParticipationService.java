@@ -1,6 +1,7 @@
 package de.pomc.yearbook.participation;
 
 import de.pomc.yearbook.SampleData;
+import de.pomc.yearbook.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,9 @@ public class ParticipationService {
         SampleData.setComments(comments);
 
         return comment;
+    }
+
+    public List<Participation> getParticipationsOfCurrentUser() {
+        return participationRepository.findParticipationByParticipant_Email(User.getCurrentUsername());
     }
 }

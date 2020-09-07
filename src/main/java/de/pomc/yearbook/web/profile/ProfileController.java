@@ -1,6 +1,7 @@
 package de.pomc.yearbook.web.profile;
 
 import de.pomc.yearbook.book.BookService;
+import de.pomc.yearbook.participation.ParticipationService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
@@ -31,6 +32,7 @@ public class ProfileController {
 
     private final UserService userService;
     private final BookService bookService;
+    private final ParticipationService participationService;
     private final PasswordEncoder passwordEncoder;
 
     private User getCurrentUser() {
@@ -60,7 +62,7 @@ public class ProfileController {
         }
 
         model.addAttribute("books", bookService.getBooksOfCurrentUser());
-        model.addAttribute("participations", bookService.getParticipationsOfCurrentUser());
+        model.addAttribute("participations", participationService.getParticipationsOfCurrentUser());
         model.addAttribute("changePasswordForm", new ChangePasswordForm());
 
         return "pages/profile/profile";
@@ -70,20 +72,19 @@ public class ProfileController {
     @PostMapping("/edit")
     public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, final @RequestParam("image") MultipartFile image) {
 
-        if(bindingResult.hasErrors()){
-            return "pages/profile/profile";
-        }
+        // ToDo: implement form validation and show js dialog accordingly
+        //if(bindingResult.hasErrors()){
+        //    return "redirect:/profile";
+        //}
 
         User user = userService.findCurrentUser();
 
-        if(userService.findUserByEmail(userForm.getEmail()) != null && !user.getEmail().equals(userForm.getEmail())){
-            return "pages/profile/profile?EmailExists";
+        if(userService.findUserByEmail(userForm.getEmail()) != null && !user.getEmail().equals(userForm.getEmail())) {
+            return "redirect:/profile?emailExists";
         }
 
         userForm.setImage(image.getBytes());
-
         UserFormConverter.update(user, userForm);
-
         userService.save(user);
 
         //TODO: add feature for new authentication if email was changed
@@ -95,11 +96,12 @@ public class ProfileController {
     public String changePassword(@ModelAttribute("changePasswordForm") @Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult) {
         User user = getCurrentUser();
 
-        if(bindingResult.hasErrors()
-            || (!changePasswordForm.getNewPasswordOne().equals(changePasswordForm.getNewPasswordTwo()))
-            || (!passwordEncoder.matches(changePasswordForm.getOldPasword(), user.getPassword()))){
-            return "pages/profile/profile#changePassword";
-        }
+        // ToDo: implement form validation and show js dialog accordingly
+        //if(bindingResult.hasErrors()
+        //    || (!changePasswordForm.getNewPasswordOne().equals(changePasswordForm.getNewPasswordTwo()))
+        //    || (!passwordEncoder.matches(changePasswordForm.getOldPasword(), user.getPassword()))){
+        //    return "pages/profile/profile#changePassword";
+        //}
 
         user.setPassword(passwordEncoder.encode(changePasswordForm.getNewPasswordOne()));
         userService.save(user);
