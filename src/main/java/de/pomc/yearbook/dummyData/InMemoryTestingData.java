@@ -39,17 +39,19 @@ public class InMemoryTestingData {
 
     @EventListener(ApplicationStartedEvent.class)
     public void init() {
-        sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("1234"), "USER");
-        gandalf = new User((long) 2, "Gandalf", "the Gray", "gandalf.gray@hotmail.com", passwordEncoder.encode("1234"), "USER");
-        legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("1234"), "USER");
-        gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("1234"), "USER");
-        frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
-
         // init users
         if (!userService.findAll().isEmpty()) {
             // prevent duplicate initialization if DB is not empty
             return;
         }
+
+        sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("1234"), "USER");
+        gandalf = new User((long) 2, "Gandalf", "the Gray", "gandalf.gray@hotmail.com", passwordEncoder.encode("1234"), "USER");
+        legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("1234"), "USER");
+        gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("1234"), "USER");
+        frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
+        frodo.setRole("ADMIN");
+
 
         List.of(sam, gandalf, legolas, gimli, frodo)
                 .forEach(userService::save);
@@ -67,8 +69,11 @@ public class InMemoryTestingData {
         Book bookFour = new Book("MIT Robotics 2020", "description", gimli);
         Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo);
 
+        bookOne.setPublished(true);
+        bookTwo.setPublished(true);
+
         // init participations
-        if (!bookService.findAll().isEmpty()) {
+        if (!participationService.findAll().isEmpty()) {
             // prevent duplicate initialization if DB is not empty
             return;
         }
@@ -131,7 +136,8 @@ public class InMemoryTestingData {
             addParticipations(participations, book);
             addQuestions(book, questionsList.get(i));
 
-            addAnswers(participations.get(0));
+            participations.forEach(this::addAnswers);
+
             bookService.save(book);
         }
 

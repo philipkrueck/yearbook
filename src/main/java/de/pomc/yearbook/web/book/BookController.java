@@ -3,6 +3,7 @@ package de.pomc.yearbook.web.book;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.user.UserService;
+import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,12 +26,14 @@ public class BookController {
             throw new NotFoundException();
         }
 
-        // TODO: check if current user is allowed to view this book -> public book || user is participant
+        if (!book.isPublished() && !book.currentUserIsParticipant() && !book.currentUserIsOwner()) {
+            throw new ForbiddenException();
+        }
 
 
         model.addAttribute("book", book);
         model.addAttribute("questions", book.getQuestions());
-        // model.addAttribute("participations", book.getParticipations());
+        model.addAttribute("participations", book.getParticipations());
 
         return "pages/book/show";
     }

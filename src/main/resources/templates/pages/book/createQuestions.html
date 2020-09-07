@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Edit Questions | Yearbook</title>
+</head>
+<body>
+
+<!-- header -------------------------------- -->
+<header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
+
+<!-- #progressBar -------------------------------- -->
+<div>
+    <div class="grid-wrapper">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x" id="progressBarHeader">
+                <div class="cell">
+                    <h6><small>Current Step: 2 of 3</small></h6>
+                </div>
+            </div>
+            <div class="grid-x grid-margin-x" id="progressBar">
+                <div class="cell small-8">
+                    <h6>Create a new Book</h6>
+                </div>
+                <div class="cell small-8 current">
+                    <h6>Add questions <span class="material-icons">arrow_right_alt</span></h6>
+                </div>
+                <div class="cell small-8">
+                    <h6>Add Participants</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- main -------------------------------- -->
+<main class="grid-wrapper">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell small-24 medium-7">
+                <h1 th:text="${book.getName()}"></h1>
+                <h4>Add questions for all participants.</h4>
+                <p>You can create your own custom question for your yearbook. You can get inspired be other yearbooks.</p>
+            </div>
+            <div class="cell small-24 medium-16 medium-offset-1">
+                <div class="questionWrapper" th:if="${!questions.isEmpty()}">
+                    <div class="questionBorderWrap" th:each="question, itemStat : ${questions}">
+                        <div class="questionInner">
+                            <span th:text="${itemStat.index + 1} + '.'"> </span>
+                            <span th:text="${question.getQuestion()}"></span>
+                            <form method="post" th:action="@{/book/{id}/create/questions/delete/{questionId}(id=${book.getId()}, questionId=${itemStat.index})}">
+                                <button type="submit" class="removeQuestion"><span class="material-icons">remove</span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <form method="post" th:action="@{/book/{id}/create/questions/new(id=${book.getId()})}" th:object="${newQuestionForm}">
+                    <div class="cell small-24 questionBorderWrap">
+                        <div class="questionInner">
+                            <span class="formError" th:errors="*{question}"/>
+                            <input type="text" placeholder="Type to add question title" th:field="*{question}"/>
+                        </div>
+                    </div>
+                    <input class="button" type="submit" value="Add"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- goToNextStep -------------------------------- -->
+<div class="grid-wrapper">
+    <div class="grid-container" id="goToNextStep">
+        <div class="grid-x">
+            <div class="cell shrink submitIconWrapper">
+                <a class="button" th:href="@{/book/{id}/create/participants(id=${book.getId()})}">Save and next</a>
+                <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
+</body>
+</html>

@@ -8,6 +8,30 @@
 <!-- header -------------------------------- -->
 <header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
+<!-- #progressBar -------------------------------- -->
+<div>
+    <div class="grid-wrapper">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x" id="progressBarHeader">
+                <div class="cell">
+                    <h6><small>Current Step: 3 of 3</small></h6>
+                </div>
+            </div>
+            <div class="grid-x grid-margin-x" id="progressBar">
+                <div class="cell small-8">
+                    <h6>Create a new Book</h6>
+                </div>
+                <div class="cell small-8">
+                    <h6>Add questions</h6>
+                </div>
+                <div class="cell small-8 current">
+                    <h6>Add Participants <span class="material-icons">arrow_right_alt</span></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- .subheader -------------------------------- -->
 <div class="grid-wrapper subheader">
     <div class="grid-container">
@@ -17,6 +41,7 @@
     </div>
 </div>
 
+<!-- main -------------------------------- -->
 <!-- main -------------------------------- -->
 <main class="grid-wrapper">
     <div class="grid-container">
@@ -29,7 +54,7 @@
                     <div class="cell auto">
                         <b th:text="${participation.getParticipant().getFullName()}"></b> | <span th:text="${participation.getParticipant().getEmail()}"></span>
                     </div>
-                    <div class="cell shrink">
+                    <div class="cell shrink" th:if="${book.isOwner(participation)}">
                         <form method="post" action="#">
                             <select onchange="this.form.submit()">
                                 <option>Admin</option>
@@ -38,7 +63,7 @@
                         </form>
                     </div>
                     <div th:if="${book.currentUserCanDelete(itemStat.index)}" class="cell shrink">
-                        <form method="post" th:action="@{/book/{id}/edit/participants/delete/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}">
+                        <form method="post" th:action="@{/book/{id}/create/participants/delete/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}">
                             <button type="submit" class="alert button">Delete</button>
                         </form>
                     </div>
@@ -46,7 +71,7 @@
             </div>
         </div>
         <div class="grid-x">
-            <form method="post" th:action="@{/book/{id}/edit/participants/new(id=${book.getId()})}" th:object="${addUserForm}">
+            <form method="post" th:action="@{/book/{id}/create/participants/new(id=${book.getId()})}" th:object="${addUserForm}">
                 <span class="formError" th:errors="*{email}"/>
                 <input type="text" placeholder="Enter email..." th:field="*{email}">
                 <input type="submit" class="button" value="Add participant">
@@ -55,12 +80,13 @@
     </div>
 </main>
 
-<!-- backToBook -------------------------------- -->
+<!-- goToNextStep -------------------------------- -->
 <div class="grid-wrapper">
     <div class="grid-container" id="goToNextStep">
         <div class="grid-x">
-            <div class="cell auto">
-                <a class="button" th:href="@{/book/{id}(id=${book.getId()})}">Back to Book</a>
+            <div class="cell shrink submitIconWrapper">
+                <a class="button" th:href="@{/book/{id}(id=${book.getId()})}">Finish Process</a>
+                <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
             </div>
         </div>
     </div>

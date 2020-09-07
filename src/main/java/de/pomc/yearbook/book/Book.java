@@ -6,9 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -34,7 +32,7 @@ public class Book {
     private List<Question> questions;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "book")
-    private Set<Participation> participations;
+    private List<Participation> participations;
 
     @Basic(optional = false)
     private boolean published;
@@ -47,29 +45,24 @@ public class Book {
         this.owner = owner;
         this.published = false;
         this.questions = new ArrayList<>();
-        this.participations = new HashSet<>();
+        this.participations = new ArrayList<>();
     }
 
-    // ToDo: remove this init once SampleData is gone
-    public Book(Long id, String name, String description, User owner, boolean published) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.published = published;
-        this.questions = new ArrayList<>();
-        // this.participations = new ArrayList<>();
+    public boolean userIsParticipant(User user) {
+        for (Participation participation: participations) {
+            if (participation.getParticipant().getEmail().equals(user.getEmail())) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    // ToDo: remove this init once SampleData is gone
-    public Book(Long id, String name, String description, User owner, List<String> questions, boolean published) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.published = published;
-        this.questions = new ArrayList<>();
-        // this.participations = new ArrayList<>();
+    public boolean currentUserIsParticipant() {
+        return participations
+                .stream()
+                .filter(participation -> participation.getParticipant().getEmail().equals(User.getCurrentUsername()))
+                .findFirst()
+                .orElse(null) != null;
     }
 
     public boolean currentUserIsOwner() {
@@ -77,8 +70,24 @@ public class Book {
     }
 
     public boolean currentUserIsAdmin() {
-        return true;
-                //participations.stream().
-                //anyMatch(participant -> participant.getParticipant().getEmail().equals(User.getCurrentUsername()) && participant.isAdmin());
+        return participations.stream()
+                    .anyMatch(participant -> participant.getParticipant().getEmail().equals(User.getCurrentUsername()) && participant.isAdmin());
+    }
+
+    public boolean currentUserCanDelete(int participationId) {
+        Participation participationToDelete = participations.get(participationId);
+        Participation participationCurrentUser = participations.stream()
+                                                                .filter(Participation::currentUserIsParticipant)
+                                                                .findFirst().orElse(null);
+
+        if (participationCurrentUser == null || participationToDelete == null) {
+            return false;
+        }
+
+        return currentUserIsOwner() || (!participationToDelete.isAdmin() && participationCurrentUser.isAdmin());
+    }
+
+    public boolean isOwner(Participation participation) {
+        return owner.getEmail().equals(participation.getParticipant().getEmail());
     }
 }
