@@ -35,8 +35,8 @@
                 <h1 th:text="${book.getName()}"></h1>
                 <div class="questionBlock">
                     <div th:each="i : ${participation.getNonBlankAnswerIndices()}"}>
-                        <h5 th:text="${book.getQuestions().get(i)}"></h5>
-                        <p th:text="${participation.getAnswers().get(i)}"></p>
+                        <h5 th:text="${book.getQuestions().get(i).getQuestion()}"></h5>
+                        <p th:text="${participation.getAnswers().get(i).getAnswer()}"></p>
                     </div>
                 </div>
                 <div class="publishedComments">
@@ -50,12 +50,12 @@
             </div>
         </div>
     </div>
-    <div class="grid-container" th:if="${commentForm != null}">
+    <div class="grid-container" th:if="${participation.currentUserCanComment()}">
         <div class="grid-x align-right">
             <div class="cell small-22 medium-16">
                 <hr />
                 <h4 th:text="${'What do you remember about ' + participation.getParticipant().getFirstName() +'?'}"></h4>
-                <form method="post" th:action="@{/participation/1/addComment}" th:object="${commentForm}">
+                <form method="post" th:action="@{/participation/{id}/addComment(id=${participation.getId()})}" th:object="${commentForm}">
                     <label>Your comment
                         <span class="formError" th:errors="*{comment}"/>
                         <input type="text" th:field="*{comment}" />

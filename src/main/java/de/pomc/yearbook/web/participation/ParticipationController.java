@@ -8,6 +8,8 @@ import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.participation.ParticipationService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
+import de.pomc.yearbook.web.exceptions.ForbiddenException;
+import de.pomc.yearbook.web.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -34,14 +36,19 @@ public class ParticipationController {
         return participation.getParticipant().getId().equals(user.getId());
     }
 
-    @ModelAttribute("book")
-    public Book getBook() {
-        return SampleData.getBooks().get(0);
-    }
-
    @ModelAttribute("participation")
    public Participation getParticipation(@PathVariable("id") Long id) {
-        return participationService.getParticipationWithID(id);
+        Participation participation = participationService.getParticipationWithID(id);
+        if (participation == null) {
+            throw new NotFoundException();
+        }
+
+        Book book = participation.getBook();
+        if (!book.isPublished() && !book.currentUserIsParticipant()) {
+            throw new ForbiddenException();
+        }
+
+        return participation;
    }
 
     @GetMapping
@@ -51,6 +58,7 @@ public class ParticipationController {
 
         model.addAttribute("commentForm", new CommentForm());
         model.addAttribute("showEditButton", currentUserIsParticipant(getParticipation(id)));
+        model.addAttribute("book", getParticipation(id).getBook());
 
         return "pages/participation/show";
     }
@@ -58,15 +66,18 @@ public class ParticipationController {
     @PreAuthorize("authenticated")
     @PostMapping("/addComment")
     public String addComment(@PathVariable("id") Long id, @ModelAttribute("commentForm") @Valid CommentForm commentForm, BindingResult bindingResult) {
+        Participation participation = getParticipation(id);
+
+        if (!participation.currentUserCanComment()) {
+            throw new ForbiddenException();
+        }
 
         if(bindingResult.hasErrors()){
             return "pages/participation/show";
         }
 
-        // Todo: check that current user is participant of book of this participation
-
         Comment comment = new Comment(commentForm.getComment(), userService.findCurrentUser());
-        participationService.addComment(comment);
+        participationService.addComment(comment, participation);
 
         return "redirect:/participation/{id}";
     }

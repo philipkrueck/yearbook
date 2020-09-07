@@ -25,7 +25,7 @@
                                 <li><a href="#">English (US)</a></li>
                             </ul>
                         </li>
-                        <li><a class="textLink" sec:authorize="hasRole('ADMIN')" th:href="@{/users/}">User Management</a></li>
+                        <li><a class="textLink" sec:authorize="hasRole('ADMIN')" th:href="@{/users}">User Management</a></li>
                         <li id="signOut"><form method="post" th:action="@{/logout}">
                             <button class="textLink">Sign out</button>
                         </form></li>

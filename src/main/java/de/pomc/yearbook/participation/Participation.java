@@ -70,15 +70,18 @@ public class Participation {
         return User.getCurrentUsername().equals(participant.getEmail());
     }
 
+    public boolean currentUserCanComment() {
+        return book.currentUserIsParticipant();
+    }
+
     public List<Integer> getNonBlankAnswerIndices() {
         List<Integer> nonBlankAnswerIndices = new ArrayList<>();
-        for (int i = 0; i < oldAnswers.size(); i++) {
-            String answer = oldAnswers.get(i);
-            if (!(answer == null) &&  !answer.isBlank()) {
+        for (int i = 0; i < answers.size(); i++) {
+            Answer answer = answers.get(i);
+            if (!(answer == null) && !answer.getAnswer().isBlank()) {
                 nonBlankAnswerIndices.add(i);
             }
         }
-
         return nonBlankAnswerIndices;
     }
 }

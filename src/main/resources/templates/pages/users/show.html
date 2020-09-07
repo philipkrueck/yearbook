@@ -19,10 +19,10 @@
                 <th>Name</th>
                 <th>Email</th>
             </tr>
-            <tr th:each="userViewModel : ${userViewModels}">
+            <tr th:each="user : ${users}">
                 <th>Profile Pic</th>
-                <th th:text="${userViewModel.getName()}"></th>
-                <th th:text="${userViewModel.getEmail()}"></th>
+                <th th:text="${user.getFullName()}"></th>
+                <th th:text="${user.getEmail()}"></th>
             </tr>
         </table>
     </div>

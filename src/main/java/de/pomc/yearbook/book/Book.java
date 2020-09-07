@@ -82,12 +82,11 @@ public class Book {
     }
 
     public boolean currentUserIsParticipant() {
-        for (Participation participation: participations) {
-            if (participation.getParticipant().getEmail().equals(User.getCurrentUsername())) {
-                return true;
-            }
-        }
-        return false;
+        return participations
+                .stream()
+                .filter(participation -> participation.getParticipant().getEmail().equals(User.getCurrentUsername()))
+                .findFirst()
+                .orElse(null) != null;
     }
 
     public boolean currentUserIsOwner() {
