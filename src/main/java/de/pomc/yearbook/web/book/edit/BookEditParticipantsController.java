@@ -7,6 +7,7 @@ import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.book.AddUserForm;
+import de.pomc.yearbook.web.book.PromotionForm;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,27 +30,25 @@ public class BookEditParticipantsController {
     private final BookService bookService;
     private final UserService userService;
 
-    private Book getBook(Long id) {
+    @ModelAttribute("book")
+    public Book getBook(@PathVariable("id") Long id) {
         Book book = bookService.getBookWithID(id);
         if (book == null) {
             throw new NotFoundException();
         }
+
+        if (!book.currentUserIsParticipant() && !book.currentUserIsOwner()) {
+            throw new ForbiddenException();
+        }
+
         return book;
     }
 
     @PreAuthorize("authenticated")
     @GetMapping
     public String showEditParticipantsView(@PathVariable("id") Long id, Model model) {
-        Book book = getBook(id);
-
-        if (!book.currentUserIsParticipant()) {
-            throw new ForbiddenException();
-        }
-
-        model.addAttribute("participations", book.getParticipations());
-        model.addAttribute("book", book);
         model.addAttribute("addUserForm", new AddUserForm());
-
+        model.addAttribute("promotionForm", new PromotionForm(getBook(id).getParticipations()));
         return "pages/book/editParticipants";
     }
 
@@ -72,29 +71,30 @@ public class BookEditParticipantsController {
     @PostMapping("/new")
     public String addNewParticipant(@PathVariable("id") Long id, @ModelAttribute("addUserForm") @Valid AddUserForm addUserForm, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return "/pages/book/{id}/edit/participants";
+            return "pages/book/editParticipants";
         }
 
         Book book = getBook(id);
-
-        // TODO: check if current user is allowed to edit the participants
+        if (!book.currentUserIsOwner() && !book.currentUserIsAdmin()) {
+            throw new ForbiddenException();
+        }
 
         User newParticipant = userService.findUserByEmail(addUserForm.getEmail());
 
         if (newParticipant == null) {
+            // ToDo: show JS dialog to user that email was not found in db
             System.out.println("Could not find email in DB");
-        } else {
-            // List<Participation> newParticipants = new ArrayList<>(book.getParticipations());
-
-            // ToDo: check that participations doesn't include user
-
-            // Note: This id will be generated once we have the database up and running
-            // Long nextID = newParticipants.isEmpty() ? 0 : newParticipants.get(newParticipants.size()-1).getId() + 1;
-            // newParticipants.add(new Participation(nextID, newParticipant, false, SampleData.getDefaultAnswers(), SampleData.getComments()));
-
-            // book.setParticipations(newParticipants);
+            return "pages/book/editParticipants";
         }
 
+        if (book.userIsParticipant(newParticipant)) {
+            // ToDo: show JS dialog that a user can only be added once
+            System.out.println("User is already added to DB");
+            return "pages/book/editParticipants";
+        }
+
+        Participation participation = new Participation(newParticipant, false);
+        bookService.addParticipation(book, participation);
         return "redirect:/book/{id}/edit/participants";
     }
 }

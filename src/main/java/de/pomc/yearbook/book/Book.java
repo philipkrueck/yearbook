@@ -72,6 +72,15 @@ public class Book {
         // this.participations = new ArrayList<>();
     }
 
+    public boolean userIsParticipant(User user) {
+        for (Participation participation: participations) {
+            if (participation.getParticipant().getEmail().equals(user.getEmail())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean currentUserIsParticipant() {
         for (Participation participation: participations) {
             if (participation.getParticipant().getEmail().equals(User.getCurrentUsername())) {
