@@ -3,6 +3,7 @@ package de.pomc.yearbook.web.book.edit;
 import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
+import de.pomc.yearbook.book.Question;
 import de.pomc.yearbook.web.book.NewQuestionForm;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
@@ -40,9 +41,8 @@ public class BookEditQuestionsController {
     }
 
     @PreAuthorize("authenticated")
-    @GetMapping()
-    public String showEditQuestionsView(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, Model model) {
-        model.addAttribute("isInCreationProcess", isInCreationProcess);
+    @GetMapping
+    public String showEditQuestionsView(@PathVariable("id") Long id, Model model) {
         model.addAttribute("questions", getBook(id).getQuestions());
         model.addAttribute("newQuestionForm", new NewQuestionForm());
 
@@ -51,29 +51,34 @@ public class BookEditQuestionsController {
 
     @PreAuthorize("authenticated")
     @PostMapping("/new")
-    public String addNewQuestion(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("newQuestionForm") @Valid NewQuestionForm newQuestionForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addNewQuestion(@PathVariable("id") Long id, @ModelAttribute("newQuestionForm") @Valid NewQuestionForm newQuestionForm, BindingResult bindingResult) {
+        // ToDo: make sure that there are no participations which are filled in
 
-        //if(bindingResult.hasErrors()){
-           // return "/pages/book/{id}/edit/questions";
-        //}
+        if(bindingResult.hasErrors()){
+            return "pages/book/editQuestions";
+        }
 
         Book book = getBook(id);
+        bookService.addQuestion(book, new Question(newQuestionForm.getQuestion()));
 
-        // ToDo: add question
-
-        redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
         return "redirect:/book/{id}/edit/questions";
     }
 
 
     @PreAuthorize("authenticated")
     @PostMapping("/delete/{questionIndex}")
-    public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionIndex") int questionIndex, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, RedirectAttributes redirectAttributes) {
+    public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionIndex") int questionIndex) {
+        // ToDo: make sure that there are no participations which are filled in
+
         Book book = getBook(id);
 
-        // ToDo: delete question
+        if (book.getQuestions().size() < questionIndex || questionIndex < 0) {
+            throw new ForbiddenException();
+        }
 
-        redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
+        book.getQuestions().remove(questionIndex);
+        bookService.save(book);
+
         return "redirect:/book/{id}/edit/questions";
     }
 }

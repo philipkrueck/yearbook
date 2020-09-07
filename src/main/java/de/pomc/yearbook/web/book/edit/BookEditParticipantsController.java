@@ -7,6 +7,7 @@ import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.book.AddUserForm;
+import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,44 +38,42 @@ public class BookEditParticipantsController {
     }
 
     @PreAuthorize("authenticated")
-    @PostMapping("/delete/{participantId}")
-    public String deleteParticipant(@PathVariable("id") Long id, @PathVariable("participantId") int participantId, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, RedirectAttributes redirectAttributes) {
-        Book book = getBook(id);
-
-        // TODO: Check if current user is allowed to perform this operation
-
-        // List<Participation> newPartcipations = new ArrayList<>(book.getParticipations());
-        // newPartcipations.remove(participantId);
-        // book.setParticipations(newPartcipations);
-
-        redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
-        return "redirect:/book/{id}/edit/participants";
-    }
-
-    @PreAuthorize("authenticated")
     @GetMapping
-    public String editParticipants(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, Model model, RedirectAttributes redirectAttributes) {
+    public String showEditParticipantsView(@PathVariable("id") Long id, Model model) {
         Book book = getBook(id);
 
-        // TODO: check if current user is allowed to edit the participants
+        if (!book.currentUserIsParticipant()) {
+            throw new ForbiddenException();
+        }
 
-
-        model.addAttribute("isInCreationProcess", isInCreationProcess);
-        // model.addAttribute("participations", book.getParticipations());
+        model.addAttribute("participations", book.getParticipations());
         model.addAttribute("book", book);
         model.addAttribute("addUserForm", new AddUserForm());
 
-        redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
         return "pages/book/editParticipants";
     }
 
     @PreAuthorize("authenticated")
-    @PostMapping("/new")
-    public String addNewParticipant(@PathVariable("id") Long id, @RequestParam(name = "isInCreationProcess", required = true) boolean isInCreationProcess, @ModelAttribute("addUserForm") @Valid AddUserForm addUserForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    @PostMapping("/delete/{participantId}")
+    public String deleteParticipant(@PathVariable("id") Long id, @PathVariable("participantId") int participantId) {
+        Book book = getBook(id);
 
-        //if(bindingResult.hasErrors()){
-            //return "/pages/book/{id}/edit/participants";
-        //}
+        if (!book.currentUserCanDelete(participantId)) {
+            throw new ForbiddenException();
+        }
+
+        book.getParticipations().remove(participantId);
+        bookService.save(book);
+
+        return "redirect:/book/{id}/edit/participants";
+    }
+
+    @PreAuthorize("authenticated")
+    @PostMapping("/new")
+    public String addNewParticipant(@PathVariable("id") Long id, @ModelAttribute("addUserForm") @Valid AddUserForm addUserForm, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "/pages/book/{id}/edit/participants";
+        }
 
         Book book = getBook(id);
 
@@ -96,7 +95,6 @@ public class BookEditParticipantsController {
             // book.setParticipations(newParticipants);
         }
 
-        redirectAttributes.addAttribute("isInCreationProcess", isInCreationProcess);
         return "redirect:/book/{id}/edit/participants";
     }
 }

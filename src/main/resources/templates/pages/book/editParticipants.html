@@ -38,7 +38,9 @@
                         </form>
                     </div>
                     <div class="cell shrink">
-                        <button type="button" class="alert button">Delete</button>
+                        <form method="post" th:action="@{/book/{id}/edit/participants/delete/{participantId}(id=${book.getId()}, participantId=${})}">
+                            <button type="button" class="alert button">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>

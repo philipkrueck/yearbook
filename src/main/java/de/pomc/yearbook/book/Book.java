@@ -34,7 +34,7 @@ public class Book {
     private List<Question> questions;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "book")
-    private Set<Participation> participations;
+    private List<Participation> participations;
 
     @Basic(optional = false)
     private boolean published;
@@ -47,7 +47,7 @@ public class Book {
         this.owner = owner;
         this.published = false;
         this.questions = new ArrayList<>();
-        this.participations = new HashSet<>();
+        this.participations = new ArrayList<>();
     }
 
     // ToDo: remove this init once SampleData is gone
@@ -86,9 +86,21 @@ public class Book {
     }
 
     public boolean currentUserIsAdmin() {
-        return true;
-                //participations.stream().
-                //anyMatch(participant -> participant.getParticipant().getEmail().equals(User.getCurrentUsername()) && participant.isAdmin());
+        return participations.stream()
+                    .anyMatch(participant -> participant.getParticipant().getEmail().equals(User.getCurrentUsername()) && participant.isAdmin());
+    }
+
+    public boolean currentUserCanDelete(int participationId) {
+        Participation participationToDelete = participations.get(participationId);
+        Participation participationCurrentUser = participations.stream()
+                                                                .filter(Participation::currentUserIsOwner)
+                                                                .findFirst().orElse(null);
+
+        if (participationCurrentUser == null || participationToDelete == null) {
+            return false;
+        }
+
+        return currentUserIsOwner() || (!participationToDelete.isAdmin() && participationCurrentUser.isAdmin());
     }
 
     public boolean isOwner(Participation participation) {
