@@ -1,12 +1,10 @@
 package de.pomc.yearbook.web.participation;
 
-import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.participation.Comment;
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.participation.ParticipationService;
-import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
@@ -28,16 +26,8 @@ public class ParticipationController {
     private final ParticipationService participationService;
     private final UserService userService;
 
-    private boolean currentUserIsParticipant(Participation participation) {
-        User user = userService.findCurrentUser();
-        if (user == null) {
-            return false;
-        }
-        return participation.getParticipant().getId().equals(user.getId());
-    }
-
-   @ModelAttribute("participation")
-   public Participation getParticipation(@PathVariable("id") Long id) {
+    @ModelAttribute("participation")
+    public Participation getParticipation(@PathVariable("id") Long id) {
         Participation participation = participationService.getParticipationWithID(id);
         if (participation == null) {
             throw new NotFoundException();
@@ -49,16 +39,15 @@ public class ParticipationController {
         }
 
         return participation;
-   }
+    }
 
     @GetMapping
     public String showParticipationView(Model model, @PathVariable("id") Long id) {
-        // ToDo: make sure that user is either part of the book of this participation or the book is published
-        // ToDo: add commentForm only if user is part of the book
+        Participation participation = getParticipation(id);
 
         model.addAttribute("commentForm", new CommentForm());
-        model.addAttribute("showEditButton", currentUserIsParticipant(getParticipation(id)));
-        model.addAttribute("book", getParticipation(id).getBook());
+        model.addAttribute("showEditButton", participation.currentUserIsParticipant());
+        model.addAttribute("book", participation.getBook());
 
         return "pages/participation/show";
     }

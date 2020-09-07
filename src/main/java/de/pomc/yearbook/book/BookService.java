@@ -1,7 +1,6 @@
 package de.pomc.yearbook.book;
 
 
-import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional

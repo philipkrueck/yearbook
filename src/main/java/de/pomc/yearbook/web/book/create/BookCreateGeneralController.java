@@ -1,6 +1,5 @@
 package de.pomc.yearbook.web.book.create;
 
-import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.user.UserService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Comparator;
 
 @Controller
 @RequestMapping("book/create")

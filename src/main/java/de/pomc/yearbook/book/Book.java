@@ -6,9 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -50,28 +48,6 @@ public class Book {
         this.participations = new ArrayList<>();
     }
 
-    // ToDo: remove this init once SampleData is gone
-    public Book(Long id, String name, String description, User owner, boolean published) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.published = published;
-        this.questions = new ArrayList<>();
-        // this.participations = new ArrayList<>();
-    }
-
-    // ToDo: remove this init once SampleData is gone
-    public Book(Long id, String name, String description, User owner, List<String> questions, boolean published) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.published = published;
-        this.questions = new ArrayList<>();
-        // this.participations = new ArrayList<>();
-    }
-
     public boolean userIsParticipant(User user) {
         for (Participation participation: participations) {
             if (participation.getParticipant().getEmail().equals(user.getEmail())) {
@@ -101,7 +77,7 @@ public class Book {
     public boolean currentUserCanDelete(int participationId) {
         Participation participationToDelete = participations.get(participationId);
         Participation participationCurrentUser = participations.stream()
-                                                                .filter(Participation::currentUserIsOwner)
+                                                                .filter(Participation::currentUserIsParticipant)
                                                                 .findFirst().orElse(null);
 
         if (participationCurrentUser == null || participationToDelete == null) {

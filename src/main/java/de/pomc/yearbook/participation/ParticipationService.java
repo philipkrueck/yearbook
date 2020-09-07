@@ -35,6 +35,10 @@ public class ParticipationService {
         }
     }
 
+    public void updateAnswer(Participation participation, String answer, int index) {
+        participation.getAnswers().get(index).setAnswer(answer);
+    }
+
     public Participation getParticipationWithID(Long id) {
         return participationRepository.findById(id).orElse(null);
     }

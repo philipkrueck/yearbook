@@ -1,6 +1,5 @@
 package de.pomc.yearbook.web.book.edit;
 
-import de.pomc.yearbook.SampleData;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.book.Question;
@@ -13,10 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/book/{id}/edit/questions")
@@ -68,7 +65,7 @@ public class BookEditQuestionsController {
     @PreAuthorize("authenticated")
     @PostMapping("/delete/{questionIndex}")
     public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionIndex") int questionIndex) {
-        // ToDo: make sure that there are no participations which are filled in
+        // ToDo: make sure that there are no participations which are filled in (also hide the button in HTML)
 
         Book book = getBook(id);
 
