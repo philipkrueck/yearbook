@@ -2,4 +2,10 @@ package de.pomc.yearbook.participation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParticipationRepository extends JpaRepository<Participation, Long> { }
+import java.util.List;
+
+public interface ParticipationRepository extends JpaRepository<Participation, Long> {
+
+    List<Participation> findParticipationByParticipant_Email(String email);
+
+}

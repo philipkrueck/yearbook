@@ -32,7 +32,7 @@
             <div class="cell small-24 medium-12">
                 <form method="post" th:action="@{/participation/{id}/edit/update(id=${participation.getId()})}" th:object="${editAnswersForm}">
                     <div th:each="answer, itemStat : *{answers}">
-                        <p th:text="${book.getQuestions().get(itemStat.index)}"></p>
+                        <p th:text="${book.getQuestions().get(itemStat.index).getQuestion()}"></p>
                         <input type="text" th:field="*{answers[__${itemStat.index}__]}"/>
                     </div>
 

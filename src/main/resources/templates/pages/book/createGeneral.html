@@ -54,11 +54,11 @@
                     <fieldset>
                         <legend>Choose Visibility</legend>
                         <div class="cell radioWrapper">
-                            <input type="radio" name="visibility" value="Public" id="visibilityPublic" required>
+                            <input th:field="*{published}" type="radio" name="visibility" value="1" id="visibilityPublic" required>
                             <label for="visibilityPublic"><strong>Public</strong><br />Your book will be visible to all visitors on Yearbook.</label>
                         </div>
                         <div class="cell radioWrapper">
-                            <input type="radio" name="visibility" value="Private" id="visibilityPrivate">
+                            <input th:field="*{published}" type="radio" name="visibility" value="0" id="visibilityPrivate">
                             <label for="visibilityPrivate"><strong>Private</strong><br />Your book will only be visible to you and your participants.</label>
                         </div>
                     </fieldset>
@@ -71,9 +71,6 @@
     <div class="grid-wrapper">
         <div class="grid-container" id="goToNextStep">
             <div class="grid-x">
-                <div class="cell auto">
-
-                </div>
                 <div class="cell shrink submitIconWrapper">
                     <input class="button next" type="submit" value="Save and next" />
                     <div class="submitIcon"><span class="material-icons">navigate_next</span></div>

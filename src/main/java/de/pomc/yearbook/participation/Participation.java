@@ -35,7 +35,7 @@ public class Participation {
 
     @Getter
     @Setter
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "participation") // ToDo: add relationship here
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "participation")
     private List<Comment> comments = new ArrayList<>();
 
     @Getter
@@ -50,35 +50,23 @@ public class Participation {
         this.comments = new ArrayList<>();
     }
 
+    public boolean currentUserIsParticipant() {
 
-    // ToDo: remove this constructor, once dummy data is gone
-
-    @Transient
-    @Getter
-    @Setter
-    List<String> oldAnswers;
-
-    public Participation(Long id, User participant, boolean isAdmin, List<String> answers, List<Comment> comments) {
-        this.id = id;
-        this.participant = participant;
-        this.isAdmin = isAdmin;
-        this.oldAnswers = answers;
-        this.comments = comments;
+        return User.getCurrentUsername() != null && User.getCurrentUsername().equals(participant.getEmail());
     }
 
-    public boolean currentUserIsOwner() {
-        return User.getCurrentUsername().equals(participant.getEmail());
+    public boolean currentUserCanComment() {
+        return book.currentUserIsParticipant();
     }
 
     public List<Integer> getNonBlankAnswerIndices() {
         List<Integer> nonBlankAnswerIndices = new ArrayList<>();
-        for (int i = 0; i < oldAnswers.size(); i++) {
-            String answer = oldAnswers.get(i);
-            if (!(answer == null) &&  !answer.isBlank()) {
+        for (int i = 0; i < answers.size(); i++) {
+            Answer answer = answers.get(i);
+            if (!(answer == null) && !answer.getAnswer().isBlank()) {
                 nonBlankAnswerIndices.add(i);
             }
         }
-
         return nonBlankAnswerIndices;
     }
 }
