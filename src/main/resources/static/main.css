@@ -328,10 +328,6 @@ nav.sideMenu a.current {
     margin-bottom: 20px;
 }
 
-#profileTitle {
-    line-height: .2;
-}
-
 #editProfile {
     display: none;
 }
@@ -414,7 +410,7 @@ nav.sideMenu a.current {
     margin: 60px auto 70px;
 }
 
-.bookAvatarUpload {
+.imageUpload {
     margin: -60px 20px 0 0;
     background-color: #292c31;
     color: #fff;
