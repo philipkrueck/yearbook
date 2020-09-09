@@ -1,6 +1,8 @@
 package de.pomc.yearbook.web.participation;
 
+import de.pomc.yearbook.book.Question;
 import de.pomc.yearbook.participation.Answer;
+import de.pomc.yearbook.participation.Participation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,16 @@ public class EditAnswersForm {
     @Setter
     private List<String> answers;
 
-    public EditAnswersForm(List<Answer> answers) {
-        this.answers = answers.stream().map(Answer::getAnswer).collect(Collectors.toList());
+    public EditAnswersForm(Participation participation) {
+        List<Question> questions = participation.getBook().getQuestions();
+        List<Answer> participationAnswers = participation.getAnswers();
+
+        for (int i = 0; i < questions.size(); i++) {
+            if (i >= participationAnswers.size() || participationAnswers.get(i) == null) {
+                answers.set(i, "");
+            } else {
+                answers.set(i, participationAnswers.get(i).getAnswer());
+            }
+        }
     }
 }

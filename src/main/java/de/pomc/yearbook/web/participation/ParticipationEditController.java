@@ -33,7 +33,7 @@ public class ParticipationEditController {
     public String showEditParticipationView(@PathVariable("id") Long id, Model model) {
         Participation participation = getParticipation(id);
 
-        model.addAttribute("editAnswersForm", new EditAnswersForm(participation.getAnswers()));
+        model.addAttribute("editAnswersForm", new EditAnswersForm(participation));
         model.addAttribute("book", participation.getBook());
 
         return "pages/participation/edit";
