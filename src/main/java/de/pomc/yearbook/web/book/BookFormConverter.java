@@ -18,8 +18,7 @@ public abstract class BookFormConverter {
     }
 
     public static Book book(BookForm bookForm, User user) {
-        Book book = new Book(bookForm.getName(), bookForm.getDescription(), user);
-        book.setPublished(bookForm.isPublished());
+        Book book = new Book(bookForm.getName(), bookForm.getDescription(), user, bookForm.isPublished());
         return book;
     }
 }

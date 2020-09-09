@@ -63,11 +63,11 @@ public class InMemoryTestingData {
         }
         List<String> questions = List.of("question one", "question two", "question three");
 
-        Book bookOne = new Book("Blue Mountain State 2020", "description", sam);
-        Book bookTwo = new Book("HSBA BI '21", "description", gandalf);
-        Book bookThree = new Book("Stanford Law '19", "description", legolas);
-        Book bookFour = new Book("MIT Robotics 2020", "description", gimli);
-        Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo);
+        Book bookOne = new Book("Blue Mountain State 2020", "description", sam, true);
+        Book bookTwo = new Book("HSBA BI '21", "description", gandalf, true);
+        Book bookThree = new Book("Stanford Law '19", "description", legolas, true);
+        Book bookFour = new Book("MIT Robotics 2020", "description", gimli, false);
+        Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo, false);
 
         bookOne.setPublished(true);
         bookTwo.setPublished(true);
@@ -168,7 +168,7 @@ public class InMemoryTestingData {
     private void addAnswers(Participation participation) {
         // add answers
         List<Answer> answers = List.of(
-                new Answer("answer 1"), new Answer("answer 2")
+            new Answer("answer 1"), new Answer("answer 2")
         );
         participationService.setAnswers(participation, answers);
     }

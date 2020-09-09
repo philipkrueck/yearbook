@@ -39,11 +39,11 @@ public class Book {
 
     // TODO: add image
 
-    public Book(String name, String description, User owner) {
+    public Book(String name, String description, User owner, boolean published) {
         this.name = name;
         this.description = description;
         this.owner = owner;
-        this.published = false;
+        this.published = published;
         this.questions = new ArrayList<>();
         this.participations = new ArrayList<>();
     }
