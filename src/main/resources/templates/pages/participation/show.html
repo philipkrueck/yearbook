@@ -28,8 +28,16 @@
 <main class="grid-wrapper" id="viewQuestionnaire">
     <div class="grid-container">
         <div class="grid-x">
-            <div class="cell small-24 medium-8">
-                <img src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
+            <div class="cell small-24 medium-8" th:with="user=${participation.getParticipant()}">
+                <div th:if="${user != null}">
+                    <img src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
+                    <p th:if="${user.getBio() != null}" th:text="${user.getBio()}"></p>
+                    <p th:if="${user.getTwitterHandle() != null}" th:text="${user.getTwitterHandle()}"></p>
+                    <p th:if="${user.getLocation() != null}" th:text="${user.getLocation()}"></p>
+                    <p th:if="${user.getWebsite() != null}" th:text="${user.getWebsite()}"></p>
+                </div>
+                <img th:if="${user == null}" src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
+
             </div>
             <div class="cell small-24 medium-16" th:with="nonBlankAnswerIndices=${participation.getNonBlankAnswerIndices()}">
                 <h1 th:text="${book.getName()}"></h1>
@@ -45,6 +53,7 @@
                 <div class="publishedComments">
                     <hr/>
                     <h5 th:text="'Comments about ' + ${participation.getParticipant().getFullName()}"></h5>
+                    <p th:if="${participation.getComments().isEmpty()}">No comments written yet.</p>
                     <div th:each="comment : ${participation.getComments()}">
                         <blockquote th:text="${comment.getComment()} + ' - ' + ${comment.getAuthor().getFullName()}"></blockquote>
                         <button th:if="${comment.authorIsCurrentUser()}" class="button">Edit</button>

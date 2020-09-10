@@ -1,14 +1,18 @@
 package de.pomc.yearbook.web.participation;
 
+import de.pomc.yearbook.participation.Answer;
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.participation.ParticipationService;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
+import de.pomc.yearbook.web.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +25,11 @@ public class ParticipationEditController {
     @ModelAttribute("participation")
     private Participation getParticipation(@PathVariable("id") Long id) {
         Participation participation = participationService.getParticipationWithID(id);
+
+        if (participation == null) {
+            throw new NotFoundException();
+        }
+
         if (!participation.currentUserIsParticipant()) {
             throw new ForbiddenException();
         }
@@ -33,7 +42,7 @@ public class ParticipationEditController {
     public String showEditParticipationView(@PathVariable("id") Long id, Model model) {
         Participation participation = getParticipation(id);
 
-        model.addAttribute("editAnswersForm", new EditAnswersForm(participation));
+        model.addAttribute("editAnswersForm", EditAnswersFormConverter.editAnswersForm(participation));
         model.addAttribute("book", participation.getBook());
 
         return "pages/participation/edit";
@@ -46,9 +55,8 @@ public class ParticipationEditController {
 
         Participation participation = participationService.getParticipationWithID(id);
 
-        for (int i = 0; i < participation.getAnswers().size(); i++) {
-            participationService.updateAnswer(participation, editAnswersForm.getAnswers().get(i), i);
-        }
+        List<Answer> answers = EditAnswersFormConverter.getAnswers(editAnswersForm, participation);
+        participationService.setAnswers(participation, answers);
 
         return "redirect:/participation/{id}";
     }

@@ -24,10 +24,10 @@
             </form>
             <h5 th:text="${user.getFullName()}"></h5>
             <h6 th:text="${user.getEmail()}"></h6>
-            <p th:text="${user.getBio()}"></p>
-            <p th:text="${user.getTwitterHandle()}"></p>
-            <p th:text="${user.getLocation()}"></p>
-            <p th:text="${user.getWebsite()}"></p>
+            <p th:if="${user.getBio() != null}" th:text="${user.getBio()}"></p>
+            <p th:if="${user.getTwitterHandle() != null}" th:text="${user.getTwitterHandle()}"></p>
+            <p th:if="${user.getLocation() != null}" th:text="${user.getLocation()}"></p>
+            <p th:if="${user.getWebsite() != null}" th:text="${user.getWebsite()}"></p>
             <hr />
             <button class="button small secondary medium-expanded profileTrigger" id="editProfileTrigger">Edit profile</button>
             <button class="button small secondary medium-expanded passwordTrigger">Change password</button>
