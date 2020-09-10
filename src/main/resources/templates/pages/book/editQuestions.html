@@ -27,7 +27,7 @@
                                 <button type="submit" class="removeQuestion"><span class="material-icons">remove</span></button>
                             </form>
                             <div th:if="${book.questionCanNotBeDeletedAt(itemStat.index)}">
-                                <p>ToDo: show info i with hover: explaining that questions can only be deleted, if no one answered them</p>
+                                <small>ToDo: on hover: show small text box explaining that questions can only be deleted, if no one answered them</small>
                             </div>
                         </div>
                     </div>
