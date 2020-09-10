@@ -34,4 +34,9 @@ public class Answer {
     public Answer(String answer) {
         this.answer = answer;
     }
+
+    public Answer(Question question, String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
 }

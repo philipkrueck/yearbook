@@ -31,8 +31,9 @@ public class ParticipationService {
             Answer answer = answers.get(i);
             answer.setParticipation(participation);
             answer.setQuestion(participation.getBook().getQuestions().get(i));
-            participation.setAnswers(answers);
         }
+        participation.getAnswers().clear();
+        participation.getAnswers().addAll(answers);
     }
 
     public void updateAnswer(Participation participation, String answer, int index) {

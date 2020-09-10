@@ -41,13 +41,17 @@ public class ParticipationController {
         return participation;
     }
 
+    @ModelAttribute("book")
+    public Book getBook(@PathVariable("id") Long id) {
+        return getParticipation(id).getBook();
+    }
+
     @GetMapping
     public String showParticipationView(Model model, @PathVariable("id") Long id) {
         Participation participation = getParticipation(id);
 
         model.addAttribute("commentForm", new CommentForm());
         model.addAttribute("showEditButton", participation.currentUserIsParticipant());
-        model.addAttribute("book", participation.getBook());
 
         return "pages/participation/show";
     }

@@ -35,7 +35,8 @@ public class ProfileController {
     private final ParticipationService participationService;
     private final PasswordEncoder passwordEncoder;
 
-    private User getCurrentUser() {
+   @ModelAttribute("user")
+    public User getCurrentUser() {
         User user = userService.findCurrentUser(); // user must not be null
 
         if (user == null) {
@@ -52,7 +53,6 @@ public class ProfileController {
         User user = getCurrentUser();
 
         model.addAttribute("userForm", UserFormConverter.userForm(user));
-        model.addAttribute("user", user);
 
         byte[] userImage = user.getImage();
         if (userImage != null && userImage.length > 0) {
@@ -69,8 +69,18 @@ public class ProfileController {
     }
 
     @SneakyThrows // ... is used here as the encoding must always succeed and would indicate a programming error otherwise
+    @PostMapping("/addProfilePic")
+    public String addProfilePic(final @RequestParam("image") MultipartFile image) {
+        User user = getCurrentUser();
+
+        // ToDo: image upload @Malte
+        user.setImage(image.getBytes());
+        userService.save(user);
+        return "redirect:/";
+    }
+
     @PostMapping("/edit")
-    public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, final @RequestParam("image") MultipartFile image) {
+    public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) {
 
         // ToDo: implement form validation and show js dialog accordingly
         //if(bindingResult.hasErrors()){
@@ -78,14 +88,11 @@ public class ProfileController {
         //}
 
         User user = userService.findCurrentUser();
+        UserFormConverter.update(user, userForm);
 
         if(userService.findUserByEmail(userForm.getEmail()) != null && !user.getEmail().equals(userForm.getEmail())) {
             return "redirect:/profile?emailExists";
         }
-
-        userForm.setImage(image.getBytes());
-        UserFormConverter.update(user, userForm);
-        userService.save(user);
 
         //TODO: add feature for new authentication if email was changed
 

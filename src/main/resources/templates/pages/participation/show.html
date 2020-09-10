@@ -28,20 +28,32 @@
 <main class="grid-wrapper" id="viewQuestionnaire">
     <div class="grid-container">
         <div class="grid-x">
-            <div class="cell small-24 medium-8">
-                <img src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
+            <div class="cell small-24 medium-8" th:with="user=${participation.getParticipant()}">
+                <div th:if="${user != null}">
+                    <img src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
+                    <p th:if="${user.getBio() != null}" th:text="${user.getBio()}"></p>
+                    <p th:if="${user.getTwitterHandle() != null}" th:text="${user.getTwitterHandle()}"></p>
+                    <p th:if="${user.getLocation() != null}" th:text="${user.getLocation()}"></p>
+                    <p th:if="${user.getWebsite() != null}" th:text="${user.getWebsite()}"></p>
+                </div>
+                <img th:if="${user == null}" src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
+
             </div>
-            <div class="cell small-24 medium-16">
+            <div class="cell small-24 medium-16" th:with="nonBlankAnswerIndices=${participation.getNonBlankAnswerIndices()}">
                 <h1 th:text="${book.getName()}"></h1>
-                <div class="questionBlock">
-                    <div th:each="i : ${participation.getNonBlankAnswerIndices()}"}>
+                <div class="questionBlock" th:if="${!nonBlankAnswerIndices.isEmpty()}">
+                    <div th:each="i : ${nonBlankAnswerIndices}"}>
                         <h5 th:text="${book.getQuestions().get(i).getQuestion()}"></h5>
                         <p th:text="${participation.getAnswers().get(i).getAnswer()}"></p>
                     </div>
                 </div>
+                <div th:if="${nonBlankAnswerIndices.isEmpty()}">
+                    <p>No questions answered yet.</p>
+                </div>
                 <div class="publishedComments">
                     <hr/>
                     <h5 th:text="'Comments about ' + ${participation.getParticipant().getFullName()}"></h5>
+                    <p th:if="${participation.getComments().isEmpty()}">No comments written yet.</p>
                     <div th:each="comment : ${participation.getComments()}">
                         <blockquote th:text="${comment.getComment()} + ' - ' + ${comment.getAuthor().getFullName()}"></blockquote>
                         <button th:if="${comment.authorIsCurrentUser()}" class="button">Edit</button>
@@ -62,6 +74,14 @@
                     </label>
                     <input type="submit" class="button" value="Submit comment" />
                 </form>
+            </div>
+        </div>
+    </div>
+    <div th:if="${participation.currentUserIsParticipant()}">
+        <div class="grid-x align-right">
+            <div class="cell small-22 medium-16">
+                <hr />
+                <p>Sorry, you can't comment on your own participation</p>
             </div>
         </div>
     </div>
