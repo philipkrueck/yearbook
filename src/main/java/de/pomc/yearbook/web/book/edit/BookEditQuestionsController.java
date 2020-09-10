@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/book/{id}/edit/questions")
@@ -37,20 +38,21 @@ public class BookEditQuestionsController {
         return book;
     }
 
+    @ModelAttribute("questions")
+    public List<Question> getQuestions(@PathVariable("id") Long id) {
+        return getBook(id).getQuestions();
+    }
+
     @PreAuthorize("authenticated")
     @GetMapping
     public String showEditQuestionsView(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("questions", getBook(id).getQuestions());
         model.addAttribute("newQuestionForm", new NewQuestionForm());
-
         return "pages/book/editQuestions";
     }
 
     @PreAuthorize("authenticated")
     @PostMapping("/new")
     public String addNewQuestion(@PathVariable("id") Long id, @ModelAttribute("newQuestionForm") @Valid NewQuestionForm newQuestionForm, BindingResult bindingResult) {
-        // ToDo: make sure that there are no participations which are filled in
-
         if(bindingResult.hasErrors()){
             return "pages/book/editQuestions";
         }
@@ -65,9 +67,11 @@ public class BookEditQuestionsController {
     @PreAuthorize("authenticated")
     @PostMapping("/delete/{questionIndex}")
     public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionIndex") int questionIndex) {
-        // ToDo: make sure that there are no participations which are filled in (also hide the button in HTML)
-
         Book book = getBook(id);
+
+        if (book.questionCanNotBeDeletedAt(questionIndex)) {
+            throw new ForbiddenException();
+        }
 
         if (book.getQuestions().size() < questionIndex || questionIndex < 0) {
             throw new ForbiddenException();
