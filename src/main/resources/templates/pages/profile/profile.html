@@ -17,10 +17,10 @@
 
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6">
-            <form action="#">
-                <img id="avatarImage" th:src="${(userImage != null && !#strings.isEmpty(userImage)) ? 'data:image/jpeg;base64,'+ userImage : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
+            <form th:action="@{/profile/addProfileImage}" th:object="${userImageForm}" method="post" enctype="multipart/form-data">
+                <img id="avatarImage" th:src="${(user.getImageBase64() != null && !#strings.isEmpty(user.getImageBase64())) ? 'data:image/jpeg;base64,'+ user.getImageBase64() : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
                 <label for="profilePicUpload" class="button imageUpload"><span class="material-icons">create</span> Edit</label>
-                <input type="file" onchange="this.form.submit()" id="profilePicUpload" class="show-for-sr">
+                <input type="file" accept="image/*" onchange="this.form.submit()" id="profilePicUpload" class="show-for-sr" th:field="*{image}">
             </form>
             <h5 th:text="${user.getFullName()}"></h5>
             <h6 th:text="${user.getEmail()}"></h6>

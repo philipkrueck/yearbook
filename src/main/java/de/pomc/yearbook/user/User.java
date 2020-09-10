@@ -1,5 +1,6 @@
 package de.pomc.yearbook.user;
 
+import de.pomc.yearbook.utils.ConvertByte;
 import lombok.*;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -7,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.UnsupportedEncodingException;
 
 @Entity
 @Getter
@@ -75,4 +77,8 @@ public class User {
         return getFirstName() + " " + getLastName();
     }
 
+    public String getImageBase64() throws UnsupportedEncodingException {
+        ConvertByte convertByte = new ConvertByte();
+        return convertByte.ToBase64(getImage());
+    }
 }

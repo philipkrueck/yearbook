@@ -6,7 +6,6 @@ import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.Base64;
+
+import java.io.IOException;
 import javax.validation.Valid;
 
 import javax.swing.*;
@@ -46,21 +46,13 @@ public class ProfileController {
         return user;
     }
 
-    @SneakyThrows // is used here as the encoding must always succeed and would indicate a programming error otherwise
     @PreAuthorize("authenticated")
     @GetMapping
     public String showProfile(Model model) {
         User user = getCurrentUser();
 
+        model.addAttribute("userImageForm", UserImageFormConverter.userImageForm(user));
         model.addAttribute("userForm", UserFormConverter.userForm(user));
-
-        byte[] userImage = user.getImage();
-        if (userImage != null && userImage.length > 0) {
-            byte[] encodeBase64 = Base64.getEncoder().encode(user.getImage());
-            String base64Encoded = new String(encodeBase64, "UTF-8");
-            model.addAttribute("userImage", base64Encoded);
-        }
-
         model.addAttribute("books", bookService.getBooksOfCurrentUser());
         model.addAttribute("participations", participationService.getParticipationsOfCurrentUser());
         model.addAttribute("changePasswordForm", new ChangePasswordForm());
@@ -68,15 +60,17 @@ public class ProfileController {
         return "pages/profile/profile";
     }
 
-    @SneakyThrows // ... is used here as the encoding must always succeed and would indicate a programming error otherwise
-    @PostMapping("/addProfilePic")
-    public String addProfilePic(final @RequestParam("image") MultipartFile image) {
-        User user = getCurrentUser();
-
-        // ToDo: image upload @Malte
-        user.setImage(image.getBytes());
-        userService.save(user);
-        return "redirect:/";
+    @PostMapping("/addProfileImage")
+    public String addProfileImage(final @RequestParam("image") MultipartFile image) {
+       try {
+           User user = getCurrentUser();
+           user.setImage(image.getBytes());
+           userService.save(user);
+           return "redirect:/";
+       }
+       catch (IOException e) {
+         throw new ForbiddenException(); //TODO: Change to SomethingWentWrongException
+        }
     }
 
     @PostMapping("/edit")
