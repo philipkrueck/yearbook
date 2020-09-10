@@ -90,4 +90,11 @@ public class Book {
     public boolean isOwner(Participation participation) {
         return owner.getEmail().equals(participation.getParticipant().getEmail());
     }
+
+    // questions can only be deleted if no participant filled in an answer to that question
+    public boolean questionCanNotBeDeletedAt(int index) {
+        return participations
+                .stream()
+                .anyMatch(participation -> (participation.getAnswers().size() > index && participation.getAnswers().get(index) != null));
+    }
 }

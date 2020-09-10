@@ -23,9 +23,12 @@
                         <div class="questionInner">
                             <span th:text="${itemStat.index + 1} + '.'"> </span>
                             <span th:text="${question.getQuestion()}"></span>
-                            <form method="post" th:action="@{/book/{id}/edit/questions/delete/{questionId}(id=${book.getId()}, questionId=${itemStat.index})}">
+                            <form method="post" th:if="${!book.questionCanNotBeDeletedAt(itemStat.index)}" th:action="@{/book/{id}/edit/questions/delete/{questionId}(id=${book.getId()}, questionId=${itemStat.index})}">
                                 <button type="submit" class="removeQuestion"><span class="material-icons">remove</span></button>
                             </form>
+                            <div th:if="${book.questionCanNotBeDeletedAt(itemStat.index)}">
+                                <p>ToDo: show info i with hover: explaining that questions can only be deleted, if no one answered them</p>
+                            </div>
                         </div>
                     </div>
                 </div>

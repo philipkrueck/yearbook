@@ -65,9 +65,11 @@ public class BookEditQuestionsController {
     @PreAuthorize("authenticated")
     @PostMapping("/delete/{questionIndex}")
     public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionIndex") int questionIndex) {
-        // ToDo: make sure that there are no participations which are filled in (also hide the button in HTML)
-
         Book book = getBook(id);
+
+        if (book.questionCanNotBeDeletedAt(questionIndex)) {
+            throw new ForbiddenException();
+        }
 
         if (book.getQuestions().size() < questionIndex || questionIndex < 0) {
             throw new ForbiddenException();
