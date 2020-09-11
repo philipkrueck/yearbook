@@ -74,7 +74,7 @@ public class BookCreateParticipantsController {
             return "pages/book/createParticipants";
         }
 
-        if (book.userIsParticipant(newParticipant)) {
+        if (book.userHasParticipation(newParticipant)) {
             // ToDo: show JS dialog that a user can only be added once
             System.out.println("User is already added to DB");
             return "pages/book/createParticipants";

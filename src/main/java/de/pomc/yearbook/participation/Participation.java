@@ -51,12 +51,11 @@ public class Participation {
     }
 
     public boolean currentUserIsParticipant() {
-
         return User.getCurrentUsername() != null && User.getCurrentUsername().equals(participant.getEmail());
     }
 
     public boolean currentUserCanComment() {
-        return book.currentUserIsParticipant();
+        return book.currentUserHasParticipation();
     }
 
     public List<Integer> getNonBlankAnswerIndices() {

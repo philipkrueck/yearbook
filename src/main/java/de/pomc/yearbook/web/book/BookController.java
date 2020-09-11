@@ -26,7 +26,7 @@ public class BookController {
             throw new NotFoundException();
         }
 
-        if (!book.isPublished() && !book.currentUserIsParticipant() && !book.currentUserIsOwner()) {
+        if (!book.isPublished() && !book.currentUserHasParticipation() && !book.currentUserIsOwner()) {
             throw new ForbiddenException();
         }
 
