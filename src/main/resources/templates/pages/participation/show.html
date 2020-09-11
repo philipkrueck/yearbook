@@ -42,7 +42,7 @@
             </aside>
 
             <!-- main -------------------------------- -->
-            <main class="cell small-24 medium-16" th:with="nonBlankAnswerIndices=${participation.getNonBlankAnswerIndices()}">
+            <div class="cell small-24 medium-16" th:with="nonBlankAnswerIndices=${participation.getNonBlankAnswerIndices()}">
 
                 <h1 th:text="${participation.getParticipant().getFullName()}"></h1>
 
@@ -91,7 +91,7 @@
                         <p>Sorry, you can't comment on your own participation</p>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
 </div>
