@@ -97,17 +97,13 @@ main {
 /* Forms
 --------------------------------------------- */
 
-form {
+.formGroup form {
     width: 100%;
 }
 
 [type=color], [type=date], [type=datetime-local], [type=datetime], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel], [type=text], [type=time], [type=url], [type=week], textarea {
     box-shadow: none;
     background-color: #f9f9f9;
-}
-
-[type=submit] {
-    width: 100%;
 }
 
 .button-group [type=submit] {
@@ -169,14 +165,6 @@ fieldset label {
 
 #featuredWrapper {
     margin: 120px 0;
-}
-
-.featuredCard {
-    margin: 20px 0;
-}
-
-.featuredCard .innerText {
-    padding: 15px 15px 20px;
 }
 
 /* templates.fragments.header
@@ -419,44 +407,6 @@ nav.sideMenu a.current {
     border-radius: 6px;
 }
 
-.questionBorderWrap {
-    position: relative;
-    margin-bottom: 15px;
-    padding: 0 0 0 5px;
-    background: linear-gradient(to bottom, red, purple);
-}
-
-.questionInner {
-    background-color: #fff;
-    padding: 10px 20px 5px;
-}
-
-.questionBorderWrap:hover .removeQuestion{
-    display: flex;
-}
-
-.removeQuestion {
-    position: absolute;
-    display: none;
-    top: 6px;
-    right: 10px;
-    width: 35px;
-    height: 35px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    text-align: center;
-    cursor: pointer;
-    -webkit-box-shadow: 5px 5px 8px 7px #EAEAEA;
-    box-shadow: 5px 5px 8px 7px #EAEAEA;
-    /* background-color: white; */
-    transition: all .2s ease-in-out;
-}
-
-.removeQuestion span.material-icons {
-    margin: auto;
-    font-size: 20px;
-}
-
 .addParticipant {
     background-color: #ffffff;
     padding: 20px 20px 5px;
@@ -548,10 +498,4 @@ button.button.round span {
     color: #ffffff;
     padding: 120px 0 220px;
     min-height: 90vh;
-}
-
-.formError{
-    display: block;
-    color: red;
-    font-weight: bold;
 }
