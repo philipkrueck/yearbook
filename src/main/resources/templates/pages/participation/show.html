@@ -10,11 +10,11 @@
 <header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
 <!-- .subheader -------------------------------- -->
-<div class="grid-wrapper subheder">
+<div class="grid-wrapper subheader">
     <div class="grid-container">
-        <div class="grid-x align-middle">
+        <div class="grid-x">
             <div class="cell auto">
-                <h1 class="h4">View Questionnaire <small th:text="${participation.getParticipant().getFullName()}"></small></h1>
+                <h1 class="h4">View Questionnaire <small th:text="${book.getName()}"></small></h1>
             </div>
             <div class="cell shrink">
                 <a class="button small" th:href="@{/book/{id}(id=${book.getId()})}">Go back to book</a>
@@ -25,10 +25,12 @@
 </div>
 
 <!-- #viewQuestionnaire -------------------------------- -->
-<main class="grid-wrapper" id="viewQuestionnaire">
+<div class="grid-wrapper" id="viewQuestionnaire">
     <div class="grid-container">
         <div class="grid-x">
-            <div class="cell small-24 medium-8" th:with="user=${participation.getParticipant()}">
+
+            <!-- aside -------------------------------- -->
+            <aside class="cell small-24 medium-8" th:with="user=${participation.getParticipant()}">
                 <div th:if="${user != null}">
                     <img src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
                     <p th:if="${user.getBio() != null}" th:text="${user.getBio()}"></p>
@@ -37,10 +39,14 @@
                     <p th:if="${user.getWebsite() != null}" th:text="${user.getWebsite()}"></p>
                 </div>
                 <img th:if="${user == null}" src="https://via.placeholder.com/200x200.webp?text=ProfilPicJohnDoe">
+            </aside>
 
-            </div>
-            <div class="cell small-24 medium-16" th:with="nonBlankAnswerIndices=${participation.getNonBlankAnswerIndices()}">
-                <h1 th:text="${book.getName()}"></h1>
+            <!-- main -------------------------------- -->
+            <main class="cell small-24 medium-16" th:with="nonBlankAnswerIndices=${participation.getNonBlankAnswerIndices()}">
+
+                <h1 th:text="${participation.getParticipant().getFullName()}"></h1>
+
+                <!-- .question-block -------------------------------- -->
                 <div class="questionBlock" th:if="${!nonBlankAnswerIndices.isEmpty()}">
                     <div th:each="i : ${nonBlankAnswerIndices}"}>
                         <h5 th:text="${book.getQuestions().get(i).getQuestion()}"></h5>
@@ -50,42 +56,56 @@
                 <div th:if="${nonBlankAnswerIndices.isEmpty()}">
                     <p>No questions answered yet.</p>
                 </div>
-                <div class="publishedComments">
+
+                <!-- .published-comments -------------------------------- -->
+                <div class="published-comments">
                     <hr/>
                     <h5 th:text="'Comments about ' + ${participation.getParticipant().getFullName()}"></h5>
                     <p th:if="${participation.getComments().isEmpty()}">No comments written yet.</p>
-                    <div th:each="comment : ${participation.getComments()}">
+                    <div class="single-comment" th:each="comment : ${participation.getComments()}">
                         <blockquote th:text="${comment.getComment()} + ' - ' + ${comment.getAuthor().getFullName()}"></blockquote>
-                        <button th:if="${comment.authorIsCurrentUser()}" class="button">Edit</button>
+                        <button data-toggle="edit-comment" th:if="${comment.authorIsCurrentUser()}" class="button"><span class="material-icons">edit</span></button>
+                        <div id="edit-comment" class="toggle-hide" data-toggler data-animate="fade-in fade-out">
+                            <form method="post">
+                                <label>Edit your comment
+                                    <input type="text" value="Content of you already published comment" />
+                                </label>
+                                <button type="submit" class="button">Update comment</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- .add-comment -------------------------------- -->
+                <div class="add-commment" th:if="${participation.currentUserCanComment()}">
+                    <hr />
+                    <h4 th:text="${'What do you remember about ' + participation.getParticipant().getFirstName() +'?'}"></h4>
+                    <form method="post" th:action="@{/participation/{id}/addComment(id=${participation.getId()})}" th:object="${commentForm}">
+                        <label>Your comment
+                            <span class="formError" th:errors="*{comment}"/>
+                            <input type="text" th:field="*{comment}" />
+                        </label>
+                        <input type="submit" class="button" value="Submit comment" />
+                    </form>
+                    <div class="callout primary" th:if="${participation.currentUserIsParticipant()}">
+                        <p>Sorry, you can't comment on your own participation</p>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
-    <div class="grid-container" th:if="${participation.currentUserCanComment()}">
+</div>
+
+<!-- #lowerEditBar -------------------------------- -->
+<div id="lowerEditBar" class="grid-wrapper">
+    <div class="grid-container">
         <div class="grid-x align-right">
-            <div class="cell small-22 medium-16">
-                <hr />
-                <h4 th:text="${'What do you remember about ' + participation.getParticipant().getFirstName() +'?'}"></h4>
-                <form method="post" th:action="@{/participation/{id}/addComment(id=${participation.getId()})}" th:object="${commentForm}">
-                    <label>Your comment
-                        <span class="formError" th:errors="*{comment}"/>
-                        <input type="text" th:field="*{comment}" />
-                    </label>
-                    <input type="submit" class="button" value="Submit comment" />
-                </form>
+            <div class="cell shrink">
+                <button onclick="window.print()" value="Print" class="button medium">Print Questionnaire <span class="material-icons">print</span></button>
             </div>
         </div>
     </div>
-    <div th:if="${participation.currentUserIsParticipant()}">
-        <div class="grid-x align-right">
-            <div class="cell small-22 medium-16">
-                <hr />
-                <p>Sorry, you can't comment on your own participation</p>
-            </div>
-        </div>
-    </div>
-</main>
+</div>
 
 <!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
