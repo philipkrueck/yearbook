@@ -36,7 +36,7 @@
                             <span th:text="#{general.password}"></span>
                             <input type="password" th:field="*{password}">
                         </label>
-                        <input class="button" type="submit" th:value="#{index.signUp}"/>
+                        <input class="button medium-expanded" type="submit" th:value="#{index.signUp}"/>
                     </form>
                 </div>
                 <div class="grid-x align-center-middle formGroup" id="formAddOn">
@@ -62,10 +62,10 @@
             </div>
         </div>
         <div class="grid-x align-center grid-margin-x">
-            <div class="cell small-8 medium-6 featuredCard cardShadow" th:each="book : ${publishedBooks}">
+            <div class="cell small-8 medium-6 card cardShadow" th:each="book : ${publishedBooks}">
                 <a th:href="@{/book/{id}(id=${book.getId()})}">
                     <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
-                    <div class="innerText">
+                    <div class="card-section">
                         <h5 th:text="${book.getName()}"></h5>
                         <p th:text="${book.getDescription()}"></p>
                     </div>
