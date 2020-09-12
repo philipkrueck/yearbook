@@ -82,6 +82,9 @@ main {
     margin: 20px auto;
     padding-bottom: 12px;
     border-bottom: 2px solid #757575;
+
+.toggle-hide {
+    display: none;
 }
 
 /* Forms
@@ -456,6 +459,15 @@ button.button.round span {
 #viewQuestionnaire {
     background-color: #f2f5f8;
     padding: 40px 0;
+}
+
+.single-comment blockquote {
+    display: inline-block;
+    width: 80%;
+}
+
+.single-comment > button {
+    display: inline-block;
 }
 
 /* templates.error
