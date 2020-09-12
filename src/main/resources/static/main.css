@@ -94,6 +94,10 @@ main {
     box-shadow: 10px 10px 20px 0 rgba(0,0,0,.1);
 }
 
+.toggle-hide {
+    display: none;
+}
+
 /* Forms
 --------------------------------------------- */
 
@@ -488,6 +492,15 @@ button.button.round span {
 #viewQuestionnaire {
     background-color: #f2f5f8;
     padding: 40px 0;
+}
+
+.single-comment blockquote {
+    display: inline-block;
+    width: 80%;
+}
+
+.single-comment > button {
+    display: inline-block;
 }
 
 /* templates.error

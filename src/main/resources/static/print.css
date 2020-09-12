@@ -1,0 +1,7 @@
+header, footer, .button {
+    display: none;
+}
+
+#lowerEditBar::after {
+    content: "Visit yearbook for the latest version of this questionnaire.";
+}
