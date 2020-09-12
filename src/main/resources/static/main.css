@@ -47,16 +47,6 @@ a.textLink:hover {
     margin: 5px 0;
 }
 
-.inlineButton {
-    display: inline-block;
-    border-bottom: 1px solid #e74c3c;
-    color: #e74c3c;
-}
-
-.inlineButton:hover {
-    color: #c0392b;
-}
-
 .material-icons {
     font-size: inherit;
     vertical-align: middle;
@@ -79,12 +69,6 @@ main {
     margin: 60px auto;
 }
 
-.cardWrapper {
-    margin: 10px auto;
-    padding: 12px 16px;
-    background: #fff;
-}
-
 .cardShadow {
     box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
     transition: box-shadow .35s ease;
@@ -93,6 +77,11 @@ main {
 .cardShadow:hover {
     box-shadow: 10px 10px 20px 0 rgba(0,0,0,.1);
 }
+
+.section-header {
+    margin: 20px auto;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #757575;
 
 .toggle-hide {
     display: none;
@@ -155,16 +144,6 @@ fieldset label {
 #indexHeroLeft {
     background-color: #292c31;
     color: #f1f1f1;
-}
-
-.formGroup {
-    background-color: #ffffff;
-    border: 1px solid #dbdbdb;
-    padding: 18px 16px;
-}
-
-#formAddOn {
-    margin-top: 25px;
 }
 
 #featuredWrapper {
@@ -457,7 +436,7 @@ button.button.round span {
 #largeViewHeader .grid-x {
     background-color: #f2f5f8;
     margin: 30px;
-    height: 60vh;
+    min-height: 60vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -472,18 +451,6 @@ button.button.round span {
 
 #questionnairesWrapper {
     margin-top: 80px;
-}
-
-.questionnaireCard {
-    background-color: #ffffff;
-    min-height: 120px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.cardContent {
-    padding: 10px 12px;
 }
 
 /* templates.pages.questionnaire.show

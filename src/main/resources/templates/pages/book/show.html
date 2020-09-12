@@ -14,55 +14,60 @@
         <div class="grid-x grid-padding-x grid-margin-x align-middle" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80')">
             <div class="cell shrink" id="viewHeaderInner">
                 <h1 th:text="${book.getName()}"></h1>
-                <p th:if="${book.isPublished()}" class="badge">Published</p>
-                <p th:if="${!book.isPublished()}" class="badge">Private</p>
+                <p th:if="${book.isPublished()}" class="label">Published</p>
+                <p th:if="${!book.isPublished()}" class="label">Private</p>
                 <p th:text="${book.getDescription()}"></p>
-                <a th:if="${book.currentUserIsOwner()}" th:href="@{/book/{id}/edit/general(id=${book.getId()})}"><button class="button">Edit General information</button></a>
+                <a th:if="${book.currentUserIsOwner()}" th:href="@{/book/{id}/edit/general(id=${book.getId()})}"><button class="button">Edit general information</button></a>
             </div>
         </div>
     </div>
 </div>
 
-<!-- #questions -------------------------------- -->
+<!-- questions -------------------------------- -->
 <div class="grid-wrapper">
     <div class="grid-container">
-        <table>
-            <thead>
-            <tr>
-                <th width="40">#</th>
-                <th width="400">Question</th>
-                <th width="40" th:if="${book.currentUserIsOwner()}">
-                    <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}">
-                        <button class="button">Edit Questions</button>
-                    </a>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="question, itemStat : ${questions}">
-                <td th:text="${itemStat.index + 1} + '.'"></td>
-                <td th:text="${question.getQuestion()}"></td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="grid-x section-header">
+            <div class="cell auto">
+                <h4>Questions</h4>
+            </div>
+            <div class="cell shrink" th:if="${book.currentUserIsOwner()}" >
+                <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}" class="button small">Edit Questions</a>
+            </div>
+            <hr />
+        </div>
+        <div class="grid-x">
+            <div th:each="question, itemStat : ${questions}" class="cell card">
+                <div class="card-section">
+                    <h6><strong th:text="${itemStat.index + 1} + '.'"></strong> | <span th:text="${question.getQuestion()}"></span></h6>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-
-<!-- #participations -------------------------------- -->
+<!-- participations -------------------------------- -->
 <div class="grid-wrapper" id="questionnairesWrapper">
     <div class="grid-container">
-        <a th:if="${book.currentUserIsOwner() || book.currentUserIsAdmin()}" th:href="@{/book/{id}/edit/participants(id=${book.getId()})}"><button class="button">Edit Participants</button></a>
+        <div class="grid-x section-header">
+            <div class="cell auto">
+                <h4>Participants</h4>
+            </div>
+            <div class="cell shrink" th:if="${book.currentUserIsOwner() || book.currentUserIsAdmin()}">
+                <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}" class="button small">Edit Participants</a>
+            </div>
+            <hr />
+        </div>
         <div class="grid-x grid-margin-x">
-            <div class="cell small-12 medium-6 questionnaireCard" th:each="participation : ${participations}">
-                <img src="https://via.placeholder.com/300x150.webp?text=Profilpic" alt="Profil Pic">
-                <div class="cardContent">
-                    <p th:if="${book.isOwner(participation)}" class="badge">Owner</p>
-                    <p th:if="${!book.isOwner(participation) && participation.isAdmin()}" class="badge">Admin</p>
-                    <h4 th:text="${participation.getParticipant().getFullName()}"></h4>
-                    <a class="inlineButton" th:href="@{/participation/{id}(id=${participation.getId()})}">View Questionnaire</a>
-                </div>
+            <div class="cell small-12 medium-6 card" th:each="participation : ${participations}">
+                <a th:href="@{/participation/{id}(id=${participation.getId()})}">
+                    <img src="https://via.placeholder.com/300x150.webp?text=Profilpic" alt="Profil Pic">
+                    <div class="card-section">
+                        <p th:if="${book.isOwner(participation)}" class="label">Owner</p>
+                        <p th:if="${!book.isOwner(participation) && participation.isAdmin()}" class="badge">Admin</p>
+                        <h4 th:text="${participation.getParticipant().getFullName()}"></h4>
+                        <span>View Questionnaire</span>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

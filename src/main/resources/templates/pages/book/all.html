@@ -23,8 +23,10 @@
 <main class="grid-wrapper">
     <div class="grid-container">
         <div class="grid-x grid-margin-x">
-            <div class="cell small-24 cardWrapper" th:each="book : ${publishedBooks}">
-                <a th:href="@{/book/{id}(id=${book.id})}"><span th:text="${book.getName()}"></span></a>
+            <div class="cell small-24 card" th:each="book : ${publishedBooks}">
+                <div class="card-section">
+                    <a th:href="@{/book/{id}(id=${book.id})}"><span th:text="${book.getName()}"></span></a>
+                </div>
             </div>
         </div>
     </div>
