@@ -82,6 +82,7 @@ main {
     margin: 20px auto;
     padding-bottom: 12px;
     border-bottom: 2px solid #757575;
+}
 
 .toggle-hide {
     display: none;
