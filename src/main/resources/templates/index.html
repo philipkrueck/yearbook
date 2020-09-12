@@ -18,8 +18,8 @@
             <div class="cell small-20 medium-12">
                 <h4 th:text="#{index.claim2}"></h4>
                 <p class="" th:text="#{index.join}"></p>
-                <div class="grid-x align-center formGroup" id="registration">
-                    <form method="post" th:action="@{/newAccount}" th:object="${newAccountForm}">
+                <div class="grid-x align-center card">
+                    <form class="card-section" method="post" th:action="@{/newAccount}" th:object="${newAccountForm}">
                         <label>
                             <span th:text="#{general.firstName}"></span>
                             <input type="text" th:field="*{firstName}">
@@ -39,9 +39,11 @@
                         <input class="button medium-expanded" type="submit" th:value="#{index.signUp}"/>
                     </form>
                 </div>
-                <div class="grid-x align-center-middle formGroup" id="formAddOn">
-                    <span th:text="#{index.haveAnAccount}"></span>
-                    &nbsp;<a href="/login" class="inlineButton" th:text="#{general.login}"></a>
+                <div class="grid-x align-center-middle card">
+                    <div class="card-section">
+                        <span th:text="#{index.haveAnAccount}"></span>
+                        &nbsp;<a href="/login" class="inlineButton" th:text="#{general.login}"></a>
+                    </div>
                 </div>
             </div>
         </div>

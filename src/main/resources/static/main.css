@@ -69,12 +69,6 @@ main {
     margin: 60px auto;
 }
 
-.cardWrapper {
-    margin: 10px auto;
-    padding: 12px 16px;
-    background: #fff;
-}
-
 .cardShadow {
     box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
     transition: box-shadow .35s ease;
@@ -147,16 +141,6 @@ fieldset label {
 #indexHeroLeft {
     background-color: #292c31;
     color: #f1f1f1;
-}
-
-.formGroup {
-    background-color: #ffffff;
-    border: 1px solid #dbdbdb;
-    padding: 18px 16px;
-}
-
-#formAddOn {
-    margin-top: 25px;
 }
 
 #featuredWrapper {

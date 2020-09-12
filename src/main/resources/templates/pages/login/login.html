@@ -5,31 +5,34 @@
 </head>
 <body>
 
-    <main class="grid-container full" id="loginWrapper">
-        <div class="grid-x align-center-middle">
-            <div class="cell small-22 medium-10 large-8">
-                <div class="formGroup">
+<!-- main -------------------------------- -->
+<main class="grid-container full" id="loginWrapper">
+    <div class="grid-x align-center-middle">
+        <div class="cell small-22 medium-10 large-8">
+            <div class="card">
+                <form class="card-section" method="post" th:action="@{/login}">
                     <h1 class="h3">Sign in to Yearbook</h1>
-                    <form method="post" th:action="@{/login}">
-                        <label>Email address
-                            <input type="text" name="email" placeholder="Email" required="" autofocus="">
-                        </label>
-                        <label>Password
-                            <input type="password" name="password" placeholder="Password" required="">
-                        </label>
-                        <label>Remember Me?
-                            <input type="checkbox" name="remember-me">
-                        </label>
-                        <input class="button" type="submit" value="Sign in">
-                    </form>
-                </div>
-                <div class="formGroup" id="formAddOn">
+                    <label>Email address
+                        <input type="text" name="email" placeholder="Email" required="" autofocus="">
+                    </label>
+                    <label>Password
+                        <input type="password" name="password" placeholder="Password" required="">
+                    </label>
+                    <label>Remember Me?
+                        <input type="checkbox" name="remember-me">
+                    </label>
+                    <input class="button" type="submit" value="Sign in">
+                </form>
+            </div>
+            <div class="card">
+                <div class="card-section">
                     <span>New to Yearbook? <a class="inlineButton" href="/">Create an account</a></span>
                 </div>
             </div>
         </div>
-        </div>
-    </main>
+    </div>
+    </div>
+</main>
 
 </body>
 </html>
