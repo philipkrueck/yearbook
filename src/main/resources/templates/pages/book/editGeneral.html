@@ -24,8 +24,8 @@
         <div class="grid-x align-top">
             <nav class="cell small-12 medium-7 sideMenu">
                 <a class="current" href="#">Edit General</a>
-                <a th:href="@{/book/{id}/edit/questions(id=${book.getId()}, isInCreationProcess=false)}">Edit Questions</a>
-                <a th:href="@{/book/{id}/edit/participants(isInCreationProcess=false, id=${book.getId()})}">Edit Participants</a>
+                <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}">Edit Questions</a>
+                <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}">Edit Participants</a>
             </nav>
             <div class="cell small-12 medium-16 medium-offset-1">
                 <h4>Edit General</h4>
