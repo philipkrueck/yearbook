@@ -14,7 +14,7 @@
     <div class="grid-container">
         <div class="grid-x">
             <div class="cell auto">
-                <h1 class="h4">View Questionnaire <small th:text="${book.getName()}"></small></h1>
+                <h1 class="h3">View Questionnaire <small th:text="${book.getName()}"></small></h1>
             </div>
             <div class="cell shrink">
                 <a class="button small" th:href="@{/book/{id}(id=${book.getId()})}">Go back to book</a>
@@ -44,7 +44,7 @@
             <!-- main -------------------------------- -->
             <div class="cell small-24 medium-16" th:with="nonBlankAnswerIndices=${participation.getNonBlankAnswerIndices()}">
 
-                <h1 th:text="${participation.getParticipant().getFullName()}"></h1>
+                <h2 th:text="${participation.getParticipant().getFullName()}"></h2>
 
                 <!-- .question-block -------------------------------- -->
                 <div class="questionBlock" th:if="${!nonBlankAnswerIndices.isEmpty()}">
@@ -64,15 +64,7 @@
                     <p th:if="${participation.getComments().isEmpty()}">No comments written yet.</p>
                     <div class="single-comment" th:each="comment : ${participation.getComments()}">
                         <blockquote th:text="${comment.getComment()} + ' - ' + ${comment.getAuthor().getFullName()}"></blockquote>
-                        <button data-toggle="edit-comment" th:if="${comment.authorIsCurrentUser()}" class="button"><span class="material-icons">edit</span></button>
-                        <div id="edit-comment" class="toggle-hide" data-toggler data-animate="fade-in fade-out">
-                            <form method="post">
-                                <label>Edit your comment
-                                    <input type="text" value="Content of you already published comment" />
-                                </label>
-                                <button type="submit" class="button">Update comment</button>
-                            </form>
-                        </div>
+                        <button data-open="edit-comment" th:if="${comment.authorIsCurrentUser()}" class="button"><span class="material-icons">edit</span></button>
                     </div>
                 </div>
 
@@ -98,15 +90,25 @@
     </div>
 </div>
 
-<!-- #lowerEditBar -------------------------------- -->
-<div id="lowerEditBar" class="grid-wrapper">
+<!-- .section-lead -------------------------------- -->
+<div class="grid-wrapper">
     <div class="grid-container">
-        <div class="grid-x align-right">
+        <div class="grid-x align-right section-lead">
             <div class="cell shrink">
                 <button onclick="window.print()" value="Print" class="button medium">Print Questionnaire <span class="material-icons">print</span></button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- #edit-comment -------------------------------- -->
+<div id="edit-comment" class="reveal" data-reveal data-deep-link="true">
+    <form method="post">
+        <label>Edit your comment
+            <input type="text" value="Content of you already published comment" />
+        </label>
+        <button type="submit" class="button">Update comment</button>
+    </form>
 </div>
 
 <!-- footer -------------------------------- -->

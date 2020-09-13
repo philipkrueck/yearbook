@@ -378,12 +378,6 @@ button.button.round span {
 /* templates.pages.book.book
 --------------------------------------------- */
 
-#lowerEditBar .grid-container {
-    margin: 30px auto;
-    padding-top: 12px;
-    border-top: 1px solid #dbdbdb;
-}
-
 #smallviewHeader {
     background-color: #f2f5f8;
 }
