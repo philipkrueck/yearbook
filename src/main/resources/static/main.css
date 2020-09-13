@@ -300,34 +300,8 @@ nav.sideMenu a.current {
     margin-bottom: 20px;
 }
 
-#editProfile {
-    display: none;
-}
-
 #participatingBooks {
     margin-top: 60px;
-}
-
-#overlay {
-    position: fixed;
-    display: none;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    background-color: #fff;
-    opacity: .95;
-}
-
-#changePassword {
-    position: absolute;
-    display: none;
-    top: 100px;
-    width: 100%;
-    z-index: 3;
-}
-
-.passwordTrigger {
-    cursor: pointer;
 }
 
 /* templates.pages.addBook

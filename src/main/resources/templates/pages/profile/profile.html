@@ -5,9 +5,6 @@
 </head>
 <body>
 
-<!-- #overlay -------------------------------- -->
-<div id="overlay"></div>
-
 <!-- header -------------------------------- -->
 <header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
@@ -29,10 +26,63 @@
             <p th:if="${user.getLocation() != null}" th:text="${user.getLocation()}"></p>
             <p th:if="${user.getWebsite() != null}" th:text="${user.getWebsite()}"></p>
             <hr />
-            <button class="button small secondary medium-expanded profileTrigger" id="editProfileTrigger">Edit profile</button>
-            <button class="button small secondary medium-expanded passwordTrigger">Change password</button>
+            <button data-open="editProfile" class="button small secondary medium-expanded">Edit profile</button>
+            <button data-open="changePassword" class="button small secondary medium-expanded">Change password</button>
+        </aside>
 
-            <form id="editProfile" th:action="@{/profile/edit}" th:object="${userForm}" method="post" enctype="multipart/form-data">
+        <!-- Main -------------------------------- -->
+        <div class="cell small-12 medium-17 medium-offset-1">
+            <div class="grid-x" id="ownedBooks">
+                <div class="cell small-24">
+                    <h5>My Books</h5><hr/>
+                    <div th:if="${!books.isEmpty()}" class="grid-x grid-margin-x">
+                        <div class="cell small-8 medium-8 card cardShadow" th:each="book : ${books}">
+                            <a th:href="@{/book/{id}(id=${book.getId()})}">
+                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
+                                <div class="card-section">
+                                    <h5 th:text="${book.getName()}"></h5>
+                                    <p th:text="${book.getDescription()}"></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <a href="/book/create"><button class="button">New Book</button></a>
+                </div>
+            </div>
+            <hr />
+            <div class="grid-x" id="participatingBooks">
+                <div class="cell small-24">
+                    <h5>Participations</h5><hr/>
+                    <div class="callout secondary" th:if="${participations.isEmpty()}">
+                        <h5>You do not have any participations yet!</h5>
+                        <p>Ask one of your friends to get invited to a yearbook.</p>
+                    </div>
+                    <div class="grid-x grid-margin-x align-top" th:if="${!participations.isEmpty()}">
+                        <div class="cell small-8 medium-8 card cardShadow" th:each="participation : ${participations}">
+                            <a th:with="book=${participation.getBook()}" th:href="@{/book/{id}(id=${book.getId()})}">
+                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
+                                <div class="card-section">
+                                    <h5 th:text="${book.getName()}"></h5>
+                                    <p th:text="${book.getDescription()}"></p>
+                                </div>
+                            </a>
+                            <div class="card-divider">
+                                <a th:href="@{/participation/{id}(id=${participation.getId()})}">Your questionnaire</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- .reveal#editProfile -------------------------------- -->
+<div class="reveal" id="editProfile" data-reveal data-deep-link="true">
+    <div class="grid-x align-center">
+        <div class="cell small-16">
+            <h4>Edit profile</h4>
+            <form th:action="@{/profile/edit}" th:object="${userForm}" method="post" enctype="multipart/form-data">
                 <label>Bio
                     <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
                 </label>
@@ -60,110 +110,49 @@
                     <input type="text" th:field="*{website}">
                 </label>
                 <div class="stack-for-small small expanded button-group">
-                    <input class="success button" type="submit" value="Save">
-                    <button class="secondary button profileTrigger" value="Cancel">Cancel</button>
+                    <input class="success button" type="submit" value="Update Profile">
+                    <button class="secondary button" data-close aria-label="Close modal" value="Cancel">Cancel</button>
                 </div>
             </form>
-        </aside>
-
-        <!-- Main -------------------------------- -->
-        <div class="cell small-12 medium-17 medium-offset-1">
-            <div class="grid-x" id="ownedBooks">
-                <div class="cell small-24">
-                    <h5>My Books</h5><hr/>
-                    <div th:if="${!books.isEmpty()}" class="grid-x">
-                        <div class="cell small-8 medium-8 card cardShadow" th:each="book : ${books}">
-                            <a th:href="@{/book/{id}(id=${book.getId()})}">
-                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
-                                <div class="card-section">
-                                    <h5 th:text="${book.getName()}"></h5>
-                                    <p th:text="${book.getDescription()}"></p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <a href="/book/create"><button class="button">New Book</button></a>
-                </div>
-            </div>
-            <hr />
-            <div class="grid-x" id="participatingBooks">
-                <div class="cell small-24">
-                    <h5>Participations</h5><hr/>
-                    <div class="callout secondary" th:if="${participations.isEmpty()}">
-                        <h5>You do not have any participations yet!</h5>
-                        <p>Ask one of your friends to get invited to a yearbook.</p>
-                    </div>
-                    <div class="grid-x" th:if="${!participations.isEmpty()}">
-                        <div class="cell small-8 medium-8 card cardShadow" th:each="participation : ${participations}">
-                            <a th:with="book=${participation.getBook()}" th:href="@{/book/{id}(id=${book.getId()})}">
-                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
-                                <div class="card-section">
-                                    <h5 th:text="${book.getName()}"></h5>
-                                    <p th:text="${book.getDescription()}"></p>
-                                </div>
-                            </a>
-                            <div class="card-divider">
-                                <a th:href="@{/participation/{id}(id=${participation.getId()})}">Your questionnaire</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-</main>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 
-<!-- #overlay -------------------------------- -->
-<div class="grid-wrapper" id="changePassword">
-    <div class="grid-container">
-        <div class="grid-x align-right">
-            <div class="cell shrink passwordTrigger">
-                <span class="material-icons">close</span>
-            </div>
-        </div>
-        <div class="grid-x align-center">
-            <div class="cell small-16">
-                <h4>Change password</h4>
-                <form method="post" th:action="@{/profile/changePassword}" th:object="${changePasswordForm}">
-                    <label>Old password
-                        <span class="formError" th:errors="*{oldPasword}"/>
-                        <input type="password" th:field="*{oldPasword}" required>
-                    </label>
-                    <label>New password
-                        <span class="formError" th:errors="*{newPasswordOne}"/>
-                        <input type="password" th:field="*{newPasswordOne}" required>
-                    </label>
-                    <label>Confirm new password
-                        <span class="formError" th:errors="*{newPasswordTwo}"/>
-                        <input type="password" th:field="*{newPasswordTwo}" required>
-                    </label>
-                    <div class="stack-for-small small expanded button-group">
-                        <input class="success button" type="submit" value="Update Password">
-                        <button class="secondary button passwordTrigger" value="Cancel">Cancel</button>
-                    </div>
-                </form>
-            </div>
+<!-- .reveal#changePassword -------------------------------- -->
+<div class="reveal" id="changePassword" data-reveal data-deep-link="true">
+    <div class="grid-x align-center">
+        <div class="cell small-16">
+            <h4>Change password</h4>
+            <form method="post" th:action="@{/profile/changePassword}" th:object="${changePasswordForm}">
+                <label>Old password
+                    <span class="formError" th:errors="*{oldPasword}"/>
+                    <input type="password" th:field="*{oldPasword}" required>
+                </label>
+                <label>New password
+                    <span class="formError" th:errors="*{newPasswordOne}"/>
+                    <input type="password" th:field="*{newPasswordOne}" required>
+                </label>
+                <label>Confirm new password
+                    <span class="formError" th:errors="*{newPasswordTwo}"/>
+                    <input type="password" th:field="*{newPasswordTwo}" required>
+                </label>
+                <div class="stack-for-small small expanded button-group">
+                    <input class="success button" type="submit" value="Update Password">
+                    <button class="secondary button" data-close aria-label="Close modal" value="Cancel">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
 
 <!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
-
-<!-- script -------------------------------- -->
-<script type="text/javascript">
-
-    $(".passwordTrigger").click(function() {
-        $("#overlay").fadeToggle();
-        $("#changePassword").fadeToggle();
-    });
-
-    $(".profileTrigger").click(function() {
-        $("#editProfile").fadeToggle();
-        $("#editProfileTrigger").fadeToggle();
-    });
-
-</script>
 
 </body>
 </html>
