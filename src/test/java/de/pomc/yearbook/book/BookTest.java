@@ -11,16 +11,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BookTest {
 
     User userOne;
     User userTwo;
     Book book;
+    List<User> users;
 
     @BeforeEach
     void setUp() {
         userOne = new User("User", "One", "user.one@gmail.com", "1234");
         userTwo = new User("User", "Two", "user.two@gmail.com", "1234");
+        users = List.of(userOne, userTwo);
 
         // inject User into authentication object
         UserDetails userDetails = new UserAdapter(userOne);
