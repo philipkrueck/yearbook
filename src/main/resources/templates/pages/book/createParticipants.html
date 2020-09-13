@@ -32,61 +32,55 @@
     </div>
 </div>
 
-<!-- .subheader -------------------------------- -->
-<div class="grid-wrapper subheader">
-    <div class="grid-container">
-        <div class="grid-x">
-            <h1 class="h3"><small th:text="${book.getName()}"></small><br />Invite participants</h1>
-        </div>
-    </div>
-</div>
-
-<!-- main -------------------------------- -->
 <!-- main -------------------------------- -->
 <main class="grid-wrapper">
     <div class="grid-container">
-        <div th:if="${!book.getParticipations().isEmpty()}" class="grid-x">
-            <div th:each="participation, itemStat : ${book.getParticipations()}" class="cell small-24 cardWrapper">
-                <div class="grid-x align-middle grid-padding-x">
-                    <div class="cell shrink">
-                        <img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4">
-                    </div>
-                    <div class="cell auto">
-                        <b th:text="${participation.getParticipant().getFullName()}"></b> | <span th:text="${participation.getParticipant().getEmail()}"></span>
-                    </div>
-                    <div class="cell shrink" th:if="${book.isOwner(participation)}">
-                        <form method="post" action="#">
-                            <select onchange="this.form.submit()">
-                                <option>Admin</option>
-                                <option>Participant</option>
-                            </select>
-                        </form>
-                    </div>
-                    <div th:if="${book.currentUserCanDelete(itemStat.index)}" class="cell shrink">
-                        <form method="post" th:action="@{/book/{id}/create/participants/delete/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}">
-                            <button type="submit" class="alert button">Delete</button>
-                        </form>
-                    </div>
+        <div class="grid-x align-top">
+            <div class="cell small-24 medium-7 card">
+                <div class="card-section">
+                    <h1 class="h3" th:text="${book.getName()}"></h1>
+                    <p>Invite your friends and colleagues. Share your memories.</p>
                 </div>
             </div>
-        </div>
-        <div class="grid-x">
-            <form method="post" th:action="@{/book/{id}/create/participants/new(id=${book.getId()})}" th:object="${addUserForm}">
-                <span class="formError" th:errors="*{email}"/>
-                <input type="text" placeholder="Enter email..." th:field="*{email}">
-                <input type="submit" class="button" value="Add participant">
-            </form>
+            <div class="cell small-24 medium-16 medium-offset-1">
+                <div class="grid-x" th:if="${!book.getParticipations().isEmpty()}">
+                    <div th:each="participation, itemStat : ${book.getParticipations()}" class="card cell small-24">
+                        <div class="grid-x card-section align-middle grid-padding-x">
+                            <div class="cell shrink">
+                                <img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4">
+                            </div>
+                            <div class="cell auto">
+                                <b th:text="${participation.getParticipant().getFullName()}"></b> | <span th:text="${participation.getParticipant().getEmail()}"></span>
+                            </div>
+                            <div class="cell shrink">
+                                <small>Currently: Participant. <a href="#">Make Admin</a> </small>
+                            </div>
+                            <div th:if="${book.currentUserCanDelete(itemStat.index)}" class="cell shrink">
+                                <form method="post" th:action="@{/book/{id}/create/participants/delete/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}">
+                                    <button type="submit" class="button tiny">Remove Participant <span class="material-icons">remove</span></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-x card">
+                    <form class="cell card-section" method="post" th:action="@{/book/{id}/create/participants/new(id=${book.getId()})}" th:object="${addUserForm}">
+                        <input type="email" placeholder="Enter Email" th:field="*{email}">
+                        <span class="form-error" th:errors="*{email}"/>
+                        <input type="submit" class="button" value="Add participant">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </main>
 
-<!-- goToNextStep -------------------------------- -->
+<!-- .section-lead -------------------------------- -->
 <div class="grid-wrapper">
-    <div class="grid-container" id="goToNextStep">
-        <div class="grid-x">
-            <div class="cell shrink submitIconWrapper">
+    <div class="grid-container">
+        <div class="grid-x align-right section-lead">
+            <div class="cell shrink">
                 <a class="button" th:href="@{/book/{id}(id=${book.getId()})}">Finish Process</a>
-                <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
             </div>
         </div>
     </div>

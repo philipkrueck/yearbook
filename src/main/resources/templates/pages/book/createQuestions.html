@@ -35,45 +35,45 @@
 <!-- main -------------------------------- -->
 <main class="grid-wrapper">
     <div class="grid-container">
-        <div class="grid-x">
-            <div class="cell small-24 medium-7">
-                <h1 th:text="${book.getName()}"></h1>
-                <h4>Add questions for all participants.</h4>
-                <p>You can create your own custom question for your yearbook. You can get inspired be other yearbooks.</p>
+        <div class="grid-x align-top">
+            <div class="cell small-24 medium-7 card">
+                <div class="card-section">
+                    <h1 class="h3" th:text="${book.getName()}"></h1>
+                    <p>Create your own custom question for your yearbook. Get inspired by other yearbooks on our website.</p>
+                </div>
             </div>
             <div class="cell small-24 medium-16 medium-offset-1">
-                <div class="questionWrapper" th:if="${!questions.isEmpty()}">
-                    <div class="questionBorderWrap" th:each="question, itemStat : ${questions}">
-                        <div class="questionInner">
-                            <span th:text="${itemStat.index + 1} + '.'"> </span>
-                            <span th:text="${question.getQuestion()}"></span>
-                            <form method="post" th:action="@{/book/{id}/create/questions/delete/{questionId}(id=${book.getId()}, questionId=${itemStat.index})}">
-                                <button type="submit" class="removeQuestion"><span class="material-icons">remove</span></button>
-                            </form>
-                        </div>
+                <div class="card" th:if="${!questions.isEmpty()}" th:each="question, itemStat : ${questions}">
+                    <div class="card-section">
+                        <h6><strong th:text="${itemStat.index + 1} + '.'"></strong> | <span th:text="${question.getQuestion()}"></span></h6>
+                    </div>
+                    <div class="card-divider align-right">
+                        <small th:if="${book.questionCanNotBeDeletedAt(itemStat.index)}">This questions can not be deleted since it is already answered by some participiants of your yearbook.</small>
+                        <form method="post" th:if="${!book.questionCanNotBeDeletedAt(itemStat.index)}" th:action="@{/book/{id}/create/questions/delete/{questionId}(id=${book.getId()}, questionId=${itemStat.index})}">
+                            <button type="submit" class="button tiny">Delete Question <span class="material-icons">delete</span></button>
+                        </form>
                     </div>
                 </div>
                 <form method="post" th:action="@{/book/{id}/create/questions/new(id=${book.getId()})}" th:object="${newQuestionForm}">
-                    <div class="cell small-24 questionBorderWrap">
-                        <div class="questionInner">
-                            <span class="formError" th:errors="*{question}"/>
+                    <div class="card">
+                        <div class="card-section">
                             <input type="text" placeholder="Type to add question title" th:field="*{question}"/>
+                            <span class="form-error" th:errors="*{question}"/>
                         </div>
                     </div>
-                    <input class="button" type="submit" value="Add"/>
+                    <input class="button" type="submit" value="Add Question"/>
                 </form>
             </div>
         </div>
     </div>
 </main>
 
-<!-- goToNextStep -------------------------------- -->
+<!-- .section-lead -------------------------------- -->
 <div class="grid-wrapper">
-    <div class="grid-container" id="goToNextStep">
-        <div class="grid-x">
-            <div class="cell shrink submitIconWrapper">
+    <div class="grid-container">
+        <div class="grid-x align-right section-lead">
+            <div class="cell shrink">
                 <a class="button" th:href="@{/book/{id}/create/participants(id=${book.getId()})}">Save and next</a>
-                <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
             </div>
         </div>
     </div>
