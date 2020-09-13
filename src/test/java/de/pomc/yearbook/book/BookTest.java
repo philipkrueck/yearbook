@@ -6,6 +6,8 @@ import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserAdapter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +38,7 @@ public class BookTest {
     }
 
     @Test
-    void userShouldHaveParticipation() {
+    void itShouldValidatedUserHasParticipation() {
         // given
         book.getParticipations().add(new Participation(userTwo, true));
 
@@ -48,7 +50,7 @@ public class BookTest {
     }
 
     @Test
-    void userShouldNotHaveParticipation() {
+    void itShouldNotValidatedUserHasParticipation() {
         // given -> setup
 
         // when
@@ -59,7 +61,7 @@ public class BookTest {
     }
 
     @Test
-    void currentUserShouldHaveParticipation() {
+    void itShouldValidateCurrentUserHasParticipation() {
         // given
         book.getParticipations().add(new Participation(userOne, false));
 
@@ -71,7 +73,7 @@ public class BookTest {
     }
 
     @Test
-    void currentUserShouldNotHaveParticipation() {
+    void itShouldNotValidateCurrentUserHasParticipation() {
         // given -> setup
 
         // when
@@ -81,10 +83,14 @@ public class BookTest {
         assertThat(currentUserIsParticipant).isFalse();
     }
 
-    @Test
-    void shouldBeOwner() {
+    @ParameterizedTest
+    @CsvSource({
+            "0, true",
+            "1, false"
+    })
+    void itShouldValidateIsOwner(int userIndex, boolean expected) {
         // given -> setup
-        Participation participation = new Participation(userOne, true);
+        Participation participation = new Participation(users.get(userIndex), true);
         book.getParticipations().add(participation);
 
 
@@ -92,25 +98,11 @@ public class BookTest {
         boolean isOwner = book.isOwner(participation);
 
         // then
-        assertThat(isOwner).isTrue();
+        assertThat(isOwner).isEqualTo(expected);
     }
 
     @Test
-    void shouldNotBeOwner() {
-        // given -> setup
-        Participation participation = new Participation(userTwo, true);
-        book.getParticipations().add(participation);
-
-
-        // when
-        boolean isOwner = book.isOwner(participation);
-
-        // then
-        assertThat(isOwner).isFalse();
-    }
-
-    @Test
-    void currentUserShouldBeOwner() {
+    void itShouldValidateCurrentUserIsOwner() {
         // given -> setup
 
         // when
@@ -121,7 +113,7 @@ public class BookTest {
     }
 
     @Test
-    void currentUserShouldNotBeOwner() {
+    void itShouldNotValidateCurrentUserIsOwner() {
         // given
         book.setOwner(userTwo);
 
@@ -132,74 +124,38 @@ public class BookTest {
         assertThat(currentUserIsOwner).isFalse();
     }
 
-    @Test
-    void currentUserShouldBeAdmin() {
+    @ParameterizedTest
+    @CsvSource({
+            "true, true",
+            "false, false"
+    })
+    void itShouldValidateCurrentUserIsAdmin(boolean isAdmin, boolean expected) {
         // given
-        book.getParticipations().add(new Participation(userOne, true));
+        book.getParticipations().add(new Participation(userOne, expected));
 
         // when
         boolean currentUserIsAdmin = book.currentUserIsAdmin();
 
         // then
-        assertThat(currentUserIsAdmin).isTrue();
+        assertThat(currentUserIsAdmin).isEqualTo(isAdmin);
     }
 
-    @Test
-    void currentUserShouldNotBeAdmin() {
+    @ParameterizedTest
+    @CsvSource({
+            "0, true, 0, true",
+            "1, true, 0, true",
+            "1, false, 0, true",
+            "1, false, 1000, false"
+
+    })
+    void itShoulcValidateCurrentUserCanDelete(int userIndex, boolean isAdmin, int participationId, boolean expected) {
         // given
-        book.getParticipations().add(new Participation(userOne, false));
+        book.getParticipations().add(new Participation(users.get(userIndex), isAdmin));
 
         // when
-        boolean currentUserIsAdmin = book.currentUserIsAdmin();
+        boolean currentUserCanDelete = book.currentUserCanDelete(participationId);
 
         // then
-        assertThat(currentUserIsAdmin).isFalse();
-    }
-
-    @Test
-    void currentUserShouldBeAbleToDeleteSelf() {
-        // given
-        book.getParticipations().add(new Participation(userOne, true));
-
-        // when
-        boolean currentUserCanDelete = book.currentUserCanDelete(0);
-
-        // then
-        assertThat(currentUserCanDelete).isTrue();
-    }
-
-    @Test
-    void currentUserShouldBeAbleToDeleteAdmin() {
-        // given
-        book.getParticipations().add(new Participation(userTwo, true));
-
-        // when
-        boolean currentUserCanDelete = book.currentUserCanDelete(0);
-
-        // then
-        assertThat(currentUserCanDelete).isTrue();
-    }
-
-    @Test
-    void currentUserShouldBeAbleToDeleteUser() {
-        // given
-        book.getParticipations().add(new Participation(userTwo, true));
-
-        // when
-        boolean currentUserCanDelete = book.currentUserCanDelete(0);
-
-        // then
-        assertThat(currentUserCanDelete).isTrue();
-    }
-
-    @Test
-    void currentUserShouldNotBeAbleToDeleteNonExistant() {
-        // given -> setup
-
-        // when
-        boolean currentUserCanDelete = book.currentUserCanDelete(1000);
-
-        // then
-        assertThat(currentUserCanDelete).isFalse();
+        assertThat(currentUserCanDelete).isEqualTo(expected);
     }
 }
