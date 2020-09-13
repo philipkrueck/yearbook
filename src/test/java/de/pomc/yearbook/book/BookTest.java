@@ -148,7 +148,7 @@ public class BookTest {
             "1, false, 1000, false"
 
     })
-    void itShoulcValidateCurrentUserCanDelete(int userIndex, boolean isAdmin, int participationId, boolean expected) {
+    void itShouldValidateCurrentUserCanDelete(int userIndex, boolean isAdmin, int participationId, boolean expected) {
         // given
         book.getParticipations().add(new Participation(users.get(userIndex), isAdmin));
 
