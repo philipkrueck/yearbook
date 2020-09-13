@@ -55,7 +55,7 @@ public class Participation {
     }
 
     public boolean currentUserCanComment() {
-        return book.currentUserHasParticipation();
+        return book.currentUserHasParticipation() && !currentUserIsParticipant();
     }
 
     public List<Integer> getNonBlankAnswerIndices() {

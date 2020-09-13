@@ -77,17 +77,19 @@
                 </div>
 
                 <!-- .add-comment -------------------------------- -->
-                <div class="add-commment" th:if="${participation.currentUserCanComment()}">
+                <div class="add-commment" th:if="${participation.getBook().currentUserHasParticipation()}">
                     <hr />
-                    <h4 th:text="${'What do you remember about ' + participation.getParticipant().getFirstName() +'?'}"></h4>
-                    <form method="post" th:action="@{/participation/{id}/addComment(id=${participation.getId()})}" th:object="${commentForm}">
-                        <label>Your comment
-                            <span class="formError" th:errors="*{comment}"/>
-                            <input type="text" th:field="*{comment}" />
-                        </label>
-                        <input type="submit" class="button" value="Submit comment" />
-                    </form>
-                    <div class="callout primary" th:if="${participation.currentUserIsParticipant()}">
+                    <div th:if="${participation.currentUserCanComment()}">
+                        <h4 th:text="${'What do you remember about ' + participation.getParticipant().getFirstName() +'?'}"></h4>
+                        <form method="post" th:action="@{/participation/{id}/addComment(id=${participation.getId()})}" th:object="${commentForm}">
+                            <label>Your comment
+                                <span class="formError" th:errors="*{comment}"/>
+                                <input type="text" th:field="*{comment}" />
+                            </label>
+                            <input type="submit" class="button" value="Submit comment" />
+                        </form>
+                    </div>
+                    <div class="callout primary" th:if="${!participation.currentUserCanComment()}">
                         <p>Sorry, you can't comment on your own participation</p>
                     </div>
                 </div>
