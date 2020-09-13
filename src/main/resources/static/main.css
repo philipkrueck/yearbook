@@ -79,9 +79,15 @@ main {
 }
 
 .section-header {
-    margin: 20px auto;
+    margin: 30px auto;
     padding-bottom: 12px;
     border-bottom: 2px solid #757575;
+}
+
+.section-lead {
+    margin: 30px auto;
+    padding-top: 12px;
+    border-top: 2px solid #757575;
 }
 
 .toggle-hide {
@@ -117,10 +123,6 @@ main {
     background-color: #27ae60;
 }
 
-select {
-    margin-bottom: 0;
-}
-
 .radioWrapper {
     display: flex;
     align-items: flex-end;
@@ -129,6 +131,10 @@ select {
 fieldset label {
     line-height: 1.2;
     margin: 10px;
+}
+
+.form-error {
+    display: block;
 }
 
 /* templates.index
@@ -324,32 +330,6 @@ nav.sideMenu a.current {
     border-top: 2px solid #e74c3c;
     color: #e74c3c;
     cursor: auto;
-}
-
-#goToNextStep {
-    border-top: 2px solid #292c31;
-    padding-top: 15px;
-    margin: 40px auto;
-}
-
-.submitIconWrapper {
-    position: relative;
-}
-
-.submitIconWrapper input {
-    padding: .85em 1.2em .85em 1em;
-}
-
-.submitIcon {
-    display: inline-flex;
-    position: absolute;
-    align-items: center;
-    height: 40px;
-    margin: 5px 0 5px -18px;
-    padding-right: 8px;
-    background-color: #e74c3c;
-    border-radius: 3px;
-    color: #fff;
 }
 
 #createBookForm .grid-container {

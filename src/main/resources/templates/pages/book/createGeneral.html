@@ -43,12 +43,12 @@
                 </div>
                 <div class="cell small-12 medium-17 medium-offset-1">
                     <label>Add a title
-                        <span class="formError" th:errors="*{name}"/>
                         <input type="text" th:field="*{name}"/>
+                        <span class="form-error" th:errors="*{name}"/>
                     </label>
                     <label>Describe the book you are creating.
-                        <span class="formError" th:errors="*{description}"/>
                         <input type="text" th:field="*{description}"/>
+                        <span class="form-error" th:errors="*{description}"/>
                     </label>
                     <hr />
                     <fieldset>
@@ -67,13 +67,12 @@
             </div>
         </div>
     </main>
-    <!-- goToNextStep -------------------------------- -->
+    <!-- .section-lead -------------------------------- -->
     <div class="grid-wrapper">
-        <div class="grid-container" id="goToNextStep">
-            <div class="grid-x">
-                <div class="cell shrink submitIconWrapper">
-                    <input class="button next" type="submit" value="Save and next" />
-                    <div class="submitIcon"><span class="material-icons">navigate_next</span></div>
+        <div class="grid-container">
+            <div class="grid-x align-right section-lead">
+                <div class="cell shrink">
+                    <input class="button" type="submit" value="Save and next" />
                 </div>
             </div>
         </div>
