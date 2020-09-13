@@ -65,7 +65,7 @@ public class User {
 
     public static String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+        if (authentication != null &&  !(authentication instanceof AnonymousAuthenticationToken)) {
             return authentication.getName();
         }
         return null;
