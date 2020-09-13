@@ -48,21 +48,22 @@ public class Book {
         this.participations = new ArrayList<>();
     }
 
-    public boolean userIsParticipant(User user) {
-        for (Participation participation: participations) {
-            if (participation.getParticipant().getEmail().equals(user.getEmail())) {
-                return true;
-            }
-        }
-        return false;
+    public boolean userHasParticipation(User user) {
+        return participations
+                .stream()
+                .anyMatch(participation -> participation.getParticipant().getEmail().equals(user.getEmail()));
     }
 
-    public boolean currentUserIsParticipant() {
+    public boolean currentUserHasParticipation() {
         return participations
                 .stream()
                 .filter(participation -> participation.getParticipant().getEmail().equals(User.getCurrentUsername()))
                 .findFirst()
                 .orElse(null) != null;
+    }
+
+    public boolean isOwner(Participation participation) {
+        return owner.getEmail().equals(participation.getParticipant().getEmail());
     }
 
     public boolean currentUserIsOwner() {
@@ -75,20 +76,10 @@ public class Book {
     }
 
     public boolean currentUserCanDelete(int participationId) {
+        if (participationId >= participations.size()) { return false; }
         Participation participationToDelete = participations.get(participationId);
-        Participation participationCurrentUser = participations.stream()
-                                                                .filter(Participation::currentUserIsParticipant)
-                                                                .findFirst().orElse(null);
 
-        if (participationCurrentUser == null || participationToDelete == null) {
-            return false;
-        }
-
-        return currentUserIsOwner() || (!participationToDelete.isAdmin() && participationCurrentUser.isAdmin());
-    }
-
-    public boolean isOwner(Participation participation) {
-        return owner.getEmail().equals(participation.getParticipant().getEmail());
+        return currentUserIsOwner() || (!participationToDelete.isAdmin() && currentUserIsAdmin());
     }
 
     // questions can only be deleted if no participant filled in an answer to that question

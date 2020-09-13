@@ -55,9 +55,7 @@ public class Participation {
     }
 
     public boolean currentUserCanComment() {
-        return book.getParticipations()
-                .stream()
-                .anyMatch(Participation::currentUserIsParticipant) && !currentUserIsParticipant();
+        return book.currentUserHasParticipation();
     }
 
     public List<Integer> getNonBlankAnswerIndices() {

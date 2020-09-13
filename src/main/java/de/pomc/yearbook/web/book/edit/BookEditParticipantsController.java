@@ -33,7 +33,7 @@ public class BookEditParticipantsController {
             throw new NotFoundException();
         }
 
-        if (!book.currentUserIsParticipant() && !book.currentUserIsOwner()) {
+        if (!book.currentUserHasParticipation() && !book.currentUserIsOwner()) {
             throw new ForbiddenException();
         }
 
@@ -83,7 +83,7 @@ public class BookEditParticipantsController {
             return "pages/book/editParticipants";
         }
 
-        if (book.userIsParticipant(newParticipant)) {
+        if (book.userHasParticipation(newParticipant)) {
             // ToDo: show JS dialog that a user can only be added once
             System.out.println("User is already added to DB");
             return "pages/book/editParticipants";
