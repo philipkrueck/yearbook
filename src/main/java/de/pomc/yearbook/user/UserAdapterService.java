@@ -19,7 +19,7 @@ public class UserAdapterService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException(email);
+            throw new UsernameNotFoundException("Username not found for " + email);
         }
 
         return new UserAdapter(user);
