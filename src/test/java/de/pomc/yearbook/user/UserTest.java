@@ -16,6 +16,8 @@ public class UserTest {
     @BeforeEach
     void setUp() {
         userOne = new User("User", "One", "user.one@gmail.com", "1234");
+
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     @Test

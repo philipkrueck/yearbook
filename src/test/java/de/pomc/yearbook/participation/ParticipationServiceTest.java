@@ -22,10 +22,10 @@ import java.util.List;
 public class ParticipationServiceTest {
 
     @Mock
-    ParticipationRepository participationRepository;
+    private ParticipationRepository participationRepository;
 
     @InjectMocks
-    ParticipationService participationService;
+    private ParticipationService participationService;
 
     @Test
     void itShouldGetParticipationsOfCurrentUser() {

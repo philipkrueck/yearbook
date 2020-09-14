@@ -17,13 +17,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UserServiceTest {
 
     @Mock
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @InjectMocks
-    UserService userService;
+    private UserService userService;
 
-    String email = "first.last@mail.com";
-    User givenUser = new User("first", "last", email, "1234");
+    private String email = "first.last@mail.com";
+    private User givenUser = new User("first", "last", email, "1234");
 
     @Test
     void itShouldFindUserByEmail() {

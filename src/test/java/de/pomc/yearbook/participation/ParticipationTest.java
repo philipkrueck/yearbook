@@ -52,10 +52,10 @@ public class ParticipationTest {
 
     @ParameterizedTest
     @CsvSource({
-            "0, true",
-            "1, false"
+            "0",
+            "1"
     })
-    void itShouldValidateCurrentUserCanComment(int userIndex, boolean expected) {
+    void itShouldValidateCurrentUserCantComment(int userIndex) {
         // given
         Book book = new Book("Title", "description", userOne, false);
         Participation participation = new Participation(users.get(userIndex), false);
@@ -67,7 +67,26 @@ public class ParticipationTest {
         boolean currentUserCanComment = participation.currentUserCanComment();
 
         // then
-        assertThat(currentUserCanComment).isEqualTo(expected);
+        assertThat(currentUserCanComment).isFalse();
+    }
+
+    @Test
+    void itShouldValidateCurrentUserComment() {
+        // given
+        Book book = new Book("Title", "description", userOne, false);
+        Participation participationOne = new Participation(userOne, false);
+        Participation participationTwo = new Participation(userTwo, false);
+
+        participationOne.setBook(book);
+        participationTwo.setBook(book);
+        book.getParticipations().add(participationOne);
+        book.getParticipations().add(participationTwo);
+
+        // when
+        boolean currentUserCanComment = participationTwo.currentUserCanComment();
+
+        // then
+        assertThat(currentUserCanComment).isTrue();
     }
 
     @Test
