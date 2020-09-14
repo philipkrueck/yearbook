@@ -2,9 +2,11 @@ package de.pomc.yearbook.book;
 
 import de.pomc.yearbook.participation.Participation;
 import de.pomc.yearbook.user.User;
+import de.pomc.yearbook.utils.ConvertByte;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,8 @@ public class Book {
     @Basic(optional = false)
     private boolean published;
 
-    // TODO: add image
+    @Lob
+    private byte[] image;
 
     public Book(String name, String description, User owner, boolean published) {
         this.name = name;
@@ -87,5 +90,10 @@ public class Book {
         return participations
                 .stream()
                 .anyMatch(participation -> (participation.getAnswers().size() > index && participation.getAnswers().get(index) != null));
+    }
+
+    public String getImageBase64() throws UnsupportedEncodingException {
+        ConvertByte convertByte = new ConvertByte();
+        return convertByte.ToBase64(getImage());
     }
 }

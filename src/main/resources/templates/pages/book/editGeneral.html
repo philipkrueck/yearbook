@@ -31,12 +31,17 @@
             <div class="cell small-12 medium-16 medium-offset-1">
                 <h4>Edit General</h4>
                 <hr />
-                <form method="post" th:action="@{/book/{id}/edit/general/update(id=${book.getId()})}" th:object="${bookForm}">
+                <form method="post" th:action="@{/book/{id}/edit/general/addBookImage(id=${book.getId()})}" th:object="${bookImageForm}" enctype="multipart/form-data">
                     <div class="cell">
-                        <img class="bookAvater" src="https://via.placeholder.com/800x200.webp?text=ImageCover">
+                        <img class="bookAvater" th:src="${(book.getImageBase64() != null && !#strings.isEmpty(book.getImageBase64())) ?
+                         'data:image/jpeg;base64,'+ book.getImageBase64() :
+                         'https://via.placeholder.com/800x200.webp?text=ImageCover'}" th:alt="${'Image Cover for book: ' + book.getDescription()}"
+                        >
                         <label for="imageUpload" class="button imageUpload"><span class="material-icons">create</span> Edit</label>
-                        <input type="file" id="imageUpload" class="show-for-sr">
+                        <input type="file" accept="image/*" onchange="this.form.submit()" id="imageUpload" class="show-for-sr" th:field="*{image}">
                     </div>
+                </form>
+                <form method="post" th:action="@{/book/{id}/edit/general/update(id=${book.getId()})}" th:object="${bookForm}">
                     <div class="cell">
                         <label>Edit book name.
                             <span class="formError" th:errors="*{name}"/>
