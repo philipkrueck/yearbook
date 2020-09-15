@@ -53,6 +53,7 @@ public class UserServiceIntegrationTest {
         // when
         User foundUser = userService.findUserByEmail(email);
 
+        // then
         assertThat(foundUser).isEqualTo(user);
     }
 }
