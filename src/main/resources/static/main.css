@@ -94,6 +94,10 @@ main {
     display: none;
 }
 
+.margin-0 {
+    margin: 0;
+}
+
 /* Forms
 --------------------------------------------- */
 
@@ -264,12 +268,6 @@ footer a {
 /* sideMenu
 --------------------------------------------- */
 
-nav.sideMenu {
-    background-color: #fff;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-}
-
 nav.sideMenu a {
     display: block;
     padding: 8px 16px;
@@ -308,6 +306,12 @@ nav.sideMenu a.current {
 
 #participatingBooks {
     margin-top: 60px;
+}
+
+.profile-icon {
+    max-width: 15px;
+    max-height: 15px;
+    margin-right: 8px;
 }
 
 /* templates.pages.addBook
