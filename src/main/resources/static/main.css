@@ -94,6 +94,10 @@ main {
     display: none;
 }
 
+.margin-0 {
+    margin: 0;
+}
+
 /* Forms
 --------------------------------------------- */
 
@@ -308,6 +312,12 @@ nav.sideMenu a.current {
 
 #participatingBooks {
     margin-top: 60px;
+}
+
+.profile-icon {
+    max-width: 15px;
+    max-height: 15px;
+    margin-right: 8px;
 }
 
 /* templates.pages.addBook
