@@ -1,5 +1,6 @@
 package de.pomc.yearbook.participation;
 
+import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserAdapter;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +34,7 @@ public class ParticipationServiceIntegrationTest {
 
     private User userOne;
     private User userTwo;
+    private Book book;
 
     @BeforeEach
     void setUp() {
@@ -40,8 +42,10 @@ public class ParticipationServiceIntegrationTest {
 
         userOne = new User("First", "Last", "first.last@mail.com", "1234");
         userTwo = new User("First", "Last", "anotherEmail", "1234");
+        book = new Book("Title", "Description", userOne, false);
         entityManager.persist(userOne);
         entityManager.persist(userTwo);
+        entityManager.persist(book);
 
         // inject User into authentication object
         UserDetails userDetails = new UserAdapter(userOne);
@@ -50,7 +54,7 @@ public class ParticipationServiceIntegrationTest {
     }
 
     @Test
-    void itShouldGetParticipationOfCurrentUser() {
+    void itShouldGetParticipationsOfCurrentUser() {
         // given
         Participation participationOne = buildParticipationWithParticipant(userOne);
         Participation participationTwo = buildParticipationWithParticipant(userOne);
@@ -64,6 +68,8 @@ public class ParticipationServiceIntegrationTest {
     }
 
     private Participation buildParticipationWithParticipant(User participant) {
-        return participationService.save(new Participation(participant, false));
+        Participation participation = new Participation(participant, false);
+        participation.setBook(book);
+        return participationService.save(participation);
     }
 }
