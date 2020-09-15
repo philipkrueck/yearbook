@@ -20,7 +20,7 @@
                 <th>Email</th>
             </tr>
             <tr th:each="user : ${users}">
-                <th>Profile Pic</th>
+                <th><img id="avatarImage" th:src="${(user.getImageBase64() != null && !#strings.isEmpty(user.getImageBase64())) ? 'data:image/jpeg;base64,'+ user.getImageBase64() : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}"></th>
                 <th th:text="${user.getFullName()}"></th>
                 <th th:text="${user.getEmail()}"></th>
             </tr>

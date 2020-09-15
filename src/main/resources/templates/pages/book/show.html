@@ -59,8 +59,11 @@
         </div>
         <div class="grid-x grid-margin-x">
             <div class="cell small-12 medium-6 card" th:each="participation : ${participations}">
-                <a th:href="@{/participation/{id}(id=${participation.getId()})}">
-                    <img src="https://via.placeholder.com/300x150.webp?text=Profilpic" alt="Profil Pic">
+                <a th:href="@{/participation/{id}(id=${participation.getId()})}" th:with="image=${participation.getParticipant().getImageBase64()}">
+                    <img th:src="${(image != null && !#strings.isEmpty(image)) ?
+                         'data:image/jpeg;base64,'+ image :
+                         'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${participation.getParticipant().getFullName()}"
+                    >
                     <div class="card-section">
                         <p th:if="${book.isOwner(participation)}" class="label">Owner</p>
                         <p th:if="${!book.isOwner(participation) && participation.isAdmin()}" class="badge">Admin</p>
