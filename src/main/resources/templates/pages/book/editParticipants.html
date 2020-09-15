@@ -22,11 +22,13 @@
 <!-- main -------------------------------- -->
 <main class="grid-wrapper">
     <div class="grid-container">
-        <div th:if="${!book.getParticipations().isEmpty()}" class="grid-x align-top">
-            <nav class="cell small-12 medium-7 sideMenu">
-                <a th:href="@{/book/{id}/edit/general(id=${book.getId()})}">Edit General</a>
-                <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}">Edit Questions</a>
-                <a class="current"  th:href="@{/book/{id}/edit/participants(id=${book.getId()})}">Edit Participants</a>
+        <div class="grid-x align-top" id="sticky-anchor" th:if="${!book.getParticipations().isEmpty()}">
+            <nav class="cell small-12 medium-7 sideMenu" data-sticky-container>
+                <div class="card sticky" data-sticky data-anchor="sticky-anchor">
+                    <a th:href="@{/book/{id}/edit/general(id=${book.getId()})}">Edit General</a>
+                    <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}">Edit Questions</a>
+                    <a class="current"  th:href="@{/book/{id}/edit/participants(id=${book.getId()})}">Edit Participants</a>
+                </div>
             </nav>
             <div class="cell small-12 medium-16 medium-offset-1">
                 <h4>Edit Participants</h4>
