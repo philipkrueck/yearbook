@@ -2,6 +2,7 @@ package de.pomc.yearbook.book;
 
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserAdapter;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class BookServiceIntegrationTest {
         UserDetails userDetails = new UserAdapter(userOne);
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    @AfterEach
+    void tearDown() {
+        bookRepository.deleteAll();
     }
 
     @Test
