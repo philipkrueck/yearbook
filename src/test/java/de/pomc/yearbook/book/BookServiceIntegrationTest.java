@@ -17,7 +17,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -40,6 +39,11 @@ public class BookServiceIntegrationTest {
         bookRepository.deleteAll();
         entityManager.persist(userOne);
         entityManager.persist(userTwo);
+
+        // inject User into authentication object
+        UserDetails userDetails = new UserAdapter(userOne);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     @Test
@@ -49,11 +53,6 @@ public class BookServiceIntegrationTest {
         Book bookTwo = buildBookWithOwner(userOne, false);
         Book bookThree = buildBookWithOwner(userOne, false);
         Book bookFour = buildBookWithOwner(userTwo, false); // this book should not be found
-
-        // inject User into authentication object
-        UserDetails userDetails = new UserAdapter(userOne);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // when
         List<Book> foundBooksOfCurrentUser = bookService.getBooksOfCurrentUser();
