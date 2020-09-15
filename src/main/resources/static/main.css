@@ -268,12 +268,6 @@ footer a {
 /* sideMenu
 --------------------------------------------- */
 
-nav.sideMenu {
-    background-color: #fff;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-}
-
 nav.sideMenu a {
     display: block;
     padding: 8px 16px;
