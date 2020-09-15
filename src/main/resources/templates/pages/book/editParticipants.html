@@ -34,9 +34,10 @@
                 <div th:each="participation, itemStat : ${book.getParticipations()}" class="card cell small-24">
                     <div class="grid-x card-section align-middle grid-padding-x">
                         <div class="cell shrink">
-                            <img id="navBarAvatar" th:src="${(participation.getParticipant().getImageBase64() != null && !#strings.isEmpty(participation.getParticipant().getImageBase64())) ?
-                             'data:image/jpeg;base64,'+ participation.getParticipant().getImageBase64() :
-                              'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${participation.getParticipant().getFullName()}"
+                            <img id="navBarAvatar" th:with="participationimage=${participation.getParticipant().getImageBase64()}" th:src="${(${participationimage} != null && !#strings.isEmpty(${participationimage})) ?
+                             'data:image/jpeg;base64,' + ${participationimage} :
+                             'https://via.placeholder.com/400x400.webp?text=Profilpic'}"
+                             th:alt="${participation.getParticipant().getFullName()}"
                             >
                         </div>
                         <div class="cell auto">
