@@ -74,21 +74,14 @@ public class ProfileController {
     }
 
     @PostMapping("/edit")
-    public String editProfile(final @ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) {
+    public String editProfile(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) {
 
-        // ToDo: implement form validation and show js dialog accordingly
-        //if(bindingResult.hasErrors()){
-        //    return "redirect:/profile";
-        //}
+        if(bindingResult.hasErrors()) {
+            return "pages/profile/profile";
+        }
 
         User user = userService.findCurrentUser();
         UserFormConverter.update(user, userForm);
-
-        if(userService.findUserByEmail(userForm.getEmail()) != null && !user.getEmail().equals(userForm.getEmail())) {
-            return "redirect:/profile?emailExists";
-        }
-
-        //TODO: add feature for new authentication if email was changed
 
         return "redirect:/profile";
     }
