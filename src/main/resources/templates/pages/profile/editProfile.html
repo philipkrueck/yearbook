@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Your Profile | Yearbook</title>
+</head>
+<body>
+
+<!-- header -------------------------------- -->
+<header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
+
+<!-- main -------------------------------- -->
+<main class="grid-container">
+    <div id="editProfile">
+        <div class="grid-x align-center">
+            <div class="cell small-16">
+                <h4>Edit profile</h4>
+                <form th:action="@{/profile/editProfile/edit}" th:object="${userForm}" method="post" enctype="multipart/form-data">
+                    <label>Bio
+                        <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
+                    </label>
+                    <label>First Name
+                        <span class="formError" th:errors="*{firstName}"/>
+                        <input type="text" th:field="*{firstName}">
+                    </label>
+                    <label>Last Name
+                        <span class="formError" th:errors="*{lastName}"/>
+                        <input type="text" th:field="*{lastName}">
+                    </label>
+                    <label>TwitterHandle
+                        <span class="formError" th:errors="*{twitterHandle}"/>
+                        <input type="text" th:field="*{twitterHandle}">
+                    </label>
+                    <label>Location
+                        <input type="text" th:field="*{location}">
+                    </label>
+                    <label>Website
+                        <span class="formError" th:errors="*{website}"/>
+                        <input type="text" th:field="*{website}">
+                    </label>
+                    <div class="stack-for-small small expanded button-group">
+                        <input class="success button" type="submit" value="Update Profile">
+                        <button class="secondary button" data-close aria-label="Close modal" value="Cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
+</body>
+</html>

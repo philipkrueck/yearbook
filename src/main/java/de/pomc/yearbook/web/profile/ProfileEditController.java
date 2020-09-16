@@ -11,24 +11,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
-import javax.validation.Valid;
-
-import javax.swing.*;
-import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/profile/editProfile")
 @RequiredArgsConstructor
-public class ProfileController {
+public class ProfileEditController {
 
     private final UserService userService;
     private final BookService bookService;
@@ -47,7 +39,7 @@ public class ProfileController {
 
     @PreAuthorize("authenticated")
     @GetMapping
-    public String showProfile(Model model) {
+    public String showEditProfileView(Model model) {
         User user = getCurrentUser();
 
         model.addAttribute("userImageForm", UserImageFormConverter.userImageForm(user));
@@ -55,19 +47,19 @@ public class ProfileController {
         model.addAttribute("books", bookService.getBooksOfCurrentUser());
         model.addAttribute("participations", participationService.getParticipationsOfCurrentUser());
 
-        return "pages/profile/profile";
+        return "pages/profile/editProfile";
     }
 
-    @PostMapping("/addProfileImage")
-    public String addProfileImage(final @RequestParam("image") MultipartFile image) {
-       try {
-           User user = getCurrentUser();
-           user.setImage(image.getBytes());
-           userService.save(user);
-           return "redirect:/";
-       }
-       catch (IOException e) {
-         throw new ForbiddenException(); //TODO: Change to SomethingWentWrongException
+    @PostMapping("/edit")
+    public String editProfile(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return "pages/profile/editProfile";
         }
+
+        User user = userService.findCurrentUser();
+        UserFormConverter.update(user, userForm);
+
+        return "redirect:/profile";
     }
 }
