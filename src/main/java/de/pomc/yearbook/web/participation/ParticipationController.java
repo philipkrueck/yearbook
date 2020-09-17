@@ -34,7 +34,7 @@ public class ParticipationController {
         }
 
         Book book = participation.getBook();
-        if (!book.isPublished() && !book.currentUserHasParticipation()) {
+        if (!book.isPublished() && !book.currentUserHasParticipation() && !book.currentUserIsOwner()) {
             throw new ForbiddenException();
         }
 
