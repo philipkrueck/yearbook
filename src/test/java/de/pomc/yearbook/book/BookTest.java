@@ -139,23 +139,4 @@ public class BookTest {
         // then
         assertThat(currentUserIsAdmin).isEqualTo(isAdmin);
     }
-
-    @ParameterizedTest
-    @CsvSource({
-            "0, true, 0, true",
-            "1, true, 0, true",
-            "1, false, 0, true",
-            "1, false, 1000, false"
-
-    })
-    void itShouldValidateCurrentUserCanDelete(int userIndex, boolean isAdmin, int participationId, boolean expected) {
-        // given
-        book.getParticipations().add(new Participation(users.get(userIndex), isAdmin));
-
-        // when
-        boolean currentUserCanDelete = book.currentUserCanDelete(participationId);
-
-        // then
-        assertThat(currentUserCanDelete).isEqualTo(expected);
-    }
 }

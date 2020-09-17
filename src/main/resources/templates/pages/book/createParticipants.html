@@ -43,22 +43,31 @@
                 </div>
             </div>
             <div class="cell small-24 medium-16 medium-offset-1">
-                <div class="grid-x" th:if="${!book.getParticipations().isEmpty()}">
-                    <div th:each="participation, itemStat : ${book.getParticipations()}" class="card cell small-24">
+                <div class="grid-x">
+                    <div th:if="${!book.getParticipations().isEmpty()}" th:each="participation, itemStat : ${book.getParticipations()}" class="card cell small-24">
                         <div class="grid-x card-section align-middle grid-padding-x">
                             <div class="cell shrink" th:with="image=${participation.getParticipant().getImageBase64()}">
                                 <img th:src="${(image != null && !#strings.isEmpty(image)) ?
                                      'data:image/jpeg;base64,'+ image :
                                      'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${participation.getParticipant().getFullName()}"
+                                     style="max-width: 50px"
                                 >
                             </div>
                             <div class="cell auto">
                                 <b th:text="${participation.getParticipant().getFullName()}"></b> | <span th:text="${participation.getParticipant().getEmail()}"></span>
                             </div>
                             <div class="cell shrink">
-                                <small>Currently: Participant. <a href="#">Make Admin</a> </small>
+                                <small th:text="'currently: ' + ${participation.getStatusString()}"></small>
+
+                                <form method="post" th:action="@{/book/{id}/create/participants/makeAdmin/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}" th:if="${participation.currentUserCanMakeAdmin()}">
+                                    <button type="submit" class="hyperlink tiny">Make Admin</button>
+                                </form>
+
+                                <form method="post" th:action="@{/book/{id}/create/participants/makeNotAdmin/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}" th:if="${participation.currentUserCanMakeNotAdmin()}">
+                                    <button type="submit" class="hyperlink tiny">Make Participant</button>
+                                </form>
                             </div>
-                            <div th:if="${book.currentUserCanDelete(itemStat.index)}" class="cell shrink">
+                            <div th:if="${participation.currentUserCanDelete()}" class="cell shrink">
                                 <form method="post" th:action="@{/book/{id}/create/participants/delete/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}">
                                     <button type="submit" class="button tiny">Remove Participant <span class="material-icons">remove</span></button>
                                 </form>

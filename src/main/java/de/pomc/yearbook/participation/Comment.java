@@ -14,6 +14,7 @@ public class Comment {
 
     @Id
     @GeneratedValue
+    @Getter
     private Long id;
 
     @Getter

@@ -22,7 +22,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ParticipationController {
 
-    private final BookService bookService;
     private final ParticipationService participationService;
     private final UserService userService;
 
@@ -34,7 +33,7 @@ public class ParticipationController {
         }
 
         Book book = participation.getBook();
-        if (!book.isPublished() && !book.currentUserHasParticipation()) {
+        if (!book.isPublished() && !book.currentUserHasParticipation() && !book.currentUserIsOwner()) {
             throw new ForbiddenException();
         }
 
@@ -44,6 +43,17 @@ public class ParticipationController {
     @ModelAttribute("book")
     public Book getBook(@PathVariable("id") Long id) {
         return getParticipation(id).getBook();
+    }
+
+    public Comment getComment(Long participationId, int commentId) {
+        Comment comment = getParticipation(participationId).getComments().get(commentId);
+        if (comment == null) {
+            throw new NotFoundException();
+        }
+        if (!comment.authorIsCurrentUser()) {
+            throw new ForbiddenException();
+        }
+        return comment;
     }
 
     @GetMapping
@@ -74,5 +84,25 @@ public class ParticipationController {
 
         return "redirect:/participation/{id}";
     }
+
+    @GetMapping("/editComment/{commentId}")
+    public String editComment(Model model, @PathVariable("id") Long id, @PathVariable("commentId") int commentId) {
+        Comment comment = getComment(id, commentId);
+
+        model.addAttribute("commentId", commentId);
+        model.addAttribute("commentForm", new CommentForm(comment.getComment()));
+
+        return "pages/participation/editComment";
+    }
+
+    @PostMapping("/editComment/{commentId}")
+    public String changeComment(@PathVariable("id") Long id, @PathVariable("commentId") int commentId, @Valid CommentForm commentForm, BindingResult bindingResult) {
+        Comment comment = getComment(id, commentId);
+        comment.setComment(commentForm.getComment());
+        participationService.save(getParticipation(id));
+
+        return "redirect:/participation/{id}";
+    }
+
 
 }

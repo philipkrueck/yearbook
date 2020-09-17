@@ -3,6 +3,7 @@ package de.pomc.yearbook.web.book.edit;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
 import de.pomc.yearbook.participation.Participation;
+import de.pomc.yearbook.participation.ParticipationService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.book.AddUserForm;
@@ -25,6 +26,7 @@ public class BookEditParticipantsController {
 
     private final BookService bookService;
     private final UserService userService;
+    private final ParticipationService participationService;
 
     @ModelAttribute("book")
     public Book getBook(@PathVariable("id") Long id) {
@@ -52,8 +54,9 @@ public class BookEditParticipantsController {
     @PostMapping("/delete/{participantId}")
     public String deleteParticipant(@PathVariable("id") Long id, @PathVariable("participantId") int participantId) {
         Book book = getBook(id);
+        Participation participation = book.getParticipations().get(participantId);
 
-        if (!book.currentUserCanDelete(participantId)) {
+        if (participation == null || !participation.currentUserCanDelete()) {
             throw new ForbiddenException();
         }
 
@@ -91,6 +94,36 @@ public class BookEditParticipantsController {
 
         Participation participation = new Participation(newParticipant, false);
         bookService.addParticipation(book, participation);
+        return "redirect:/book/{id}/edit/participants";
+    }
+
+    @PreAuthorize("authenticated")
+    @PostMapping("/makeAdmin/{participantId}")
+    public String makeAdmin(@PathVariable("id") Long id, @PathVariable("participantId") int participantId) {
+        Participation participation = getBook(id).getParticipations().get(participantId);
+
+        if (participation == null || !participation.currentUserCanMakeAdmin()) {
+            throw new ForbiddenException();
+        }
+
+        participation.setAdmin(true);
+        participationService.save(participation);
+
+        return "redirect:/book/{id}/edit/participants";
+    }
+
+    @PreAuthorize("authenticated")
+    @PostMapping("/makeNotAdmin/{participantId}")
+    public String makeNotAdmin(@PathVariable("id") Long id, @PathVariable("participantId") int participantId) {
+        Participation participation = getBook(id).getParticipations().get(participantId);
+
+        if (participation == null || !participation.currentUserCanMakeNotAdmin()) {
+            throw new ForbiddenException();
+        }
+
+        participation.setAdmin(false);
+        participationService.save(participation);
+
         return "redirect:/book/{id}/edit/participants";
     }
 }
