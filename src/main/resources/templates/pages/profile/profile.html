@@ -14,7 +14,7 @@
 
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6" data-sticky-container>
-            <div class="sticky" data-sticky data-anchor="sticky-anchor">
+            <a class="sticky" data-sticky data-anchor="sticky-anchor">
                 <form th:action="@{/profile/addProfileImage}" th:object="${userImageForm}" method="post" enctype="multipart/form-data">
                     <img id="avatarImage" th:src="${(user.getImageBase64() != null && !#strings.isEmpty(user.getImageBase64())) ? 'data:image/jpeg;base64,'+ user.getImageBase64() : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
                     <label for="profilePicUpload" class="button imageUpload"><span class="material-icons">create</span> Edit</label>
@@ -27,9 +27,9 @@
                 <p class="margin-0" th:if="${user.getLocation() != null}"><span class="material-icons profile-icon">location_city</span><span th:text="${user.getLocation()}"></span></p>
                 <p class="margin-0" th:if="${user.getWebsite() != null}"><span class="material-icons profile-icon">link</span><span th:text="${user.getWebsite()}"></span></p>
                 <hr />
-                <button data-open="editProfile" class="button small secondary medium-expanded">Edit profile</button>
-                <button data-open="changePassword" class="button small secondary medium-expanded">Change password</button>
-            </div>
+                <a th:href="@{/profile/editProfile}"><button class="button small secondary medium-expanded">Edit profile</button></a>
+                <a th:href="@{/profile/changePassword}"><button class="button small secondary medium-expanded">Change password</button></a>
+            </a>
         </aside>
 
         <!-- Main -------------------------------- -->
@@ -86,76 +86,6 @@
     </div>
 </main>
 
-<!-- .reveal#editProfile -------------------------------- -->
-<div class="reveal" id="editProfile" data-reveal data-deep-link="true">
-    <div class="grid-x align-center">
-        <div class="cell small-16">
-            <h4>Edit profile</h4>
-            <form th:action="@{/profile/edit}" th:object="${userForm}" method="post" enctype="multipart/form-data">
-                <label>Bio
-                    <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
-                </label>
-                <label>First Name (required)
-                    <span class="formError" th:errors="*{firstName}"/>
-                    <input type="text" th:field="*{firstName}">
-                </label>
-                <label>Last Name (required)
-                    <span class="formError" th:errors="*{lastName}"/>
-                    <input type="text" th:field="*{lastName}">
-                </label>
-                <label>TwitterHandle
-                    <span class="formError" th:errors="*{twitterHandle}"/>
-                    <input type="text" th:field="*{twitterHandle}">
-                </label>
-                <label>Location
-                    <input type="text" th:field="*{location}">
-                </label>
-                <label>Website
-                    <span class="formError" th:errors="*{website}"/>
-                    <input type="text" th:field="*{website}">
-                </label>
-                <div class="stack-for-small small expanded button-group">
-                    <input class="success button" type="submit" value="Update Profile">
-                    <button class="secondary button" data-close aria-label="Close modal" value="Cancel">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <button class="close-button" data-close aria-label="Close modal" type="button">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-
-<!-- .reveal#changePassword -------------------------------- -->
-<div class="reveal" id="changePassword" data-reveal data-deep-link="true">
-    <div class="grid-x align-center">
-        <div class="cell small-16">
-            <h4>Change password</h4>
-            <form method="post" data-abide novalidate th:action="@{/profile/changePassword}" th:object="${changePasswordForm}">
-                <label>Old password (required)
-                    <span class="formError" th:errors="*{oldPasword}"/>
-                    <input type="password" th:field="*{oldPasword}" required>
-                </label>
-                <label>New password (required)
-                    <span class="formError" th:errors="*{newPasswordOne}"/>
-                    <input type="password" th:field="*{newPasswordOne}" required>
-                </label>
-                <label>Confirm new password (required)
-                    <span class="formError" th:errors="*{newPasswordTwo}"/>
-                    <input type="password" th:field="*{newPasswordTwo}" required data-equalto="newPasswordOne">
-                    <span class="form-error">Your password confirmation does not match.</span>
-                </label>
-                <div class="stack-for-small small expanded button-group">
-                    <input class="success button" type="submit" value="Update Password">
-                    <button class="secondary button" data-close aria-label="Close modal" value="Cancel">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <button class="close-button" data-close aria-label="Close modal" type="button">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
 
 <!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>

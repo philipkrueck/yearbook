@@ -61,6 +61,13 @@ h1 .colored, h2 .colored, h3 .colored, h4 .colored, h5 .colored, h6 .colored {
     color: #e74c3c;
 }
 
+span.formError {
+    display: block;
+    color: red;
+    font-weight: bold;
+    max-width: fit-content;
+}
+
 
 /* General Layout classes
 --------------------------------------------- */
