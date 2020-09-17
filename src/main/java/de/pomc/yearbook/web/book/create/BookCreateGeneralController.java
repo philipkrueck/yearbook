@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("book/create")
 @RequiredArgsConstructor
@@ -33,7 +35,7 @@ public class BookCreateGeneralController {
 
     @PreAuthorize("authenticated")
     @PostMapping
-    public String submitNewBookCreation(@ModelAttribute("createBookForm") CreateBookForm createBookForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String submitNewBookCreation(@ModelAttribute("createBookForm") @Valid CreateBookForm createBookForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if(bindingResult.hasErrors()){
             return "pages/book/createGeneral";
