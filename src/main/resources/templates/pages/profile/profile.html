@@ -95,11 +95,11 @@
                 <label>Bio
                     <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
                 </label>
-                <label>First Name
+                <label>First Name (required)
                     <span class="formError" th:errors="*{firstName}"/>
                     <input type="text" th:field="*{firstName}">
                 </label>
-                <label>Last Name
+                <label>Last Name (required)
                     <span class="formError" th:errors="*{lastName}"/>
                     <input type="text" th:field="*{lastName}">
                 </label>
@@ -131,18 +131,19 @@
     <div class="grid-x align-center">
         <div class="cell small-16">
             <h4>Change password</h4>
-            <form method="post" th:action="@{/profile/changePassword}" th:object="${changePasswordForm}">
-                <label>Old password
+            <form method="post" data-abide novalidate th:action="@{/profile/changePassword}" th:object="${changePasswordForm}">
+                <label>Old password (required)
                     <span class="formError" th:errors="*{oldPasword}"/>
                     <input type="password" th:field="*{oldPasword}" required>
                 </label>
-                <label>New password
+                <label>New password (required)
                     <span class="formError" th:errors="*{newPasswordOne}"/>
                     <input type="password" th:field="*{newPasswordOne}" required>
                 </label>
-                <label>Confirm new password
+                <label>Confirm new password (required)
                     <span class="formError" th:errors="*{newPasswordTwo}"/>
-                    <input type="password" th:field="*{newPasswordTwo}" required>
+                    <input type="password" th:field="*{newPasswordTwo}" required data-equalto="newPasswordOne">
+                    <span class="form-error">Your password confirmation does not match.</span>
                 </label>
                 <div class="stack-for-small small expanded button-group">
                     <input class="success button" type="submit" value="Update Password">
