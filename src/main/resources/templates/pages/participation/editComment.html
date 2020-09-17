@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Edit Comment | Yearbook</title>
+</head>
+
+<body>
+<!-- header -------------------------------- -->
+<header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
+
+<div class="grid-wrapper" id="viewQuestionnaire">
+    <div class="grid-container">
+        <div id="edit-comment">
+            <form method="post" th:action="@{/participation/{id}/editComment/{commentId}(id=${participation.getId()}, commentId=${commentId})}" th:object="${commentForm}">
+                <label>Edit your comment
+                    <span class="formError" th:errors="*{comment}"/>
+                    <input type="text" th:field="*{comment}"/>
+                </label>
+                <button type="submit" class="button">Update comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

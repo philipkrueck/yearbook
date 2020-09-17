@@ -62,9 +62,13 @@
                     <hr/>
                     <h5 th:text="'Comments about ' + ${participation.getParticipant().getFullName()}"></h5>
                     <p th:if="${participation.getComments().isEmpty()}">No comments written yet.</p>
-                    <div class="single-comment" th:each="comment : ${participation.getComments()}">
+                    <div class="single-comment" th:each="comment, itemStat : ${participation.getComments()}">
                         <blockquote th:text="${comment.getComment()} + ' - ' + ${comment.getAuthor().getFullName()}"></blockquote>
-                        <button data-open="edit-comment" th:if="${comment.authorIsCurrentUser()}" class="button"><span class="material-icons">edit</span></button>
+                        <a class="button"
+                           th:href="@{/participation/{id}/editComment/{commentId}(id=${participation.getId()}, commentId=${itemStat.index})}"
+                           th:if="${comment.authorIsCurrentUser()}">
+                            <span class="material-icons">edit</span>
+                        </a>
                     </div>
                 </div>
 
@@ -99,16 +103,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- #edit-comment -------------------------------- -->
-<div id="edit-comment" class="reveal" data-reveal data-deep-link="true">
-    <form method="post">
-        <label>Edit your comment
-            <input type="text" value="Content of you already published comment" />
-        </label>
-        <button type="submit" class="button">Update comment</button>
-    </form>
 </div>
 
 <!-- footer -------------------------------- -->
