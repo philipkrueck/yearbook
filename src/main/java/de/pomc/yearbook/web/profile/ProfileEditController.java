@@ -52,13 +52,13 @@ public class ProfileEditController {
 
     @PostMapping("/edit")
     public String editProfile(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) {
-
         if(bindingResult.hasErrors()) {
             return "pages/profile/editProfile";
         }
 
         User user = userService.findCurrentUser();
         UserFormConverter.update(user, userForm);
+        userService.save(user);
 
         return "redirect:/profile";
     }
