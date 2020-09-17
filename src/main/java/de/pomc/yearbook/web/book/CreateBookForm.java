@@ -1,14 +1,13 @@
 package de.pomc.yearbook.web.book;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class CreateBookForm extends BookForm {
-
-    @Getter
-    private byte[] image;
-
-    public CreateBookForm(String name, String description, boolean published, byte[] image) {
-        super(name, description, published);
-        this.image = image;
-    }
+    private MultipartFile image;
 }
