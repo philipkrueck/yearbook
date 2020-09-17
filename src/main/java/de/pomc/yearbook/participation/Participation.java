@@ -68,4 +68,27 @@ public class Participation {
         }
         return nonBlankAnswerIndices;
     }
+
+    public boolean currentUserCanMakeAdmin() {
+        return !participantIsBookOwner() && (book.currentUserIsOwner() || book.currentUserIsAdmin()) && !isAdmin;
+    }
+
+    public boolean currentUserCanMakeNotAdmin() {
+        return !participantIsBookOwner() && book.currentUserIsOwner() && isAdmin;
+    }
+
+    public boolean currentUserCanDelete() {
+        return book.currentUserIsOwner();
+    }
+
+    public String getStatusString() {
+        if (participantIsBookOwner()) {
+            return "Owner";
+        }
+        return isAdmin ? "Admin" : "Participant";
+    }
+
+    public boolean participantIsBookOwner() {
+        return book.getOwner().getEmail().equals(participant.getEmail());
+    }
 }

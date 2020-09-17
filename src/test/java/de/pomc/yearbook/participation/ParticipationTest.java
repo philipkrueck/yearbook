@@ -20,13 +20,15 @@ public class ParticipationTest {
 
     User userOne;
     User userTwo;
+    User userThree;
     List<User> users;
 
     @BeforeEach
     void setUp() {
         userOne = new User("User", "One", "user.one@gmail.com", "1234");
         userTwo = new User("User", "Two", "user.two@gmail.com", "1234");
-        users = List.of(userOne, userTwo);
+        userThree = new User("User", "Three", "user.three@gmail.com", "1234");
+        users = List.of(userOne, userTwo, userThree);
 
         // inject User into authentication object
         UserDetails userDetails = new UserAdapter(userOne);
@@ -121,5 +123,118 @@ public class ParticipationTest {
         assertThat(nonBlankAnswerIndices.isEmpty()).isTrue();
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "0, 0, false, Owner",
+            "1, 0, true, Admin",
+            "1, 0, false, Participant",
+    })
+    void itShouldGetStatusString(int bookOwnerUserIndex, int participationUserIndex, boolean isAdmin, String expected) {
+        // given
+        Book book = new Book("Title", "Description", users.get(bookOwnerUserIndex), false);
+        Participation participation = new Participation(users.get(participationUserIndex), isAdmin);
+        book.getParticipations().add(participation);
+        participation.setBook(book);
 
+        // when
+        String statusString = participation.getStatusString();
+
+        // then
+        assertThat(statusString).isEqualTo(expected);
+    }
+
+    // NOTE: We have three roles per participation (owner, admin, participant).
+    // Thus we have 3x3 combinations of the current users' and the participants' participation role.
+    // The following tests will test all combinations.
+
+    // TODO: extract CSVSource into a variable
+    @ParameterizedTest
+    @CsvSource({
+            "0, false, 0, false, false", // currentUser: owner, viewUser: owner
+            "0, false, 1, true, false",  // currentUser: owner, viewUser: admin
+            "0, false, 1, false, true",  // currentUser: owner, viewUser: participant
+            "1, true, 1, false, false",  // currentUser: admin, viewUser: owner
+            "2, true, 1, true, false",   // currentUser: admin, viewUser: admin
+            "2, true, 1, false, true",   // currentUser: admin, viewUser: participant
+            "2, false, 2, false, false", // currentUser: participant, viewUser: owner
+            "2, false, 1, true, false",  // currentUser: participant, viewUser: admin
+            "2, false, 1, false, false"
+    })
+    void itShouldMakeCurrentUserAdmin(int bookOwnerUserIndex, boolean currentUserIsAdmin, int participationUserIndex, boolean participantIsAdmin, boolean expected) {
+        // given
+        Book book = new Book("Title", "Description", users.get(bookOwnerUserIndex), false);
+        Participation currentUserParticipation = new Participation(userOne, currentUserIsAdmin);
+        book.getParticipations().add(currentUserParticipation);
+        currentUserParticipation.setBook(book);
+
+        Participation participation = new Participation(users.get(participationUserIndex), participantIsAdmin);
+        book.getParticipations().add(participation);
+        participation.setBook(book);
+
+        // when
+        boolean currentUserCanMakeAdmin = participation.currentUserCanMakeAdmin();
+
+        // then
+        assertThat(currentUserCanMakeAdmin).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0, false, 0, false, false", // currentUser: owner, viewUser: owner
+            "0, false, 1, true, true",  // currentUser: owner, viewUser: admin
+            "0, false, 1, false, false",  // currentUser: owner, viewUser: participant
+            "1, true, 1, false, false",  // currentUser: admin, viewUser: owner
+            "2, true, 1, true, false",   // currentUser: admin, viewUser: admin
+            "2, true, 1, false, false",   // currentUser: admin, viewUser: participant
+            "2, false, 2, false, false", // currentUser: participant, viewUser: owner
+            "2, false, 1, true, false",  // currentUser: participant, viewUser: admin
+            "2, false, 1, false, false"
+    })
+    void itShouldMakeCurrentUserNotAdmin(int bookOwnerUserIndex, boolean currentUserIsAdmin, int participationUserIndex, boolean participantIsAdmin, boolean expected) {
+        // given
+        Book book = new Book("Title", "Description", users.get(bookOwnerUserIndex), false);
+        Participation currentUserParticipation = new Participation(userOne, currentUserIsAdmin);
+        book.getParticipations().add(currentUserParticipation);
+        currentUserParticipation.setBook(book);
+
+        Participation participation = new Participation(users.get(participationUserIndex), participantIsAdmin);
+        book.getParticipations().add(participation);
+        participation.setBook(book);
+
+        // when
+        boolean currentUserCanMakeNotAdmin = participation.currentUserCanMakeNotAdmin();
+
+        // then
+        assertThat(currentUserCanMakeNotAdmin).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0, false, 0, false, true", // currentUser: owner, viewUser: owner
+            "0, false, 1, true, true",  // currentUser: owner, viewUser: admin
+            "0, false, 1, false, true",  // currentUser: owner, viewUser: participant
+            "1, true, 1, false, false",  // currentUser: admin, viewUser: owner
+            "2, true, 1, true, false",   // currentUser: admin, viewUser: admin
+            "2, true, 1, false, false",   // currentUser: admin, viewUser: participant
+            "2, false, 2, false, false", // currentUser: participant, viewUser: owner
+            "2, false, 1, true, false",  // currentUser: participant, viewUser: admin
+            "2, false, 1, false, false"
+    })
+    void itShouldDeleteParticipant(int bookOwnerUserIndex, boolean currentUserIsAdmin, int participationUserIndex, boolean participantIsAdmin, boolean expected) {
+        // given
+        Book book = new Book("Title", "Description", users.get(bookOwnerUserIndex), false);
+        Participation currentUserParticipation = new Participation(userOne, currentUserIsAdmin);
+        book.getParticipations().add(currentUserParticipation);
+        currentUserParticipation.setBook(book);
+
+        Participation participation = new Participation(users.get(participationUserIndex), participantIsAdmin);
+        book.getParticipations().add(participation);
+        participation.setBook(book);
+
+        // when
+        boolean currentUserCanDelete = participation.currentUserCanDelete();
+
+        // then
+        assertThat(currentUserCanDelete).isEqualTo(expected);
+    }
 }
