@@ -144,7 +144,7 @@ fieldset label {
     margin: 10px;
 }
 
-.form-error {
+.backend-form-error {
     display: block;
 }
 
