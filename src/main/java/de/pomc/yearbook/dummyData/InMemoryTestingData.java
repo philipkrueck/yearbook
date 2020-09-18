@@ -51,6 +51,7 @@ public class InMemoryTestingData {
         gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("1234"), "USER");
         frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
         frodo.setRole("ADMIN");
+        gandalf.setRole("ADMIN");
 
 
         List.of(sam, gandalf, legolas, gimli, frodo)
@@ -68,9 +69,7 @@ public class InMemoryTestingData {
         Book bookThree = new Book("Stanford Law '19", "description", legolas, true);
         Book bookFour = new Book("MIT Robotics 2020", "description", gimli, false);
         Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo, false);
-
         bookOne.setPublished(true);
-        bookTwo.setPublished(true);
 
         // init participations
         if (!participationService.findAll().isEmpty()) {
