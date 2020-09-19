@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -102,6 +103,22 @@ public class ParticipationController {
         participationService.save(getParticipation(id));
 
         return "redirect:/participation/{id}";
+    }
+
+    @PostMapping("/deleteComment/{commentId}")
+    public String deleteComment(@PathVariable("id") Long id, @PathVariable("commentId") int commentId, RedirectAttributes redirectAttributes) {
+        Participation participation = getParticipation(id);
+
+        if (participation.getComments().size() <= commentId) {
+            throw new ForbiddenException();
+        }
+
+        participation.getComments().remove(commentId);
+        participationService.save(participation);
+
+        redirectAttributes.addAttribute("bookId", participation.getBook().getId());
+
+        return "redirect:/book/{bookId}";
     }
 
 

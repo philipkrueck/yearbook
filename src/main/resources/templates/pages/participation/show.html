@@ -69,6 +69,9 @@
                            th:if="${comment.authorIsCurrentUser()}">
                             <span class="material-icons">edit</span>
                         </a>
+                        <form th:if="${comment.authorIsCurrentUser()}" method="post" th:action="@{/participation/{id}/deleteComment/{commentId}(id=${participation.getId()}, commentId=${itemStat.index})}">
+                            <button type="submit"><span class="material-icons">trash</span>Delete</button>
+                        </form>
                     </div>
                 </div>
 

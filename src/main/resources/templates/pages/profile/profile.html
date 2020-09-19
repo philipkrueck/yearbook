@@ -29,8 +29,8 @@
             <p th:if="${user.getLocation() != null}" th:text="${user.getLocation()}"></p>
             <p th:if="${user.getWebsite() != null}" th:text="${user.getWebsite()}"></p>
             <hr />
-            <button data-open="editProfile" class="button small secondary medium-expanded">Edit profile</button>
-            <button data-open="changePassword" class="button small secondary medium-expanded">Change password</button>
+            <a href="/profile/editProfile" class="button small secondary medium-expanded">Edit profile</a>
+            <a href="/profile/changePassword" class="button small secondary medium-expanded">Change password</a>
         </aside>
 
         <!-- Main -------------------------------- -->
