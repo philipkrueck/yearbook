@@ -49,6 +49,10 @@ public class BookService {
         book.setQuestions(questions);
     }
 
+    public void delete(Book book) {
+        bookRepository.delete(book);
+    }
+
     public Book getBookWithID(Long id) {
         return bookRepository.findById(id).orElse(null);
     }

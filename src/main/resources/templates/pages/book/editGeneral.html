@@ -78,6 +78,10 @@
     </div>
 </main>
 
+<form th:if="${book.currentUserIsOwner()}" method="post" th:action="@{/book/{id}/delete(id=${book.getId()})}">
+    <button type="submit" class="button">Delete book</button>
+</form>
+
 <!-- .section-lead -------------------------------- -->
 <div class="grid-wrapper">
     <div class="grid-container">

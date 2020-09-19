@@ -59,6 +59,10 @@
                         </a>
                     </div>
                 </div>
+                <div class="callout secondary" th:if="${books.isEmpty()}">
+                    <h5>You do not own any books yet!</h5>
+                    <p>Create a new yearbook and invite your friends!</p>
+                </div>
             </div>
             <div class="grid-x section-header">
                 <div class="cell">

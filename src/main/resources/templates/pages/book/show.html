@@ -88,6 +88,10 @@
     </div>
 </div>
 
+<form th:if="${book.currentUserIsOwner()}" method="post" th:action="@{/book/{id}/delete(id=${book.getId()})}">
+    <button type="submit" class="button">Delete book</button>
+</form>
+
 <!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
 </body>
