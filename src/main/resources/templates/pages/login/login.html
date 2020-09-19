@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Sign in to Yearbook | Yearbook</title>
+    <title id="pageTitle" th:text="#{login.pageTitle}"></title>
 </head>
 <body>
 
@@ -11,7 +11,7 @@
         <div class="cell small-22 medium-10 large-8">
             <div class="card">
                 <form class="card-section" method="post" th:action="@{/login}">
-                    <h1 class="h3">Sign in to Yearbook</h1>
+                    <h1 class="h3" th:text="#{login.signIn}"></h1>
                     <label>Email address
                         <input type="text" name="email" placeholder="Email" required="" autofocus="">
                     </label>

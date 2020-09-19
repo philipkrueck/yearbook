@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Edit Comment | Yearbook</title>
+    <title id="pageTitle" th:text="#{participation.editComment.pageTitle}"></title>
 </head>
 
 <body>
@@ -13,7 +13,8 @@
     <div class="grid-container">
         <div id="edit-comment">
             <form method="post" th:action="@{/participation/{id}/editComment/{commentId}(id=${participation.getId()}, commentId=${commentId})}" th:object="${commentForm}">
-                <label>Edit your comment
+                <label>
+                    <span th:text="#{participation.editComment.editYourComment}"></span>
                     <span class="formError" th:errors="*{comment}"/>
                     <input type="text" th:field="*{comment}"/>
                 </label>

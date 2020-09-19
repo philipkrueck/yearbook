@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">All Books | Yearbook</title>
+    <title id="pageTitle" th:text="#{book.all.pageTitle}"></title>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
     <div class="grid-container">
         <div class="grid-x">
             <div class="cell small-24">
-                <h1 class="h3">See all Books</h1>
+                <h1 class="h3" th:text="#{book.all.seeAll}"></h1>
             </div>
         </div>
     </div>

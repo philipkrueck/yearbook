@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Add Book | Yearbook</title>
+    <title id="pageTitle" th:text="#{addBook.pageTitle}"></title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
     <div class="grid-container">
         <div class="grid-x">
             <div class="cell">
-                <h1 class="h3">Create a new Book</h1>
+                <h1 class="h3" th:text="#{addBook.create}"></h1>
                 <p>Choose a title and a description. Then invite your friends and create your unique Yearbook memory.</p>
                 <hr />
             </div>

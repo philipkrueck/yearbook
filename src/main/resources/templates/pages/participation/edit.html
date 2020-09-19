@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Edit Questionnaire | Yearbook</title>
+    <title id="pageTitle" th:text="#{participation.edit.pageTitle}"></title>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
     <div class="grid-container">
         <div class="grid-x align-middle">
             <div class="cell auto">
-                <h1 class="h4">Edit Questionnaire <small th:text="${book.getName()}"></small></h1>
+                <h1 class="h4" th:text="#{participation.edit.editQuestionnaire}"><small th:text="${book.getName()}"></small></h1>
             </div>
             <div class="cell shrink">
                 <a class="button small" th:href="@{/participation/{id}(id=${participation.getId()})}" >Go back</a>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Your Profile | Yearbook</title>
+    <title id="pageTitle" th:text="#{profile.editProfile.pageTitle}"></title>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
     <div id="editProfile">
         <div class="grid-x align-center">
             <div class="cell small-16">
-                <h4>Edit profile</h4>
+                <h4 th:text="#{profile.editProfile.edit}"></h4>
                 <form th:action="@{/profile/editProfile/edit}" th:object="${userForm}" method="post" enctype="multipart/form-data">
                     <label>Bio
                         <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Edit Book | Yearbook</title>
+    <title id="pageTitle" th:text="#{book.edit.pageTitle}"></title>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
         <div class="grid-x align-top" id="sticky-anchor">
             <nav class="cell small-12 medium-7 sideMenu" data-sticky-container>
                 <div class="card sticky" data-sticky data-anchor="sticky-anchor">
-                    <a class="current" href="#">Edit General</a>
+                    <a class="current" href="#" th:text="#{book.editGeneral}"></a>
                     <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}">Edit Questions</a>
                     <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}">Edit Participants</a>
                 </div>

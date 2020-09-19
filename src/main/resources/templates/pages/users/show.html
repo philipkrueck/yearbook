@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Edit Questionnaire | Yearbook</title>
+    <title id="pageTitle" th:text="#{users.show.pageTitle}"></title>
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 <!-- #editBar -------------------------------- -->
 <div class="grid-wrapper" id="upperEditBar">
     <div class="grid-container">
-        <h1>Users</h1>
+        <h1 th:text="#{users.show.users}"></h1>
         <table>
             <tr>
                 <th></th>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">View Book | Yearbook</title>
+    <title id="pageTitle" th:text="#{book.show.pageTitle}"></title>
 </head>
 <body>
 
@@ -17,7 +17,7 @@
                 <p th:if="${book.isPublished()}" class="label">Published</p>
                 <p th:if="${!book.isPublished()}" class="label">Private</p>
                 <p th:text="${book.getDescription()}"></p>
-                <a th:if="${book.currentUserIsOwner()}" th:href="@{/book/{id}/edit/general(id=${book.getId()})}"><button class="button">Edit general information</button></a>
+                <a th:if="${book.currentUserIsOwner()}" th:href="@{/book/{id}/edit/general(id=${book.getId()})}"><button class="button" th:text="#{book.show.editGeneral}"></button></a>
             </div>
         </div>
     </div>

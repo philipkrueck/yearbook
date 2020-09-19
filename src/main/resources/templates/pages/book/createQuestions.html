@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Edit Questions | Yearbook</title>
+    <title id="pageTitle" th:text="#{addBook.pageTitle}"></title>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
         <div class="grid-container">
             <div class="grid-x grid-margin-x" id="progressBarHeader">
                 <div class="cell">
-                    <h6><small>Current Step: 2 of 3</small></h6>
+                    <h6><small th:text="#{book.create.step2}"></small></h6>
                 </div>
             </div>
             <div class="grid-x grid-margin-x" id="progressBar">
