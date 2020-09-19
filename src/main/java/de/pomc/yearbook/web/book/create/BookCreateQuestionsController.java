@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("book/{id}/create/questions")
@@ -35,6 +36,11 @@ public class BookCreateQuestionsController {
         }
 
         return book;
+    }
+
+    @ModelAttribute("questions")
+    public List<Question> getQuestions(@PathVariable("id") Long id) {
+        return getBook(id).getQuestions();
     }
 
     @PreAuthorize("authenticated")
