@@ -18,7 +18,7 @@
                     <span class="formError" th:errors="*{comment}"/>
                     <input type="text" th:field="*{comment}"/>
                 </label>
-                <button type="submit" class="button">Update comment</button>
+                <button type="submit" class="button" th:text="#{participation.editComment.update}"></button>
             </form>
         </div>
     </div>

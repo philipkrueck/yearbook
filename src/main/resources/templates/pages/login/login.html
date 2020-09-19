@@ -12,21 +12,27 @@
             <div class="card">
                 <form class="card-section" method="post" th:action="@{/login}">
                     <h1 class="h3" th:text="#{login.signIn}"></h1>
-                    <label>Email address
-                        <input type="text" name="email" placeholder="Email" required="" autofocus="">
+                    <label>
+                        <span th:text="#{login.email}"></span>
+                        <input type="text" name="email" th:placeholder="#{general.email}" required="" autofocus="">
                     </label>
-                    <label>Password
-                        <input type="password" name="password" placeholder="Password" required="">
+                    <label>
+                        <span th:text="#{general.password}"></span>
+                        <input type="password" name="password" th:placeholder="#{general.password}" required="">
                     </label>
-                    <label>Remember Me?
+                    <label>
+                        <span th:text="#{login.rememberMe}"></span>
                         <input type="checkbox" name="remember-me">
                     </label>
-                    <input class="button" type="submit" value="Sign in">
+                    <input class="button" type="submit" th:value="#{general.signIn}">
                 </form>
             </div>
             <div class="card">
                 <div class="card-section">
-                    <span>New to Yearbook? <a class="inlineButton" href="/">Create an account</a></span>
+                    <span>
+                        <span th:text="#{login.newToYearbook}"></span>
+                        <a class="inlineButton" href="/" th:text="#{login.createAccount}"></a>
+                    </span>
                 </div>
             </div>
         </div>

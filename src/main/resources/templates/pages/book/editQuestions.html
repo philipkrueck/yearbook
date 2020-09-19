@@ -26,21 +26,24 @@
             <nav class="cell small-12 medium-7 sideMenu" data-sticky-container>
                 <div class="card sticky" data-sticky data-anchor="sticky-anchor">
                     <a th:href="@{/book/{id}/edit/general(id=${book.getId()})}" th:text="#{book.editGeneral}"></a>
-                    <a class="current"  th:href="@{/book/{id}/edit/questions(id=${book.getId()})}">Edit Questions</a>
-                    <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}">Edit Participants</a>
+                    <a class="current"  th:href="@{/book/{id}/edit/questions(id=${book.getId()})}" th:text="#{book.show.editQuestions}"></a>
+                    <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}" th:text="#{book.show.editParticipants}"></a>
                 </div>
             </nav>
             <div class="cell small-12 medium-16 medium-offset-1">
-                <h4>Edit Questions</h4>
+                <h4 th:text="#{book.show.editQuestions}"></h4>
                 <hr />
                 <div class="card" th:if="${!questions.isEmpty()}" th:each="question, itemStat : ${questions}">
                     <div class="card-section">
                         <h6><strong th:text="${itemStat.index + 1} + '.'"></strong> | <span th:text="${question.getQuestion()}"></span></h6>
                     </div>
                     <div class="card-divider align-right">
-                        <small th:if="${book.questionCanNotBeDeletedAt(itemStat.index)}">This questions can not be deleted since it is already answered by some participiants of your yearbook.</small>
+                        <small th:if="${book.questionCanNotBeDeletedAt(itemStat.index)}" th:text="#{book.createQuestions.error}"></small>
                         <form method="post" th:if="${!book.questionCanNotBeDeletedAt(itemStat.index)}" th:action="@{/book/{id}/edit/questions/delete/{questionId}(id=${book.getId()}, questionId=${itemStat.index})}">
-                            <button type="submit" class="button tiny">Delete Question <span class="material-icons">delete</span></button>
+                            <button type="submit" class="button tiny">
+                                <span th:text="#{book.createQuestion.deleteQuestion}"></span>
+                                <span class="material-icons">delete</span>
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -48,10 +51,10 @@
                     <div class="card">
                         <div class="card-section">
                             <span class="formError" th:errors="*{question}"/>
-                            <input type="text" placeholder="Type to add question title" th:field="*{question}"/>
+                            <input type="text" th:placeholder="#{book.createQuestions.questionPlaceholder}" th:field="*{question}"/>
                         </div>
                     </div>
-                    <input class="button" type="submit" value="Add Question"/>
+                    <input class="button" type="submit" th:value="#{book.createQuestions.addQuestion}"/>
                 </form>
             </div>
         </div>
@@ -63,7 +66,7 @@
     <div class="grid-container">
         <div class="grid-x section-lead">
             <div class="cell shrink">
-                <a class="button" th:href="@{/book/{id}(id=${book.getId()})}">Back to Book</a>
+                <a class="button" th:href="@{/book/{id}(id=${book.getId()})}" th:text="#{book.general.backToBook}"></a>
             </div>
         </div>
     </div>

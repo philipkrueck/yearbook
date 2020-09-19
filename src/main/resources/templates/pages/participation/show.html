@@ -17,8 +17,8 @@
                 <h1 class="h3" th:text="#{participation.show.viewQuestionnaire}"><small th:text="${book.getName()}"></small></h1>
             </div>
             <div class="cell shrink">
-                <a class="button small" th:href="@{/book/{id}(id=${book.getId()})}">Go back to book</a>
-                <a class="button small" th:if="${showEditButton}" th:href="@{/participation/{id}/edit(id=${participation.getId()})}">edit</a>
+                <a class="button small" th:href="@{/book/{id}(id=${book.getId()})}" th:text="#{book.general.backToBook}"></a>
+                <a class="button small" th:if="${showEditButton}" th:href="@{/participation/{id}/edit(id=${participation.getId()})}" th:text="#{general.edit}"></a>
             </div>
         </div>
     </div>
@@ -54,14 +54,14 @@
                     </div>
                 </div>
                 <div th:if="${nonBlankAnswerIndices.isEmpty()}">
-                    <p>No questions answered yet.</p>
+                    <p th:text="#{participation.show.noAnswers}"></p>
                 </div>
 
                 <!-- .published-comments -------------------------------- -->
                 <div class="published-comments">
                     <hr/>
-                    <h5 th:text="'Comments about ' + ${participation.getParticipant().getFullName()}"></h5>
-                    <p th:if="${participation.getComments().isEmpty()}">No comments written yet.</p>
+                    <h5 th:text="#{participation.show.commentsAbout} + ' ' + ${participation.getParticipant().getFullName()}"></h5>
+                    <p th:if="${participation.getComments().isEmpty()}" th:text="#{participation.show.noComments}"></p>
                     <div class="single-comment" th:each="comment, itemStat : ${participation.getComments()}">
                         <blockquote th:text="${comment.getComment()} + ' - ' + ${comment.getAuthor().getFullName()}"></blockquote>
                         <a class="button"
@@ -76,17 +76,18 @@
                 <div class="add-commment" th:if="${participation.getBook().currentUserHasParticipation()}">
                     <hr />
                     <div th:if="${participation.currentUserCanComment()}">
-                        <h4 th:text="${'What do you remember about ' + participation.getParticipant().getFirstName() +'?'}"></h4>
+                        <h4 th:text="${#{participation.show.remember} + '' + participation.getParticipant().getFirstName() + '?'}"></h4>
                         <form method="post" th:action="@{/participation/{id}/addComment(id=${participation.getId()})}" th:object="${commentForm}">
-                            <label>Your comment
+                            <label>
+                                <span th:text="#{participation.show.comment}"></span>
                                 <span class="formError" th:errors="*{comment}"/>
                                 <input type="text" th:field="*{comment}" />
                             </label>
-                            <input type="submit" class="button" value="Submit comment" />
+                            <input type="submit" class="button" th:value="#{participation.show.submit}" />
                         </form>
                     </div>
                     <div class="callout primary" th:if="${!participation.currentUserCanComment()}">
-                        <p>Sorry, you can't comment on your own participation</p>
+                        <p th:text="#{participation.show.sorry}"></p>
                     </div>
                 </div>
             </div>
@@ -99,7 +100,7 @@
     <div class="grid-container">
         <div class="grid-x align-right section-lead">
             <div class="cell shrink">
-                <button onclick="window.print()" value="Print" class="button medium">Print Questionnaire <span class="material-icons">print</span></button>
+                <button onclick="window.print()" value="Print" class="button medium"><span th:text="#{participation.show.print}"></span> <span class="material-icons">print</span></button>
             </div>
         </div>
     </div>

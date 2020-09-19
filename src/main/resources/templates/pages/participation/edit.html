@@ -17,7 +17,7 @@
                 <h1 class="h4" th:text="#{participation.edit.editQuestionnaire}"><small th:text="${book.getName()}"></small></h1>
             </div>
             <div class="cell shrink">
-                <a class="button small" th:href="@{/participation/{id}(id=${participation.getId()})}" >Go back</a>
+                <a class="button small" th:href="@{/participation/{id}(id=${participation.getId()})}" th:text="#{general.goBack}"></a>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
     <div class="grid-container">
         <div class="grid-x grid-padding-x">
             <div class="cell small-24 medium-12">
-                <p class="infoBox">This is your personal questionnaire. All your answers will be published directly into the yearbook.</p>
+                <p class="infoBox" th:text="#{participation.edit.info}"></p>
             </div>
             <div class="cell small-24 medium-12">
                 <form method="post" th:action="@{/participation/{id}/edit/update(id=${participation.getId()})}" th:object="${editAnswersForm}">
@@ -36,7 +36,7 @@
                         <input type="text" th:field="*{answers[__${itemStat.index}__]}"/>
                     </div>
 
-                    <input class="button" type="submit" value="Save questionnaire">
+                    <input class="button" type="submit" th:value="#{participation.edit.save}">
                 </form>
             </div>
         </div>
