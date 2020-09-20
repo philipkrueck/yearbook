@@ -14,22 +14,23 @@
 
         <!-- Sidebar -------------------------------- -->
         <aside class="cell small-12 medium-6" data-sticky-container>
-            <a class="sticky" data-sticky data-anchor="sticky-anchor">
-                <form th:action="@{/profile/addProfileImage}" th:object="${userImageForm}" method="post" enctype="multipart/form-data">
-                    <img id="avatarImage" th:src="${(user.getImageBase64() != null && !#strings.isEmpty(user.getImageBase64())) ? 'data:image/jpeg;base64,'+ user.getImageBase64() : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
-                    <label for="profilePicUpload" class="button imageUpload"><span class="material-icons">create</span><span th:text="#{general.edit}"></span></label>
-                    <input type="file" accept="image/*" onchange="this.form.submit()" id="profilePicUpload" class="show-for-sr" th:field="*{image}">
-                </form>
-                <h5 th:text="${user.getFullName()}"></h5>
-                <h6 th:text="${user.getEmail()}"></h6>
-                <p th:if="${user.getBio() != null}" th:text="${user.getBio()}"></p>
-                <p class="margin-0" th:if="${user.getTwitterHandle() != null}"><svg class="profile-icon" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px"><path d="M24,4.3c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7c-1,0.6-2,1-3.1,1.2C19.3,2.6,18,2,16.6,2 c-2.7,0-4.9,2.2-4.9,4.9c0,0.4,0,0.8,0.1,1.1C7.7,7.8,4.1,5.9,1.7,2.9C1.2,3.6,1,4.5,1,5.4c0,1.7,0.9,3.2,2.2,4.1 C2.4,9.4,1.6,9.2,1,8.9c0,0,0,0,0,0.1c0,2.4,1.7,4.4,3.9,4.8c-0.4,0.1-0.8,0.2-1.3,0.2c-0.3,0-0.6,0-0.9-0.1c0.6,2,2.4,3.4,4.6,3.4 c-1.7,1.3-3.8,2.1-6.1,2.1c-0.4,0-0.8,0-1.2-0.1c2.2,1.4,4.8,2.2,7.5,2.2c9.1,0,14-7.5,14-14c0-0.2,0-0.4,0-0.6 C22.5,6.2,23.3,5.3,24,4.3"/></svg><span th:text="${user.getTwitterHandle()}"></span></p>
-                <p class="margin-0" th:if="${user.getLocation() != null}"><span class="material-icons profile-icon">location_city</span><span th:text="${user.getLocation()}"></span></p>
-                <p class="margin-0" th:if="${user.getWebsite() != null}"><span class="material-icons profile-icon">link</span><span th:text="${user.getWebsite()}"></span></p>
-                <hr />
-                <a th:href="@{/profile/editProfile}"><button class="button small secondary medium-expanded" th:text="#{profile.editProfile.edit}"></button></a>
-                <a th:href="@{/profile/changePassword}"><button class="button small secondary medium-expanded" th:text="#{profile.changePw.changePw}"></button></a>
-            </a>
+            <form th:action="@{/profile/addProfileImage}" th:object="${userImageForm}" method="post" enctype="multipart/form-data">
+                <img id="avatarImage" th:src="${(user.getImageBase64() != null && !#strings.isEmpty(user.getImageBase64())) ?
+                  'data:image/jpeg;base64,'+ user.getImageBase64() :
+                  'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}"
+                >
+                <label for="profilePicUpload" class="button imageUpload"><span class="material-icons">create</span><span th:text="#{general.edit}"></span></label>
+                <input type="file" accept="image/*" onchange="this.form.submit()" id="profilePicUpload" class="show-for-sr" th:field="*{image}">
+            </form>
+            <h5 th:text="${user.getFullName()}"></h5>
+            <h6 th:text="${user.getEmail()}"></h6>
+            <p th:if="${user.getBio() != null}" th:text="${user.getBio()}"></p>
+            <p class="margin-0" th:if="${user.getTwitterHandle() != null}"><svg class="profile-icon" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px"><path d="M24,4.3c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7c-1,0.6-2,1-3.1,1.2C19.3,2.6,18,2,16.6,2 c-2.7,0-4.9,2.2-4.9,4.9c0,0.4,0,0.8,0.1,1.1C7.7,7.8,4.1,5.9,1.7,2.9C1.2,3.6,1,4.5,1,5.4c0,1.7,0.9,3.2,2.2,4.1 C2.4,9.4,1.6,9.2,1,8.9c0,0,0,0,0,0.1c0,2.4,1.7,4.4,3.9,4.8c-0.4,0.1-0.8,0.2-1.3,0.2c-0.3,0-0.6,0-0.9-0.1c0.6,2,2.4,3.4,4.6,3.4 c-1.7,1.3-3.8,2.1-6.1,2.1c-0.4,0-0.8,0-1.2-0.1c2.2,1.4,4.8,2.2,7.5,2.2c9.1,0,14-7.5,14-14c0-0.2,0-0.4,0-0.6 C22.5,6.2,23.3,5.3,24,4.3"/></svg><span th:text="${user.getTwitterHandle()}"></span></p>
+            <p class="margin-0" th:if="${user.getLocation() != null}"><span class="material-icons profile-icon">location_city</span><span th:text="${user.getLocation()}"></span></p>
+            <p class="margin-0" th:if="${user.getWebsite() != null}"><span class="material-icons profile-icon">link</span><span th:text="${user.getWebsite()}"></span></p>
+            <hr />
+            <a th:href="@{/profile/editProfile}"><button class="button small secondary medium-expanded" th:text="#{profile.editProfile.edit}"></button></a>
+            <a th:href="@{/profile/changePassword}"><button class="button small secondary medium-expanded" th:text="#{profile.changePw.changePw}"></button></a>
         </aside>
 
         <!-- Main -------------------------------- -->
@@ -46,13 +47,21 @@
                 <div th:if="${!books.isEmpty()}" class="grid-x grid-margin-x">
                     <div class="cell small-8 medium-8 card cardShadow" th:each="book : ${books}">
                         <a th:href="@{/book/{id}(id=${book.getId()})}">
-                            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
+                            <img th:src="${(book.getImageBase64() != null && !#strings.isEmpty(book.getImageBase64())) ?
+                             'data:image/jpeg;base64,'+ book.getImageBase64() :
+                             'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80'}"
+                             th:alt="${book.getDescription()}"
+                            >
                             <div class="card-section">
                                 <h5 th:text="${book.getName()}"></h5>
                                 <p th:text="${book.getDescription()}"></p>
                             </div>
                         </a>
                     </div>
+                </div>
+                <div class="callout secondary" th:if="${books.isEmpty()}">
+                    <h5>You do not own any books yet!</h5>
+                    <p>Create a new yearbook and invite your friends!</p>
                 </div>
             </div>
             <div class="grid-x section-header">
