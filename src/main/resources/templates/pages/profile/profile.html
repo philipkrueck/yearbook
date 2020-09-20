@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Your Profile | Yearbook</title>
+    <title id="pageTitle" th:text="#{profile.editProfile.pageTitle}"></title>
 </head>
 <body>
 
@@ -13,34 +13,34 @@
     <div class="grid-x grid-margin-x" id="sticky-anchor">
 
         <!-- Sidebar -------------------------------- -->
-        <aside class="cell small-12 medium-6">
+        <aside class="cell small-12 medium-6" data-sticky-container>
             <form th:action="@{/profile/addProfileImage}" th:object="${userImageForm}" method="post" enctype="multipart/form-data">
                 <img id="avatarImage" th:src="${(user.getImageBase64() != null && !#strings.isEmpty(user.getImageBase64())) ?
-                 'data:image/jpeg;base64,'+ user.getImageBase64() :
-                 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}"
+                  'data:image/jpeg;base64,'+ user.getImageBase64() :
+                  'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}"
                 >
-                <label for="profilePicUpload" class="button imageUpload"><span class="material-icons">create</span> Edit</label>
+                <label for="profilePicUpload" class="button imageUpload"><span class="material-icons">create</span><span th:text="#{general.edit}"></span></label>
                 <input type="file" accept="image/*" onchange="this.form.submit()" id="profilePicUpload" class="show-for-sr" th:field="*{image}">
             </form>
             <h5 th:text="${user.getFullName()}"></h5>
             <h6 th:text="${user.getEmail()}"></h6>
             <p th:if="${user.getBio() != null}" th:text="${user.getBio()}"></p>
-            <p th:if="${user.getTwitterHandle() != null}" th:text="${user.getTwitterHandle()}"></p>
-            <p th:if="${user.getLocation() != null}" th:text="${user.getLocation()}"></p>
-            <p th:if="${user.getWebsite() != null}" th:text="${user.getWebsite()}"></p>
+            <p class="margin-0" th:if="${user.getTwitterHandle() != null}"><svg class="profile-icon" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px"><path d="M24,4.3c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7c-1,0.6-2,1-3.1,1.2C19.3,2.6,18,2,16.6,2 c-2.7,0-4.9,2.2-4.9,4.9c0,0.4,0,0.8,0.1,1.1C7.7,7.8,4.1,5.9,1.7,2.9C1.2,3.6,1,4.5,1,5.4c0,1.7,0.9,3.2,2.2,4.1 C2.4,9.4,1.6,9.2,1,8.9c0,0,0,0,0,0.1c0,2.4,1.7,4.4,3.9,4.8c-0.4,0.1-0.8,0.2-1.3,0.2c-0.3,0-0.6,0-0.9-0.1c0.6,2,2.4,3.4,4.6,3.4 c-1.7,1.3-3.8,2.1-6.1,2.1c-0.4,0-0.8,0-1.2-0.1c2.2,1.4,4.8,2.2,7.5,2.2c9.1,0,14-7.5,14-14c0-0.2,0-0.4,0-0.6 C22.5,6.2,23.3,5.3,24,4.3"/></svg><span th:text="${user.getTwitterHandle()}"></span></p>
+            <p class="margin-0" th:if="${user.getLocation() != null}"><span class="material-icons profile-icon">location_city</span><span th:text="${user.getLocation()}"></span></p>
+            <p class="margin-0" th:if="${user.getWebsite() != null}"><span class="material-icons profile-icon">link</span><span th:text="${user.getWebsite()}"></span></p>
             <hr />
-            <a href="/profile/editProfile" class="button small secondary medium-expanded">Edit profile</a>
-            <a href="/profile/changePassword" class="button small secondary medium-expanded">Change password</a>
+            <a th:href="@{/profile/editProfile}"><button class="button small secondary medium-expanded" th:text="#{profile.editProfile.edit}"></button></a>
+            <a th:href="@{/profile/changePassword}"><button class="button small secondary medium-expanded" th:text="#{profile.changePw.changePw}"></button></a>
         </aside>
 
         <!-- Main -------------------------------- -->
         <div class="cell small-12 medium-17 medium-offset-1">
             <div class="grid-x small-24 align-middle section-header">
                 <div class="cell auto">
-                    <h5>My Books</h5>
+                    <h5 th:text="#{profile.profile.myBooks}"></h5>
                 </div>
                 <div class="cell shrink">
-                    <a href="/book/create"><button class="button">New Book</button></a>
+                    <a href="/book/create"><button class="button" th:text="#{profile.profile.newBook}"></button></a>
                 </div>
             </div>
             <div class="grid-x small-24">
@@ -66,14 +66,14 @@
             </div>
             <div class="grid-x section-header">
                 <div class="cell">
-                    <h5>Participations</h5>
+                    <h5 th:text="#{profile.profile.participation}"></h5>
                 </div>
             </div>
             <div class="grid-x">
                 <div class="cell small-24">
                     <div class="callout secondary" th:if="${participations.isEmpty()}">
-                        <h5>You do not have any participations yet!</h5>
-                        <p>Ask one of your friends to get invited to a yearbook.</p>
+                        <h5 th:text="#{profile.profile.noParticipations}"></h5>
+                        <p th:text="#{profile.profile.askFriends}"></p>
                     </div>
                     <div class="grid-x grid-margin-x align-top" th:if="${!participations.isEmpty()}">
                         <div class="cell small-8 medium-8 card cardShadow" th:each="participation : ${participations}">
@@ -85,7 +85,7 @@
                                 </div>
                             </a>
                             <div class="card-divider">
-                                <a th:href="@{/participation/{id}(id=${participation.getId()})}">Your questionnaire</a>
+                                <a th:href="@{/participation/{id}(id=${participation.getId()})}" th:text="#{profile.profile.yourQuestionnaire}"></a>
                             </div>
                         </div>
                     </div>
