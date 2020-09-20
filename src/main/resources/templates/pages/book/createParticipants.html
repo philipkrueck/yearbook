@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Add Book | Yearbook</title>
+    <title id="pageTitle" th:text="#{addBook.pageTitle}"></title>
 </head>
 <body>
 
@@ -14,18 +14,18 @@
         <div class="grid-container">
             <div class="grid-x grid-margin-x" id="progressBarHeader">
                 <div class="cell">
-                    <h6><small>Current Step: 3 of 3</small></h6>
+                    <h6><small th:text="#{book.create.step3}"></small></h6>
                 </div>
             </div>
             <div class="grid-x grid-margin-x" id="progressBar">
                 <div class="cell small-8">
-                    <h6>Create a new Book</h6>
+                    <h6 th:text="#{book.createGeneral.create}"></h6>
                 </div>
                 <div class="cell small-8">
-                    <h6>Add questions</h6>
+                    <h6 th:text="#{book.createGeneral.addQuestion}"></h6>
                 </div>
                 <div class="cell small-8 current">
-                    <h6>Add Participants <span class="material-icons">arrow_right_alt</span></h6>
+                    <h6><span th:text="#{book.createGeneral.addParticipants}"></span><span class="material-icons">arrow_right_alt</span></h6>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
             <div class="cell small-24 medium-7 card">
                 <div class="card-section">
                     <h1 class="h3" th:text="${book.getName()}"></h1>
-                    <p>Invite your friends and colleagues. Share your memories.</p>
+                    <p th:text="#{book.createParticipants.invite}"></p>
                 </div>
             </div>
             <div class="cell small-24 medium-16 medium-offset-1">
@@ -60,16 +60,16 @@
                                 <small th:text="'currently: ' + ${participation.getStatusString()}"></small>
 
                                 <form method="post" th:action="@{/book/{id}/create/participants/makeAdmin/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}" th:if="${participation.currentUserCanMakeAdmin()}">
-                                    <button type="submit" class="hyperlink tiny">Make Admin</button>
+                                    <button type="submit" class="hyperlink tiny" th:text="#{book.createParticipant.makeAdmin}"></button>
                                 </form>
 
                                 <form method="post" th:action="@{/book/{id}/create/participants/makeNotAdmin/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}" th:if="${participation.currentUserCanMakeNotAdmin()}">
-                                    <button type="submit" class="hyperlink tiny">Make Participant</button>
+                                    <button type="submit" class="hyperlink tiny" th:text="#{book.createParticipant.makeParticipant}"></button>
                                 </form>
                             </div>
                             <div th:if="${participation.currentUserCanDelete()}" class="cell shrink">
                                 <form method="post" th:action="@{/book/{id}/create/participants/delete/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}">
-                                    <button type="submit" class="button tiny">Remove Participant <span class="material-icons">remove</span></button>
+                                    <button type="submit" class="button tiny"><span th:text="#{book.createParticipant.removeParticipant}"></span><span class="material-icons">remove</span></button>
                                 </form>
                             </div>
                         </div>
@@ -77,9 +77,9 @@
                 </div>
                 <div class="grid-x card">
                     <form class="cell card-section" method="post" th:action="@{/book/{id}/create/participants/new(id=${book.getId()})}" th:object="${addUserForm}">
-                        <input type="email" placeholder="Enter Email" th:field="*{email}">
+                        <input type="email" th:placeholder="#{book.createParticipant.enterEmail}" th:field="*{email}">
                         <span class="backend-form-error" th:errors="*{email}"/>
-                        <input type="submit" class="button" value="Add participant">
+                        <input type="submit" class="button" th:value="#{book.createParticipant.addParticipant}">
                     </form>
                 </div>
             </div>
@@ -92,7 +92,7 @@
     <div class="grid-container">
         <div class="grid-x align-right section-lead">
             <div class="cell shrink">
-                <a class="button" th:href="@{/book/{id}(id=${book.getId()})}">Finish Process</a>
+                <a class="button" th:href="@{/book/{id}(id=${book.getId()})}" th:text="#{book.createParticipant.finish}"></a>
             </div>
         </div>
     </div>

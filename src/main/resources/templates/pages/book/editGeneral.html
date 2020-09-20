@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Edit Book | Yearbook</title>
+    <title id="pageTitle" th:text="#{book.edit.pageTitle}"></title>
 </head>
 <body>
 
@@ -25,13 +25,13 @@
         <div class="grid-x align-top" id="sticky-anchor">
             <nav class="cell small-12 medium-7 sideMenu" data-sticky-container>
                 <div class="card sticky" data-sticky data-anchor="sticky-anchor">
-                    <a class="current" href="#">Edit General</a>
-                    <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}">Edit Questions</a>
-                    <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}">Edit Participants</a>
+                    <a class="current" href="#" th:text="#{book.editGeneral}"></a>
+                    <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}" th:text="#{book.show.editQuestions}"></a>
+                    <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}" th:text="#{book.show.editParticipants}"></a>
                 </div>
             </nav>
             <div class="cell small-12 medium-16 medium-offset-1">
-                <h4>Edit General</h4>
+                <h4 th:text="#{book.show.editGeneral}"></h4>
                 <hr />
                 <form method="post" th:action="@{/book/{id}/edit/general/addBookImage(id=${book.getId()})}" th:object="${bookImageForm}" enctype="multipart/form-data">
                     <div class="cell">
@@ -45,11 +45,13 @@
                 </form>
                 <form method="post" th:action="@{/book/{id}/edit/general/update(id=${book.getId()})}" th:object="${bookForm}">
                     <div class="cell">
-                        <label>Edit book name.
+                        <label>
+                            <span th:text="#{book.editGeneral.editName}"></span>
                             <span class="backend-form-error" th:errors="*{name}"/>
                             <input type="text" th:field="*{name}"/>
                         </label>
-                        <label>Edit book description.
+                        <label>
+                            <span th:text="#{book.editGeneral.editDescription}"></span>
                             <span class="backend-form-error" th:errors="*{description}"/>
                             <input type="text" th:field="*{description}"/>
                         </label>
@@ -57,20 +59,26 @@
                     <div class="cell">
                         <hr />
                         <fieldset>
-                            <legend>Choose Visibility</legend>
+                            <legend th:text="#{book.createGeneral.visiblity}"></legend>
                             <div class="cell radioWrapper">
                                 <input th:field="*{published}" type="radio" name="visibility" value="1" id="visibilityPublic" required>
-                                <label for="visibilityPublic"><strong>Public</strong><br />Your book will be visible to all visitors on Yearbook.</label>
+                                <label for="visibilityPublic">
+                                    <strong th:text="#{book.createGeneral.public}"></strong><br />
+                                    <span th:text="#{book.createGeneral.publicDescription}"></span>
+                                </label>
                             </div>
                             <div class="cell radioWrapper">
                                 <input th:field="*{published}" type="radio" name="visibility" value="0" id="visibilityPrivate">
-                                <label for="visibilityPrivate"><strong>Private</strong><br />Your book will only be visible to you and your participants.</label>
+                                <label for="visibilityPrivate">
+                                    <strong th:text="#{book.createGeneral.private}"></strong><br />
+                                    <span th:text="#{book.createGeneral.privateDescription}"></span>
+                                </label>
                             </div>
                         </fieldset>
                     </div>
                     <div class="cell">
                         <hr/>
-                        <input class="button" type="submit" value="Update Book" />
+                        <input class="button" type="submit" th:value="#{book.editGeneral.updateBook}" />
                     </div>
                 </form>
             </div>
@@ -87,7 +95,7 @@
     <div class="grid-container">
         <div class="grid-x section-lead">
             <div class="cell shrink">
-                <a class="button" th:href="@{/book/{id}(id=${book.getId()})}">Back to Book</a>
+                <a class="button" th:href="@{/book/{id}(id=${book.getId()})}" th:text="#{book.general.backToBook}"></a>
             </div>
         </div>
     </div>

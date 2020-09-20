@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Your Profile | Yearbook</title>
+    <title id="pageTitle" th:text="#{profile.editProfile.pageTitle}"></title>
 </head>
 <body>
 
@@ -13,33 +13,39 @@
     <div id="editProfile">
         <div class="grid-x align-center">
             <div class="cell small-16">
-                <h4>Edit profile</h4>
+                <h4 th:text="#{profile.editProfile.edit}"></h4>
                 <form th:action="@{/profile/editProfile/edit}" th:object="${userForm}" method="post" enctype="multipart/form-data">
-                    <label>Bio
-                        <input type="text" placeholder="Tell us something about yourself..." th:field="*{bio}">
+                    <label>
+                        <span th:text="#{profile.profile.bio}"></span>
+                        <input type="text" th:placeholder="#{profile.profile.tellUs}" th:field="*{bio}">
                     </label>
-                    <label>First Name
+                    <label>
+                        <span th:text="#{general.firstName}"></span>
                         <span class="formError" th:errors="*{firstName}"/>
                         <input type="text" th:field="*{firstName}">
                     </label>
-                    <label>Last Name
+                    <label>
+                        <span th:text="#{general.lastName}"></span>
                         <span class="formError" th:errors="*{lastName}"/>
                         <input type="text" th:field="*{lastName}">
                     </label>
-                    <label>TwitterHandle
+                    <label>
+                        <span th:text="#{profile.profile.twitter}"></span>
                         <span class="formError" th:errors="*{twitterHandle}"/>
                         <input type="text" th:field="*{twitterHandle}">
                     </label>
-                    <label>Location
+                    <label>
+                        <span th:text="#{profile.profile.location}"></span>
                         <input type="text" th:field="*{location}">
                     </label>
-                    <label>Website
+                    <label>
+                        <span th:text="#{profile.profile.website}"></span>
                         <span class="formError" th:errors="*{website}"/>
                         <input type="text" th:field="*{website}">
                     </label>
                     <div class="stack-for-small small expanded button-group">
-                        <input class="success button" type="submit" value="Update Profile">
-                        <button class="secondary button" data-close aria-label="Close modal" value="Cancel">Cancel</button>
+                        <input class="success button" type="submit" th:value="#{profile.profile.update}">
+                        <button class="secondary button" data-close aria-label="Close modal" th:value="#{general.cancel}" th:text="#{general.cancel}"></button>
                     </div>
                 </form>
             </div>

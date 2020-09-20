@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">View Book | Yearbook</title>
+    <title id="pageTitle" th:text="#{book.show.pageTitle}"></title>
 </head>
 <body>
 
@@ -18,10 +18,10 @@
         >
             <div class="cell shrink" id="viewHeaderInner">
                 <h1 th:text="${book.getName()}"></h1>
-                <p th:if="${book.isPublished()}" class="label">Published</p>
-                <p th:if="${!book.isPublished()}" class="label">Private</p>
+                <p th:if="${book.isPublished()}" class="label" th:text="#{general.published}"></p>
+                <p th:if="${!book.isPublished()}" class="label" th:text="#{general.private}"></p>
                 <p th:text="${book.getDescription()}"></p>
-                <a th:if="${book.currentUserIsOwner()}" th:href="@{/book/{id}/edit/general(id=${book.getId()})}"><button class="button">Edit general information</button></a>
+                <a th:if="${book.currentUserIsOwner()}" th:href="@{/book/{id}/edit/general(id=${book.getId()})}"><button class="button" th:text="#{book.show.editGeneral}"></button></a>
             </div>
         </div>
     </div>
@@ -32,17 +32,17 @@
     <div class="grid-container">
         <div class="grid-x section-header">
             <div class="cell auto">
-                <h4>Questions</h4>
+                <h4 th:text="#{general.questions}"></h4>
             </div>
             <div class="cell shrink" th:if="${book.currentUserIsOwner()}" >
-                <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}" class="button small">Edit Questions</a>
+                <a th:href="@{/book/{id}/edit/questions(id=${book.getId()})}" class="button small" th:text="#{book.show.editQuestions}"></a>
             </div>
             <hr />
         </div>
         <div class="grid-x">
             <div class="callout secondary" th:if="${questions.isEmpty()}">
-                <h5>This yearbook has no questions yet.</h5>
-                <p>Only the owner of the book can add them.</p>
+                <h5 th:text="#{book.show.noQuestions}"></h5>
+                <p th:text="#{book.show.onlyOwner}"></p>
             </div>
             <div th:if="${!questions.isEmpty()}" th:each="question, itemStat : ${questions}" class="cell card">
                 <div class="card-section">
@@ -58,17 +58,17 @@
     <div class="grid-container">
         <div class="grid-x section-header">
             <div class="cell auto">
-                <h4>Participants</h4>
+                <h4 th:text="#{general.participants}"></h4>
             </div>
             <div class="cell shrink" th:if="${book.currentUserIsOwner() || book.currentUserIsAdmin()}">
-                <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}" class="button small">Edit Participants</a>
+                <a th:href="@{/book/{id}/edit/participants(id=${book.getId()})}" class="button small" th:text="#{book.show.editParticipants}"></a>
             </div>
             <hr />
         </div>
         <div class="grid-x grid-margin-x">
             <div class="callout secondary" th:if="${participations.isEmpty()}">
-                <h5>This yearbook has no participants yet.</h5>
-                <p>Admins and the owner of the book can add them.</p>
+                <h5 th:text="#{book.show.noParticipations}"></h5>
+                <p th:text="#{book.show.noParticipationInfo}"></p>
             </div>
             <div class="cell small-12 medium-6 card" th:if="${!participations.isEmpty()}" th:each="participation : ${participations}">
                 <a th:href="@{/participation/{id}(id=${participation.getId()})}" th:with="image=${participation.getParticipant().getImageBase64()}">
@@ -77,10 +77,10 @@
                          'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${participation.getParticipant().getFullName()}"
                     >
                     <div class="card-section">
-                        <p th:if="${book.isOwner(participation)}" class="label">Owner</p>
-                        <p th:if="${!book.isOwner(participation) && participation.isAdmin()}" class="badge">Admin</p>
+                        <p th:if="${book.isOwner(participation)}" class="label" th:text="#{general.owner}"></p>
+                        <p th:if="${!book.isOwner(participation) && participation.isAdmin()}" class="badge" th:text="#{general.admin}"></p>
                         <h4 th:text="${participation.getParticipant().getFullName()}"></h4>
-                        <span>View Questionnaire</span>
+                        <span th:text="#{participation.show.viewQuestionnaire}"></span>
                     </div>
                 </a>
             </div>

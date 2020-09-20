@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head :: head">
-    <title id="pageTitle">Edit Questions | Yearbook</title>
+    <title id="pageTitle" th:text="#{addBook.pageTitle}"></title>
 </head>
 <body>
 
@@ -14,18 +14,21 @@
         <div class="grid-container">
             <div class="grid-x grid-margin-x" id="progressBarHeader">
                 <div class="cell">
-                    <h6><small>Current Step: 2 of 3</small></h6>
+                    <h6><small th:text="#{book.create.step2}"></small></h6>
                 </div>
             </div>
             <div class="grid-x grid-margin-x" id="progressBar">
                 <div class="cell small-8">
-                    <h6>Create a new Book</h6>
+                    <h6 th:text="#{book.createGeneral.create}"></h6>
                 </div>
                 <div class="cell small-8 current">
-                    <h6>Add questions <span class="material-icons">arrow_right_alt</span></h6>
+                    <h6>
+                        <span th:text="#{book.createGeneral.addQuestion}"></span>
+                        <span class="material-icons">arrow_right_alt</span>
+                    </h6>
                 </div>
                 <div class="cell small-8">
-                    <h6>Add Participants</h6>
+                    <h6 th:text="#{book.createGeneral.addParticipants}"></h6>
                 </div>
             </div>
         </div>
@@ -39,7 +42,7 @@
             <div class="cell small-24 medium-7 card">
                 <div class="card-section">
                     <h1 class="h3" th:text="${book.getName()}"></h1>
-                    <p>Create your own custom question for your yearbook. Get inspired by other yearbooks on our website.</p>
+                    <p th:text="#{book.createQuestions.description}"></p>
                 </div>
             </div>
             <div class="cell small-24 medium-16 medium-offset-1">
@@ -48,20 +51,23 @@
                         <h6><strong th:text="${itemStat.index + 1} + '.'"></strong> | <span th:text="${question.getQuestion()}"></span></h6>
                     </div>
                     <div class="card-divider align-right">
-                        <small th:if="${book.questionCanNotBeDeletedAt(itemStat.index)}">This questions can not be deleted since it is already answered by some participiants of your yearbook.</small>
+                        <small th:if="${book.questionCanNotBeDeletedAt(itemStat.index)}" th:text="#{book.createQuestions.error}"></small>
                         <form method="post" th:if="${!book.questionCanNotBeDeletedAt(itemStat.index)}" th:action="@{/book/{id}/create/questions/delete/{questionId}(id=${book.getId()}, questionId=${itemStat.index})}">
-                            <button type="submit" class="button tiny">Delete Question <span class="material-icons">delete</span></button>
+                            <button type="submit" class="button tiny">
+                                <span th:text="#{book.createQuestion.deleteQuestion}"></span>
+                                <span class="material-icons">delete</span>
+                            </button>
                         </form>
                     </div>
                 </div>
                 <form method="post" th:action="@{/book/{id}/create/questions/new(id=${book.getId()})}" th:object="${newQuestionForm}">
                     <div class="card">
                         <div class="card-section">
-                            <input type="text" placeholder="Type to add question title" th:field="*{question}"/>
+                            <input type="text" th:placeholder="#{book.createQuestions.questionPlaceholder}" th:field="*{question}"/>
                             <span class="backend-form-error" th:errors="*{question}"/>
                         </div>
                     </div>
-                    <input class="button" type="submit" value="Add Question"/>
+                    <input class="button" type="submit" th:value="#{book.createQuestions.addQuestion}"/>
                 </form>
             </div>
         </div>
@@ -73,7 +79,7 @@
     <div class="grid-container">
         <div class="grid-x align-right section-lead">
             <div class="cell shrink">
-                <a class="button" th:href="@{/book/{id}/create/participants(id=${book.getId()})}">Save and next</a>
+                <a class="button" th:href="@{/book/{id}/create/participants(id=${book.getId()})}" th:text="#{book.createGeneral.Submit}"></a>
             </div>
         </div>
     </div>
