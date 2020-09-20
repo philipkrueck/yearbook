@@ -64,7 +64,7 @@ public class BookServiceIntegrationTest {
         List<Book> foundBooksOfCurrentUser = bookService.getBooksOfCurrentUser();
 
         // then
-        assertThat(foundBooksOfCurrentUser).containsExactlyInAnyOrder(bookOne, bookTwo, bookThree);
+        assertThat(foundBooksOfCurrentUser).containsExactlyInAnyOrder(bookOne, ∂bookTwo, bookThree);
     }
 
     @Test

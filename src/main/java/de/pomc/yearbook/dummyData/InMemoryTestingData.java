@@ -53,7 +53,7 @@ public class InMemoryTestingData {
         frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
         frodo.setRole("ADMIN");
         gandalf.setRole("ADMIN");
-        byte[] image = imageLoader.loadImageFromPath("/book/graph.jpg");
+        byte[] image = imageLoader.loadImageFromPath("../../resources/book/graph.jpg");
 
 
         List.of(sam, gandalf, legolas, gimli, frodo)

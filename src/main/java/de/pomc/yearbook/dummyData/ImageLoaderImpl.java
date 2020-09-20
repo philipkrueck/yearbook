@@ -8,13 +8,12 @@ import java.io.IOException;
 
 public class ImageLoaderImpl implements ImageLoader {
 
-
     @Override
     public byte[] loadImageFromPath(String path) {
         BufferedImage bufferedImage;
 
         try {
-            bufferedImage = ImageIO.read(new File(path));
+            bufferedImage = ImageIO.read(getClass().getResource(path));
         } catch (IOException ioException) {
             System.out.println("Failed to read in image file name: " + ioException.getMessage());
             return null;
