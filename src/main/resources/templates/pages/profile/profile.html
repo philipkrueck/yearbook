@@ -48,9 +48,9 @@
                     <div class="cell small-8 medium-8 card cardShadow" th:each="book : ${books}">
                         <a th:href="@{/book/{id}(id=${book.getId()})}">
                             <img th:src="${(book.getImageBase64() != null && !#strings.isEmpty(book.getImageBase64())) ?
-                             'data:image/jpeg;base64,'+ book.getImageBase64() :
-                             'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80'}"
-                             th:alt="${book.getDescription()}"
+                                 'data:image/jpeg;base64,'+ book.getImageBase64() :
+                                 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80'}"
+                                 th:alt="${book.getDescription()}"
                             >
                             <div class="card-section">
                                 <h5 th:text="${book.getName()}"></h5>
@@ -78,7 +78,11 @@
                     <div class="grid-x grid-margin-x align-top" th:if="${!participations.isEmpty()}">
                         <div class="cell small-8 medium-8 card cardShadow" th:each="participation : ${participations}">
                             <a th:with="book=${participation.getBook()}" th:href="@{/book/{id}(id=${book.getId()})}">
-                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80" alt="Book Cover">
+                                <img th:src="${(book.getImageBase64() != null && !#strings.isEmpty(book.getImageBase64())) ?
+                                     'data:image/jpeg;base64,'+ book.getImageBase64() :
+                                     'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80'}"
+                                     th:alt="${book.getDescription()}"
+                                >
                                 <div class="card-section">
                                     <h5 th:text="${book.getName()}"></h5>
                                     <p th:text="${book.getDescription()}"></p>
