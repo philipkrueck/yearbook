@@ -13,7 +13,8 @@ public class ImageLoaderImpl implements ImageLoader {
         BufferedImage bufferedImage;
 
         try {
-            bufferedImage = ImageIO.read(getClass().getResource(path));
+            File file = new File(path);
+            bufferedImage = ImageIO.read(file);
         } catch (IOException ioException) {
             System.out.println("Failed to read in image file name: " + ioException.getMessage());
             return null;

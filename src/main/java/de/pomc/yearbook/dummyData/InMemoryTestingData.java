@@ -53,11 +53,17 @@ public class InMemoryTestingData {
         frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
         frodo.setRole("ADMIN");
         gandalf.setRole("ADMIN");
-        byte[] image = imageLoader.loadImageFromPath("../../resources/book/graph.jpg");
+
+        // TODO: refactor this
+        byte[] bookImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/book/graph.jpg");
+        byte[] userImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/frodo.jpg");
 
 
-        List.of(sam, gandalf, legolas, gimli, frodo)
-                .forEach(userService::save);
+        List<User> users = List.of(sam, gandalf, legolas, gimli, frodo);
+
+        users.forEach(user -> user.setImage(userImage));
+        users.forEach(userService::save);
+
 
         // init books
         if (!bookService.findAll().isEmpty()) {
@@ -72,6 +78,9 @@ public class InMemoryTestingData {
         Book bookFour = new Book("MIT Robotics 2020", "description", gimli, false);
         Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo, false);
         bookOne.setPublished(true);
+
+        List<Book> books = List.of(bookOne, bookTwo, bookThree, bookFour, bookFive);
+        books.forEach(book -> book.setImage(bookImage));
 
         // init participations
         if (!participationService.findAll().isEmpty()) {
@@ -127,7 +136,6 @@ public class InMemoryTestingData {
                 List.of(new Question("If You Could Wedgie Any Historical Figure, Who Would You Pick?"), new Question("Would You Rather Be Able To Breathe Underwater Or Have The Agility Of A Cat?"))
         );
 
-        List<Book> books = List.of(bookOne, bookTwo, bookThree, bookFour, bookFive);
         List<List<Participation>> bookParticipations = List.of(bookOneParticipations, bookTwoParticipations, bookThreeParticipations, bookFourParticipations, bookFiveParticipations);
 
         for (int i = 0; i <= 4; i++) {
