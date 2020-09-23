@@ -21,17 +21,17 @@
                     </label>
                     <label>
                         <span th:text="#{general.firstName}"></span>
-                        <span class="formError" th:errors="*{firstName}"/>
+                        <span class="form-error" th:errors="*{firstName}"/>
                         <input type="text" th:field="*{firstName}">
                     </label>
                     <label>
                         <span th:text="#{general.lastName}"></span>
-                        <span class="formError" th:errors="*{lastName}"/>
+                        <span class="form-error" th:errors="*{lastName}"/>
                         <input type="text" th:field="*{lastName}">
                     </label>
                     <label>
                         <span th:text="#{profile.profile.twitter}"></span>
-                        <span class="formError" th:errors="*{twitterHandle}"/>
+                        <span class="form-error" th:errors="*{twitterHandle}"/>
                         <input type="text" th:field="*{twitterHandle}">
                     </label>
                     <label>
@@ -40,7 +40,7 @@
                     </label>
                     <label>
                         <span th:text="#{profile.profile.website}"></span>
-                        <span class="formError" th:errors="*{website}"/>
+                        <span class="form-error" th:errors="*{website}"/>
                         <input type="text" th:field="*{website}">
                     </label>
                     <div class="stack-for-small small expanded button-group">

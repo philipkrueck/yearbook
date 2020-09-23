@@ -74,11 +74,10 @@
                 <a th:href="@{/participation/{id}(id=${participation.getId()})}" th:with="image=${participation.getParticipant().getImageBase64()}">
                     <img th:src="${(image != null && !#strings.isEmpty(image)) ?
                          'data:image/jpeg;base64,'+ image :
-                         'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${participation.getParticipant().getFullName()}"
-                    >
+                         'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${participation.getParticipant().getFullName()}">
                     <div class="card-section">
                         <p th:if="${book.isOwner(participation)}" class="label" th:text="#{general.owner}"></p>
-                        <p th:if="${!book.isOwner(participation) && participation.isAdmin()}" class="badge" th:text="#{general.admin}"></p>
+                        <p th:if="${!book.isOwner(participation) && participation.isAdmin()}" class="label" th:text="#{general.admin}"></p>
                         <h4 th:text="${participation.getParticipant().getFullName()}"></h4>
                         <span th:text="#{participation.show.viewQuestionnaire}"></span>
                     </div>
@@ -88,9 +87,18 @@
     </div>
 </div>
 
-<form th:if="${book.currentUserIsOwner()}" method="post" th:action="@{/book/{id}/delete(id=${book.getId()})}">
-    <button type="submit" class="button">Delete book</button>
-</form>
+<!-- .section-lead -------------------------------- -->
+<div class="grid-wrapper">
+    <div class="grid-container">
+        <div class="grid-x section-lead">
+            <div class="cell auto">
+                <form th:if="${book.currentUserIsOwner()}" method="post" th:action="@{/book/{id}/delete(id=${book.getId()})}">
+                    <button type="submit" class="button">Delete book <span class="material-icons">delete</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>

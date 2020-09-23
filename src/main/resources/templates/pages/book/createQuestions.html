@@ -64,7 +64,7 @@
                     <div class="card">
                         <div class="card-section">
                             <input type="text" th:placeholder="#{book.createQuestions.questionPlaceholder}" th:field="*{question}"/>
-                            <span class="backend-form-error" th:errors="*{question}"/>
+                            <span class="form-error" th:errors="*{question}"/>
                         </div>
                     </div>
                     <input class="button" type="submit" th:value="#{book.createQuestions.addQuestion}"/>

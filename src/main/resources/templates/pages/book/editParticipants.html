@@ -40,8 +40,7 @@
                                 <img th:src="${(image != null && !#strings.isEmpty(image)) ?
                                      'data:image/jpeg;base64,'+ image :
                                      'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${participation.getParticipant().getFullName()}"
-                                     style="max-width: 50px"
-                                >
+                                     style="max-width: 50px">
                             </div>
                             <div class="cell auto">
                                 <b th:text="${participation.getParticipant().getFullName()}"></b> | <span th:text="${participation.getParticipant().getEmail()}"></span>
@@ -50,11 +49,11 @@
                                 <small th:text="'currently: ' + ${participation.getStatusString()}"></small>
 
                                 <form method="post" th:action="@{/book/{id}/edit/participants/makeAdmin/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}" th:if="${participation.currentUserCanMakeAdmin()}">
-                                    <button type="submit" class="hyperlink tiny" th:text="#{book.createParticipant.makeAdmin}"></button>
+                                    <button type="submit" th:text="#{book.createParticipant.makeAdmin}"></button>
                                 </form>
 
                                 <form method="post" th:action="@{/book/{id}/edit/participants/makeNotAdmin/{participantId}(id=${book.getId()}, participantId=${itemStat.index})}" th:if="${participation.currentUserCanMakeNotAdmin()}">
-                                    <button type="submit" class="hyperlink tiny" th:text="#{book.createParticipant.makeParticipant}"></button>
+                                    <button type="submit" th:text="#{book.createParticipant.makeParticipant}"></button>
                                 </form>
                             </div>
                             <div th:if="${participation.currentUserCanDelete()}" class="cell shrink">
@@ -68,7 +67,7 @@
                 <div class="grid-x card">
                     <form class="cell card-section" method="post" th:action="@{/book/{id}/edit/participants/new(id=${book.getId()})}" th:object="${addUserForm}">
                         <input type="email" th:placeholder="#{book.createParticipant.enterEmail}" th:field="*{email}">
-                        <div class="backend-form-error" th:errors="*{email}"/>
+                        <div class="form-error" th:errors="*{email}"/>
                         <input type="submit" class="button" th:value="#{book.createParticipant.addParticipant}">
                     </form>
                 </div>

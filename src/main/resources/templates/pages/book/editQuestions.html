@@ -50,7 +50,7 @@
                 <form method="post" th:action="@{/book/{id}/edit/questions/new(id=${book.getId()})}" th:object="${newQuestionForm}">
                     <div class="card">
                         <div class="card-section">
-                            <span class="formError" th:errors="*{question}"/>
+                            <span class="form-error" th:errors="*{question}"/>
                             <input type="text" th:placeholder="#{book.createQuestions.questionPlaceholder}" th:field="*{question}"/>
                         </div>
                     </div>

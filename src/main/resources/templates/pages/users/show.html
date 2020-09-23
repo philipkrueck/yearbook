@@ -9,25 +9,39 @@
 <!-- header -------------------------------- -->
 <header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
 
-<!-- #editBar -------------------------------- -->
-<div class="grid-wrapper" id="upperEditBar">
+<!-- .subheader -------------------------------- -->
+<div class="grid-wrapper subheader">
     <div class="grid-container">
-        <h1 th:text="#{users.show.users}"></h1>
-        <table>
-            <tr>
-                <th></th>
-                <th th:text="#{general.name}"></th>
-                <th th:text="#{general.email}"></th>
-            </tr>
-            <tr th:each="user : ${users}">
-                <th><img id="avatarImage" th:src="${(user.getImageBase64() != null && !#strings.isEmpty(user.getImageBase64())) ? 'data:image/jpeg;base64,'+ user.getImageBase64() : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}"></th>
-                <th th:text="${user.getFullName()}"></th>
-                <th th:text="${user.getEmail()}"></th>
-            </tr>
-        </table>
+        <div class="grid-x">
+            <div class="cell">
+                <h1 class="h3" th:text="#{users.show.users}"></h1>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- main -------------------------------- -->
+<main class="grid-wrapper">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell">
+                <div class="cell card" th:each="user : ${users}">
+                    <div class="grid-x card-section align-middle grid-padding-x">
+                        <div class="cell shrink">
+                            <img id="navBarAvatar" th:src="${(user.getImageBase64() != null && !#strings.isEmpty(user.getImageBase64())) ? 'data:image/jpeg;base64,'+ user.getImageBase64() : 'https://via.placeholder.com/400x400.webp?text=Profilpic'}" th:alt="${user.getFullName()}">
+                        </div>
+                        <div class="cell auto">
+                            <span><strong th:text="${user.getFullName()}"></strong></span>
+                        </div>
+                        <div class="cell shrink">
+                            <span th:text="${user.getEmail()}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
 <!-- footer -------------------------------- -->
 <footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>

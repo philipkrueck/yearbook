@@ -47,12 +47,12 @@
                     <div class="cell">
                         <label>
                             <span th:text="#{book.editGeneral.editName}"></span>
-                            <span class="backend-form-error" th:errors="*{name}"/>
+                            <span class="form-error" th:errors="*{name}"/>
                             <input type="text" th:field="*{name}"/>
                         </label>
                         <label>
                             <span th:text="#{book.editGeneral.editDescription}"></span>
-                            <span class="backend-form-error" th:errors="*{description}"/>
+                            <span class="form-error" th:errors="*{description}"/>
                             <input type="text" th:field="*{description}"/>
                         </label>
                     </div>
@@ -86,16 +86,17 @@
     </div>
 </main>
 
-<form th:if="${book.currentUserIsOwner()}" method="post" th:action="@{/book/{id}/delete(id=${book.getId()})}">
-    <button type="submit" class="button">Delete book</button>
-</form>
-
 <!-- .section-lead -------------------------------- -->
 <div class="grid-wrapper">
     <div class="grid-container">
         <div class="grid-x section-lead">
-            <div class="cell shrink">
+            <div class="cell auto">
                 <a class="button" th:href="@{/book/{id}(id=${book.getId()})}" th:text="#{book.general.backToBook}"></a>
+            </div>
+            <div class="cell shrink">
+                <form th:if="${book.currentUserIsOwner()}" method="post" th:action="@{/book/{id}/delete(id=${book.getId()})}">
+                    <button type="submit" class="button">Delete book <span class="material-icons">delete</span></button>
+                </form>
             </div>
         </div>
     </div>
