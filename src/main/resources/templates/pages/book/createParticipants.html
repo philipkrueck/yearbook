@@ -78,7 +78,7 @@
                 <div class="grid-x card">
                     <form class="cell card-section" method="post" th:action="@{/book/{id}/create/participants/new(id=${book.getId()})}" th:object="${addUserForm}">
                         <input type="email" th:placeholder="#{book.createParticipant.enterEmail}" th:field="*{email}">
-                        <span class="backend-form-error" th:errors="*{email}"/>
+                        <span class="form-error" th:errors="*{email}"/>
                         <input type="submit" class="button" th:value="#{book.createParticipant.addParticipant}">
                     </form>
                 </div>

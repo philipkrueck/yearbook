@@ -35,7 +35,6 @@
                         <p th:text="${book.getQuestions().get(itemStat.index).getQuestion()}"></p>
                         <input type="text" th:field="*{answers[__${itemStat.index}__]}"/>
                     </div>
-
                     <input class="button" type="submit" th:value="#{participation.edit.save}">
                 </form>
             </div>

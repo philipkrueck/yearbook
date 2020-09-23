@@ -20,22 +20,22 @@
                 <p class="" th:text="#{index.join}"></p>
                 <div class="grid-x align-center card">
                     <form class="card-section" method="post" th:action="@{/newAccount}" th:object="${newAccountForm}">
-                        <span class="formError" th:errors="*{firstName}"/>
+                        <span class="form-error" th:errors="*{firstName}"/>
                         <label>
                             <span th:text="#{general.firstName}"></span>
                             <input type="text" th:field="*{firstName}">
                         </label>
-                        <span class="formError" th:errors="*{lastName}"/>
+                        <span class="form-error" th:errors="*{lastName}"/>
                         <label>
                             <span th:text="#{general.lastName}"></span>
                             <input type="text" th:field="*{lastName}">
                         </label>
-                        <span class="formError" th:errors="*{email}"/>
+                        <span class="form-error" th:errors="*{email}"/>
                         <label>
                             <span th:text="#{general.email}"></span>
                             <input type="email" th:field="*{email}">
                         </label>
-                        <span class="formError" th:errors="*{password}"/>
+                        <span class="form-error" th:errors="*{password}"/>
                         <label>
                             <span th:text="#{general.password}"></span>
                             <input type="password" th:field="*{password}">

@@ -15,7 +15,7 @@
             <form method="post" th:action="@{/participation/{id}/editComment/{commentId}(id=${participation.getId()}, commentId=${commentId})}" th:object="${commentForm}">
                 <label>
                     <span th:text="#{participation.editComment.editYourComment}"></span>
-                    <span class="formError" th:errors="*{comment}"/>
+                    <span class="form-error" th:errors="*{comment}"/>
                     <input type="text" th:field="*{comment}"/>
                 </label>
                 <button type="submit" class="button" th:text="#{participation.editComment.update}"></button>
