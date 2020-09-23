@@ -12,10 +12,15 @@
             </small>
         </div>
         <div class="cell auto">
-            <small>
-                <strong><a th:href="@{/(lang='en_US')}" th:text="#{general.english}"></a></strong>
+            <small th:if="${language == 'en-US' or language == null}">
+                <strong><a th:href="@{/(lang='en-US')}" th:text="#{general.english}"></a></strong>
                 |
-                <a th:href="@{/(lang='de_DE')}" th:text="#{general.german}"></a>
+                <a th:href="@{/(lang='de-DE')}" th:text="#{general.german}"></a>
+            </small>
+            <small th:if="${language == 'de-DE'}">
+                <a th:href="@{/(lang='en-US')}" th:text="#{general.english}"></a>
+                |
+                <strong><a th:href="@{/(lang='de-DE')}" th:text="#{general.german}"></a></strong>
             </small>
         </div>
         <div class="cell shrink">
