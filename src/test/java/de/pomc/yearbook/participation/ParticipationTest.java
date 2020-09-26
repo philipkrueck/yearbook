@@ -147,7 +147,6 @@ public class ParticipationTest {
     // Thus we have 3x3 combinations of the current users' and the participants' participation role.
     // The following tests will test all combinations.
 
-    // TODO: extract CSVSource into a variable
     @ParameterizedTest
     @CsvSource({
             "0, false, 0, false, false", // currentUser: owner, viewUser: owner

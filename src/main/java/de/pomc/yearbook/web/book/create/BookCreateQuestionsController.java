@@ -46,7 +46,8 @@ public class BookCreateQuestionsController {
     @PreAuthorize("authenticated")
     @GetMapping
     public String showCreateQuestionsView(@PathVariable("id") Long id, Model model) {
-        // ToDo: make sure that creation process is not complete
+        // Ideally we would save whether the creation process is completed, and throw a
+        // Forbidden Exception if it already is
 
         model.addAttribute("questions", getBook(id).getQuestions());
         model.addAttribute("newQuestionForm", new NewQuestionForm());
@@ -56,7 +57,8 @@ public class BookCreateQuestionsController {
     @PreAuthorize("authenticated")
     @PostMapping("/new")
     public String addNewQuestion(@PathVariable("id") Long id, @ModelAttribute("newQuestionForm") @Valid NewQuestionForm newQuestionForm, BindingResult bindingResult) {
-        // ToDo: make sure that creation process is not complete
+        // Ideally we would save whether the creation process is completed, and throw a
+        // Forbidden Exception if it already is
 
         if(bindingResult.hasErrors()){
             return "pages/book/createQuestions";
@@ -71,7 +73,8 @@ public class BookCreateQuestionsController {
     @PreAuthorize("authenticated")
     @PostMapping("/delete/{questionIndex}")
     public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionIndex") int questionIndex) {
-        // ToDo: make sure that creation process is not complete
+        // Ideally we would save whether the creation process is completed, and throw a
+        // Forbidden Exception if it already is
 
         Book book = getBook(id);
 

@@ -25,7 +25,7 @@ public class User {
     private String email;
 
     @Basic(optional = false)
-    private String role; // ToDo: model this with an enum
+    private String role;
 
     @Basic(optional = false)
     private String firstName;
