@@ -16,9 +16,9 @@
                 <li>
                     <!-- <a href="/profile"><img id="navBarAvatar" src="https://avatars0.githubusercontent.com/u/13287037?s=60&v=4"></a> -->
                     <a href="/profile">
-                        <img id="navBarAvatar" th:src="${(UserImageHandlerInterceptor != null && !#strings.isEmpty(UserImageHandlerInterceptorUserImage)) ?
-                        'data:image/jpeg;base64,'+ UserImageHandlerInterceptorUserImage :
-                        'https://avatars0.githubusercontent.com/u/13287037?s=60&v=4'}"
+                        <img id="navBarAvatar" th:src="${(currentUserImage != null && !#strings.isEmpty(currentUserImage)) ?
+                            'data:image/jpeg;base64,'+ currentUserImage :
+                            'https://avatars0.githubusercontent.com/u/13287037?s=60&v=4'}"
                         >
                     </a>
                     <ul class="menu">

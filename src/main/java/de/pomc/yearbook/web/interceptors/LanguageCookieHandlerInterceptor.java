@@ -11,22 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 public class LanguageCookieHandlerInterceptor extends HandlerInterceptorAdapter {
 
     private static final String langAttributeName = "language";
+    private static final String languageCookieName = "org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE";
 
-    public String getlangAttribute(HttpServletRequest request) {
-        Cookie value = WebUtils.getCookie(request, "org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE");
-
-        if (value != null) {
-            return value.getValue();
-        } else {
-            return null;
-        }
-
+    private String getlangAttribute(HttpServletRequest request) {
+        Cookie cookie = WebUtils.getCookie(request, languageCookieName);
+        return cookie != null ? cookie.getValue() : null;
     }
 
     @Override
     public void postHandle(final HttpServletRequest request,
                            final HttpServletResponse response, final Object handler,
-                           final ModelAndView modelAndView) throws Exception {
+                           final ModelAndView modelAndView) {
 
         if (modelAndView != null) {
             modelAndView.getModelMap().addAttribute(langAttributeName, getlangAttribute(request));
