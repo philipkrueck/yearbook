@@ -36,6 +36,8 @@ public class InMemoryTestingData {
     private User legolas;
     private User gimli;
     private User frodo;
+    private User gollum;
+    private User arwin;
 
 
     @EventListener(ApplicationStartedEvent.class)
@@ -46,24 +48,36 @@ public class InMemoryTestingData {
             return;
         }
 
-        sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("1234"), "USER");
-        gandalf = new User((long) 2, "Gandalf", "the Gray", "gandalf.gray@hotmail.com", passwordEncoder.encode("1234"), "USER");
-        legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("1234"), "USER");
-        gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("1234"), "USER");
-        frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("1234"), "USER");
+        sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("Rosie13#loveyou"), "USER");
+        gandalf = new User((long) 2, "Gandalf", "the Gray", "gandalf.gray@notyetwhite.com", passwordEncoder.encode("ITrustHobbits<3"), "USER");
+        legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("TakingTheH0bi!!sToIsengarg"), "USER");
+        gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("GaladriellF0rL!fe"), "USER");
+        frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("SecretSamLover69#"), "USER");
+        gollum = new User((long) 6, "Smeagol", "Gollum", "smeagol@shire.com", passwordEncoder.encode("StabMeKinkra4Real"), "USER");
+        arwin = new User((long) 7, "Arwin", "Undomiell", "arwin@riverdale.com", passwordEncoder.encode("_FuckIm0rtality_"), "USER");
+
         frodo.setRole("ADMIN");
         gandalf.setRole("ADMIN");
 
-        // TODO: refactor this
-        byte[] bookImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/book/graph.jpg");
-        byte[] userImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/frodo.jpg");
+        byte[] frodoImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/frodo.jpg");
+        byte[] samImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/sam.jpg");
+        byte[] gandalfImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/gandalf.jpg");
+        byte[] legolasImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/legolas.jpg");
+        byte[] gimliImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/gimli.jpg");
+        byte[] gollumImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/gollum.jpg");
+        byte[] arwinImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/user/arwin.jpg");
 
+        List<User> users = List.of(sam, gandalf, legolas, gimli, frodo, gollum, arwin);
 
-        List<User> users = List.of(sam, gandalf, legolas, gimli, frodo);
+        sam.setImage((samImage));
+        gandalf.setImage((gandalfImage));
+        legolas.setImage((legolasImage));
+        gimli.setImage((gimliImage));
+        frodo.setImage((frodoImage));
+        gollum.setImage((gollumImage));
+        arwin.setImage((arwinImage));
 
-        users.forEach(user -> user.setImage(userImage));
         users.forEach(userService::save);
-
 
         // init books
         if (!bookService.findAll().isEmpty()) {
@@ -72,15 +86,26 @@ public class InMemoryTestingData {
         }
         List<String> questions = List.of("question one", "question two", "question three");
 
-        Book bookOne = new Book("Blue Mountain State 2020", "description", sam, true);
-        Book bookTwo = new Book("HSBA BI '21", "description", gandalf, true);
-        Book bookThree = new Book("Stanford Law '19", "description", legolas, true);
-        Book bookFour = new Book("MIT Robotics 2020", "description", gimli, false);
-        Book bookFive = new Book("NYU Gender Sciences 2019", "description", frodo, false);
+        Book bookOne = new Book("Shire Memories", "what we love about our teletabiland", sam, true);
+        Book bookTwo = new Book("Moria 3019", "worst seafood ever...", gimli, true);
+        Book bookThree = new Book("Weekend in Rivendell", "Veggies make you strong", arwin, true);
+        Book bookFour = new Book("Camping in Lothlorien", "best elvenbread ever", legolas, true);
+        Book bookFive = new Book("Hiking to Mount Doom", "dont loose your rings again!", frodo, false);
         bookOne.setPublished(true);
 
         List<Book> books = List.of(bookOne, bookTwo, bookThree, bookFour, bookFive);
-        books.forEach(book -> book.setImage(bookImage));
+
+        byte[] shireImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/book/shire.jpg");
+        byte[] moriaImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/book/moria.jpg");
+        byte[] rivendellImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/book/riverdale.jpg");
+        byte[] lothlorienImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/book/lothlorien.jpg");
+        byte[] mountDoomImage = imageLoader.loadImageFromPath("src/main/resources/testingImages/book/mountDoom.jpg");
+
+        bookOne.setImage(shireImage);
+        bookTwo.setImage(moriaImage);
+        bookThree.setImage(rivendellImage);
+        bookFour.setImage(lothlorienImage);
+        bookFive.setImage(mountDoomImage);
 
         // init participations
         if (!participationService.findAll().isEmpty()) {
@@ -89,10 +114,8 @@ public class InMemoryTestingData {
         }
 
         List<Participation> bookOneParticipations = List.of(
-                new Participation(sam, false),
-                new Participation(gandalf, false),
-                new Participation(legolas, false),
-                new Participation(gimli, false),
+                new Participation(sam, true),
+                new Participation(gandalf, true),
                 new Participation(frodo, true)
         );
 
@@ -100,8 +123,9 @@ public class InMemoryTestingData {
                 new Participation(sam, true),
                 new Participation(gandalf, true),
                 new Participation(legolas, false),
-                new Participation(gimli, false),
-                new Participation(frodo, true)
+                new Participation(gimli, true),
+                new Participation(frodo, true),
+                new Participation(gollum, false)
         );
 
         List<Participation> bookThreeParticipations = List.of(
@@ -109,12 +133,13 @@ public class InMemoryTestingData {
                 new Participation(gandalf, true),
                 new Participation(legolas, true),
                 new Participation(gimli, false),
-                new Participation(frodo, true)
+                new Participation(frodo, true),
+                new Participation(arwin, true)
         );
 
         List<Participation> bookFourParticipations = List.of(
                 new Participation(sam, false),
-                new Participation(gandalf, false),
+                new Participation(gandalf, true),
                 new Participation(legolas, true),
                 new Participation(gimli, true),
                 new Participation(frodo, false)
@@ -122,18 +147,16 @@ public class InMemoryTestingData {
 
         List<Participation> bookFiveParticipations = List.of(
                 new Participation(sam, false),
-                new Participation(gandalf, false),
-                new Participation(legolas, false),
-                new Participation(gimli, true),
+                new Participation(gollum, false),
                 new Participation(frodo, true)
         );
 
         List<List<Question>> questionsList = List.of(
-                List.of(new Question("What is your favorite movie?"), new Question("What is your favorite book?"), new Question("What is your favorite ice cream flavor")),
-                List.of(new Question("Is cereal soup? Why or why not?"), new Question("What’s the best Wi-Fi name you’ve seen?"), new Question("How do you feel about putting pineapple on pizza?")),
-                List.of(new Question("Toilet paper, over or under?"), new Question("What would be the absolute worst name you could give your child?"), new Question("What sport would be the funniest to add a mandatory amount of alcohol to?")),
-                List.of(new Question("What Part Of Your Body Could Use A Little Lotion?"), new Question("What Part Of The Human Face Is Your Favorite?")),
-                List.of(new Question("If You Could Wedgie Any Historical Figure, Who Would You Pick?"), new Question("Would You Rather Be Able To Breathe Underwater Or Have The Agility Of A Cat?"))
+                List.of(new Question("What was the best birthday party?"), new Question("Where is your favorite pipe smoking spot?"), new Question("Which is your favorite breakfast?")),
+                List.of(new Question("How surprised were you when I opened the gates?"), new Question("Who of you wants to go back with me and search for treasure?"), new Question("Who shit their pants when fighting the Balrock?")),
+                List.of(new Question("Which vegetable did you like best?"), new Question("What happend to Boromir?"), new Question("Who broke Aragon's sword, again?")),
+                List.of(new Question("Who baked the tastiest Lembert bread?"), new Question("Who took the elven cloak?")),
+                List.of(new Question("Who developed arachnophobia after this trip?"), new Question("What is your opinion about potatoes?"))
         );
 
         List<List<Participation>> bookParticipations = List.of(bookOneParticipations, bookTwoParticipations, bookThreeParticipations, bookFourParticipations, bookFiveParticipations);
@@ -177,7 +200,7 @@ public class InMemoryTestingData {
     private void addAnswers(Participation participation) {
         // add answers
         List<Answer> answers = List.of(
-            new Answer("answer 1"), new Answer("answer 2")
+                new Answer("answer 1"), new Answer("answer 2")
         );
         participationService.setAnswers(participation, answers);
     }

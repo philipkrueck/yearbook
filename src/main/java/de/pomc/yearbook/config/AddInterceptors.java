@@ -17,7 +17,7 @@ public class AddInterceptors implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new UserImageHandlerInterceptor(userService));
+        //registry.addInterceptor(new UserImageHandlerInterceptor(userService));
         registry.addInterceptor(new LanguageCookieHandlerInterceptor());
     }
 }
