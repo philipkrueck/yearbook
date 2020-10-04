@@ -29,7 +29,7 @@ public class ImageLoaderImpl implements ImageLoader {
         try {
             ImageIO.write(image, "jpg", outputStream);
         } catch (IOException ioException) {
-            System.out.println("Failed to write outputStream to : " + ioException.getMessage());
+            System.out.println("Failed to write outputStream to: " + ioException.getMessage());
             return null;
         }
 
