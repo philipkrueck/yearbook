@@ -2,7 +2,6 @@ package de.pomc.yearbook.web.book;
 
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.book.BookService;
-import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
 
     private final BookService bookService;
-    private final UserService userService;
 
     private Book getBook(Long id) {
         Book book = bookService.getBookWithID(id);
