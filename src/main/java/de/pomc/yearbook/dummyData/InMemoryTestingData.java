@@ -36,7 +36,6 @@ public class InMemoryTestingData {
     private User legolas;
     private User gimli;
     private User frodo;
-    private User gollum;
     private User arwin;
 
 
@@ -53,7 +52,7 @@ public class InMemoryTestingData {
         legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("TakingTheH0bi!!sToIsengard"), "USER");
         gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("GaladriellF0rL!fe"), "USER");
         frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("SecretSamLover69#"), "USER");
-        arwin = new User((long) 7, "Arwin", "Undomiell", "arwin@riverdale.com", passwordEncoder.encode("_FuckIm0rtality_"), "USER");
+        arwin = new User((long) 6, "Arwin", "Undomiell", "arwin@riverdale.com", passwordEncoder.encode("_FuckIm0rtality_"), "USER");
 
         frodo.setRole("ADMIN");
         gandalf.setRole("ADMIN");
@@ -81,10 +80,10 @@ public class InMemoryTestingData {
             // prevent duplicate initialization if DB is not empty
             return;
         }
-        Book bookOne = new Book("Shire Memories", "what we love about our teletabiland", sam, true);
-        Book bookTwo = new Book("Moria 3019", "worst seafood ever...", gimli, true);
-        Book bookThree = new Book("Weekend in Rivendell", "Veggies make you strong", arwin, true);
-        Book bookFour = new Book("Camping in Lothlorien", "best elvenbread ever", legolas, true);
+        Book bookOne = new Book("Shire Memories", "what we love about our teletabiland", sam, false);
+        Book bookTwo = new Book("Moria 3019", "worst seafood ever...", gimli, false);
+        Book bookThree = new Book("Weekend in Rivendell", "Veggies make you strong", arwin, false);
+        Book bookFour = new Book("Camping in Lothlorien", "best elvenbread ever", legolas, false);
         bookOne.setPublished(true);
 
         List<Book> books = List.of(bookOne, bookTwo, bookThree, bookFour);
@@ -113,8 +112,7 @@ public class InMemoryTestingData {
 
         List<Participation> bookTwoParticipations = List.of(
                 new Participation(gandalf, true),
-                new Participation(legolas, false),
-                new Participation(gimli, true)
+                new Participation(legolas, false)
         );
 
         List<Participation> bookThreeParticipations = List.of(
@@ -138,7 +136,7 @@ public class InMemoryTestingData {
 
         List<List<Participation>> bookParticipations = List.of(bookOneParticipations, bookTwoParticipations, bookThreeParticipations, bookFourParticipations);
 
-        for (int i = 0; i <= 4; i++) {
+        for (int i = 0; i <= 3; i++) {
             Book book = books.get(i);
             List<Participation> participations = bookParticipations.get(i);
 
@@ -176,7 +174,7 @@ public class InMemoryTestingData {
         participationService.setAnswers(participationBookOneFrodo, bookOneFrodoAnswers);
         bookService.save(bookOne);
 
-        // Sam book two
+        // Gandalf book two
         var participationBookTwoGandalf = bookTwoParticipations.get(0);
         List<Answer> bookTwoGandalfAnswers = List.of(
                 new Answer("I know this mountain like the back of my hand!"),
@@ -185,6 +183,68 @@ public class InMemoryTestingData {
         );
         participationService.setAnswers(participationBookTwoGandalf, bookTwoGandalfAnswers);
         bookService.save(bookTwo);
+        // Legolas book two
+        var participationBookTwoLegolas = bookTwoParticipations.get(1);
+        List<Answer> bookTwoLegolasAnswers = List.of(
+                new Answer("My bow was ready!"),
+                new Answer("Maybe one day... If there are fewer corpses lying around, I'd love to!"),
+                new Answer("I don't need to be faster than the Balrog, just faster than the slowest of you!")
+        );
+        participationService.setAnswers(participationBookTwoLegolas, bookTwoLegolasAnswers);
+        bookService.save(bookTwo);
+
+        // Sam book three
+        var participationBookThreeSam = bookThreeParticipations.get(0);
+        List<Answer> bookThreeSamAnswers = List.of(
+                new Answer("Po-ta-toes."),
+                new Answer("He died with honor! "),
+                new Answer("He himself, he wanted to train with us!")
+        );
+        participationService.setAnswers(participationBookThreeSam, bookThreeSamAnswers);
+        bookService.save(bookThree);
+        // Legolas book three
+        var participationBookThreeLegolas = bookThreeParticipations.get(1);
+        List<Answer> bookThreeLegolasAnswers = List.of(
+                new Answer("Eggplant."),
+                new Answer("He was seduced by the ring."),
+                new Answer("Ask the hobbits!")
+        );
+        participationService.setAnswers(participationBookThreeLegolas, bookThreeLegolasAnswers);
+        bookService.save(bookThree);
+        // Arwin book three
+        var participationBookThreeArwin = bookThreeParticipations.get(2);
+        List<Answer> bookThreeArwinAnswers = List.of(
+                new Answer("All fruits of nature are worth to be enjoyed."),
+                new Answer("I have never asked myself this question.."),
+                new Answer("What?! I just repaired it..")
+        );
+        participationService.setAnswers(participationBookThreeArwin, bookThreeArwinAnswers);
+        bookService.save(bookThree);
+
+        // Sam book four
+        var participationBookFourSam = bookFourParticipations.get(0);
+        List<Answer> bookFourSamAnswers = List.of(
+                new Answer("So Gollum likes to do trouble with it.."),
+                new Answer("Frodo has it! Looks good on him")
+        );
+        participationService.setAnswers(participationBookFourSam, bookFourSamAnswers);
+        bookService.save(bookFour);
+        // Gimli book four
+        var participationBookFourGimli = bookFourParticipations.get(1);
+        List<Answer> bookFourGimliAnswers = List.of(
+                new Answer("I definitely do not... I need deer meat."),
+                new Answer("The what?")
+        );
+        participationService.setAnswers(participationBookFourGimli, bookFourGimliAnswers);
+        bookService.save(bookFour);
+        // Legolas book four
+        var participationBookFourLegolas = bookFourParticipations.get(2);
+        List<Answer> bookFourLegolasAnswers = List.of(
+                new Answer("Elrond is definitely a master baker"),
+                new Answer("Ah yes, the holy cloak of my people! I hope it is well hidden.")
+        );
+        participationService.setAnswers(participationBookFourLegolas, bookFourLegolasAnswers);
+        bookService.save(bookFour);
 
     }
 
