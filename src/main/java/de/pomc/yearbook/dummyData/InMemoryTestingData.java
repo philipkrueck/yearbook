@@ -80,11 +80,10 @@ public class InMemoryTestingData {
             // prevent duplicate initialization if DB is not empty
             return;
         }
-        Book bookOne = new Book("Shire Memories", "what we love about our teletabiland", sam, false);
-        Book bookTwo = new Book("Moria 3019", "worst seafood ever...", gimli, false);
-        Book bookThree = new Book("Weekend in Rivendell", "Veggies make you strong", arwin, false);
-        Book bookFour = new Book("Camping in Lothlorien", "best elvenbread ever", legolas, false);
-        bookOne.setPublished(true);
+        Book bookOne = new Book("Shire Memories", "what we love about our teletabiland", sam, true);
+        Book bookTwo = new Book("Moria 3019", "worst seafood ever...", gimli, true);
+        Book bookThree = new Book("Weekend in Rivendell", "Veggies make you strong", arwin, true);
+        Book bookFour = new Book("Camping in Lothlorien", "best elvenbread ever", legolas, true);
 
         List<Book> books = List.of(bookOne, bookTwo, bookThree, bookFour);
 
