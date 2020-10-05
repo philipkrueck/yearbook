@@ -50,7 +50,7 @@ public class InMemoryTestingData {
 
         sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("Rosie13#loveyou"), "USER");
         gandalf = new User((long) 2, "Gandalf", "the Gray", "gandalf.gray@notyetwhite.com", passwordEncoder.encode("ITrustHobbits<3"), "USER");
-        legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("TakingTheH0bi!!sToIsengarg"), "USER");
+        legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("TakingTheH0bi!!sToIsengard"), "USER");
         gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("GaladriellF0rL!fe"), "USER");
         frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("SecretSamLover69#"), "USER");
         arwin = new User((long) 7, "Arwin", "Undomiell", "arwin@riverdale.com", passwordEncoder.encode("_FuckIm0rtality_"), "USER");
@@ -169,7 +169,7 @@ public class InMemoryTestingData {
         // Frodo book one
         var participationBookOneFrodo = bookOneParticipations.get(2);
         List<Answer> bookOneFrodoAnswers = List.of(
-                new Answer("I think im going with Bilbos 100th birthday! I won't forgett this one.."),
+                new Answer("I think im going with Bilbos 100th birthday! I won't forget this one.."),
                 new Answer("On my carriage driving through the shire"),
                 new Answer("The first breakfast sets the mood for the day. I love it.")
         );
@@ -177,12 +177,14 @@ public class InMemoryTestingData {
         bookService.save(bookOne);
 
         // Sam book two
-        var participationBookTwoSam = bookTwoParticipations.get(0);
-        List<Answer> bookTwoSamAnswers = List.of(
-                new Answer(""),
-                new Answer(""),
-                new Answer("")
+        var participationBookTwoGandalf = bookTwoParticipations.get(0);
+        List<Answer> bookTwoGandalfAnswers = List.of(
+                new Answer("I know this mountain like the back of my hand!"),
+                new Answer("Im good, thanks.."),
+                new Answer("Hahaha, can eagles fly? Of course!")
         );
+        participationService.setAnswers(participationBookTwoGandalf, bookTwoGandalfAnswers);
+        bookService.save(bookTwo);
 
     }
 
