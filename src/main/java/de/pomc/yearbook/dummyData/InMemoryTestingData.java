@@ -48,11 +48,29 @@ public class InMemoryTestingData {
         }
 
         sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("Rosie13#loveyou"), "USER");
+            sam.setTwitterHandle("@SamTheWiseGamgee");
+            sam.setLocation("The Shire");
+            sam.setWebsite("http://shire.com");
         gandalf = new User((long) 2, "Gandalf", "the Gray", "gandalf.gray@notyetwhite.com", passwordEncoder.encode("ITrustHobbits<3"), "USER");
+            gandalf.setTwitterHandle("@WashedMyCloak");
+            gandalf.setLocation("between realms");
+            gandalf.setWebsite("http://angels.com/gandalf");
         legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("TakingTheH0bi!!sToIsengard"), "USER");
+            legolas.setTwitterHandle("@Bow-ya");
+            legolas.setLocation("former Isengard");
+            legolas.setWebsite("http://greenpeace.com");
         gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("GaladriellF0rL!fe"), "USER");
+            gimli.setTwitterHandle("@ImABeardo");
+            gimli.setLocation("Moria");
+            gimli.setWebsite("http://smallbutoho.com");
         frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("SecretSamLover69#"), "USER");
+            frodo.setTwitterHandle("TheOne");
+            frodo.setLocation("on vacation ... somewhere");
+            frodo.setWebsite("http://shire.com");
         arwin = new User((long) 6, "Arwin", "Undomiell", "arwin@riverdale.com", passwordEncoder.encode("_FuckIm0rtality_"), "USER");
+            arwin.setTwitterHandle("@FirstLadyOfGondor");
+            arwin.setLocation("Gondor");
+            arwin.setWebsite("http://firstlady.com");
 
         frodo.setRole("ADMIN");
         gandalf.setRole("ADMIN");
