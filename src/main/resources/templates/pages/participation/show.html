@@ -79,7 +79,7 @@
                 <div class="add-commment" th:if="${participation.getBook().currentUserHasParticipation()}">
                     <hr />
                     <div th:if="${participation.currentUserCanComment()}">
-                        <!-- <h4 th:text="${#{participation.show.remember} + '' + participation.getParticipant().getFirstName() + '?'}"></h4> -->
+                        <h4 th:text="#{participation.show.remember} + ' ' + ${participation.getParticipant().getFirstName()} + '?'"></h4>
                         <form method="post" th:action="@{/participation/{id}/addComment(id=${participation.getId()})}" th:object="${commentForm}">
                             <label>
                                 <span th:text="#{participation.show.comment}"></span>
