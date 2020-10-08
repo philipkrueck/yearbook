@@ -8,6 +8,7 @@ import de.pomc.yearbook.web.book.BookFormConverter;
 import de.pomc.yearbook.web.book.BookImageFormConverter;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
 import de.pomc.yearbook.web.exceptions.NotFoundException;
+import de.pomc.yearbook.web.exceptions.SomethingWentWrongException;
 import de.pomc.yearbook.web.profile.UserImageFormConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -75,7 +76,7 @@ public class BookEditGeneralController {
             return "redirect:/";
         }
         catch (IOException e) {
-            throw new ForbiddenException();
+            throw new SomethingWentWrongException();
         }
     }
 }

@@ -3,6 +3,8 @@ package de.pomc.yearbook.web.book;
 import de.pomc.yearbook.book.Book;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
+import de.pomc.yearbook.web.exceptions.SomethingWentWrongException;
+
 import java.io.IOException;
 
 public abstract class BookFormConverter {
@@ -29,7 +31,7 @@ public abstract class BookFormConverter {
             book.setImage(createBookForm.getImage().getBytes());
         }
         catch (IOException e) {
-            throw new ForbiddenException();
+            throw new SomethingWentWrongException();
         }
         return book;
     }

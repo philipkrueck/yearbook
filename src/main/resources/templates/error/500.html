@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/head :: head">
+    <title id="pageTitle">Something went wrong.. | Yearbook</title>
+</head>
+<body>
+
+<!-- header -------------------------------- -->
+<header class="grid-wrapper" id="mastHead" th:insert="fragments/header :: header"></header>
+
+<!-- #editBar -------------------------------- -->
+<div class="grid-wrapper" id="errorPage">
+    <div class="grid-container">
+        <div class="grid-x align-middle">
+            <div class="cell auto">
+                <h1><small>500 Error</small> <br/>Ooops.. something went wrong 😒</h1>
+                <a th:href="@{/}" class="button">Return to Homepage <i class="material-icons">keyboard_return</i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -------------------------------- -->
+<footer class="grid-wrapper" th:insert="fragments/footer :: footer"></footer>
+
+</body>
+</html>

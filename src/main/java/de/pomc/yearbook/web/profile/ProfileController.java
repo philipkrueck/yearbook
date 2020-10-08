@@ -5,6 +5,7 @@ import de.pomc.yearbook.participation.ParticipationService;
 import de.pomc.yearbook.user.User;
 import de.pomc.yearbook.user.UserService;
 import de.pomc.yearbook.web.exceptions.ForbiddenException;
+import de.pomc.yearbook.web.exceptions.SomethingWentWrongException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,7 +68,7 @@ public class ProfileController {
            return "redirect:/";
        }
        catch (IOException e) {
-         throw new ForbiddenException();
+         throw new SomethingWentWrongException();
         }
     }
 }
