@@ -46,7 +46,7 @@
                 <div class="grid-x align-center-middle card">
                     <div class="card-section">
                         <span th:text="#{index.haveAnAccount}"></span>
-                        &nbsp;<a href="/login" class="inlineButton" th:text="#{general.login}"></a>
+                        &nbsp;<a th:href="@{/login}" class="inlineButton" th:text="#{general.login}"></a>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     <br/>
                     <span class="colored" th:text="#{index.worthRemembering}"></span>
                 </h2>
-                <p><small><a class="inlineButton" href="/book/all" th:text="#{index.seeAllBooks}"></a></small></p>
+                <p><small><a class="inlineButton" th:href="@{/book/all}" th:text="#{index.seeAllBooks}"></a></small></p>
             </div>
         </div>
         <div class="grid-x align-center grid-margin-x">
