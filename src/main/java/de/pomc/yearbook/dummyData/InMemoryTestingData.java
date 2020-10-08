@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Component
 @RequiredArgsConstructor
@@ -260,19 +261,56 @@ public class InMemoryTestingData {
 
     private void addParticipations(List<Participation> participations, Book book) {
         for (Participation participation: participations) {
-            addSomeComments(participation);
+            addComments(participation, participations);
             bookService.addParticipation(book, participation);
         }
     }
 
-    // ToDo: Maybe we can generate some comments here instead of using static comments
-    private void addSomeComments(Participation participation) {
-        List<Comment> comments = List.of(
-                new Comment("Great guy", sam),
-                new Comment("brilliant person", gandalf)
+    private void addComments(Participation participation, List<Participation> commenters) {
+
+        ArrayList<Comment> comments = new ArrayList<>();
+
+        for (Participation commenter: commenters) {
+            if (participation.getParticipant() != commenter.getParticipant()) {
+                    comments.add(new Comment(generateComment(), commenter.getParticipant()));
+            }
+        }
+        comments.forEach(comment -> participationService.addComment(comment, participation));
+    }
+
+    private String generateComment() {
+        List<String> friendlyAdjectives = List.of(
+                new String("great"),
+                new String("noice"),
+                new String("best"),
+                new String("super")
         );
 
-        comments.forEach(comment -> participationService.addComment(comment, participation));
+        List<String> unfriendlyAdjectives = List.of(
+                new String("terrible"),
+                new String("weird"),
+                new String("unfriendly"),
+                new String("worst")
+        );
+
+        List<String> nouns = List.of(
+                new String("person"),
+                new String("cook"),
+                new String("hiker"),
+                new String("fighter")
+        );
+
+        Random rand = new Random();
+        boolean randomFriendliness = rand.nextBoolean();
+        int randomNoun = rand.nextInt(nouns.size());
+
+        if (randomFriendliness) {
+            int randomAdjective = rand.nextInt(friendlyAdjectives.size());
+            return friendlyAdjectives.get(randomAdjective) + " " + nouns.get(randomNoun);
+        } else {
+            int randomAdjective = rand.nextInt(unfriendlyAdjectives.size());
+            return unfriendlyAdjectives.get(randomAdjective) + " " + nouns.get(randomNoun);
+        }
     }
 
     private void addQuestions(Book book, List<Question> questions) {
