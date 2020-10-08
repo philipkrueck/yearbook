@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:include="fragments/head :: head">
     <title id="pageTitle">404 Page not Found | Yearbook</title>
 </head>
@@ -15,7 +15,7 @@
             <div class="cell auto">
                 <h1><small>404 Error</small> <br/>Page not found.</h1>
                 <p>We do not have a search bar. Nor a sitemap. Go home and try again.</p>
-                <a href="/" class="button">Return to Homepage <i class="material-icons">keyboard_return</i></a>
+                <a th:href="@{/}" class="button">Return to Homepage <i class="material-icons">keyboard_return</i></a>
             </div>
         </div>
     </div>
