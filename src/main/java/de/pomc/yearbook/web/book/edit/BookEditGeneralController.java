@@ -75,7 +75,7 @@ public class BookEditGeneralController {
             return "redirect:/";
         }
         catch (IOException e) {
-            throw new ForbiddenException(); //TODO: Change to SomethingWentWrongException
+            throw new ForbiddenException();
         }
     }
 }

@@ -81,13 +81,11 @@ public class BookEditParticipantsController {
         User newParticipant = userService.findUserByEmail(addUserForm.getEmail());
 
         if (newParticipant == null) {
-            // ToDo: show JS dialog to user that email was not found in db
             System.out.println("Could not find email in DB");
             return "pages/book/editParticipants";
         }
 
         if (book.userHasParticipation(newParticipant)) {
-            // ToDo: show JS dialog that a user can only be added once
             System.out.println("User is already added to DB");
             return "pages/book/editParticipants";
         }

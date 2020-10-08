@@ -29,7 +29,7 @@ public abstract class BookFormConverter {
             book.setImage(createBookForm.getImage().getBytes());
         }
         catch (IOException e) {
-            throw new ForbiddenException(); //TODO: Change to SomethingWentWrongException
+            throw new ForbiddenException();
         }
         return book;
     }
