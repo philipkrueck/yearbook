@@ -48,29 +48,29 @@ public class InMemoryTestingData {
         }
 
         sam = new User((long) 1, "Samwise", "Gamgee", "sam.gamgee@shire.com", passwordEncoder.encode("Rosie13#loveyou"), "USER");
-            sam.setTwitterHandle("@SamTheWiseGamgee");
-            sam.setLocation("The Shire");
-            sam.setWebsite("http://shire.com");
+        sam.setTwitterHandle("@SamTheWiseGamgee");
+        sam.setLocation("The Shire");
+        sam.setWebsite("http://shire.com");
         gandalf = new User((long) 2, "Gandalf", "the Gray", "gandalf.gray@notyetwhite.com", passwordEncoder.encode("ITrustHobbits<3"), "USER");
-            gandalf.setTwitterHandle("@WashedMyCloak");
-            gandalf.setLocation("between realms");
-            gandalf.setWebsite("http://angels.com/gandalf");
+        gandalf.setTwitterHandle("@WashedMyCloak");
+        gandalf.setLocation("between realms");
+        gandalf.setWebsite("http://angels.com/gandalf");
         legolas = new User((long) 3, "Legolas", "Son of Thranduil", "legolas@woodland.com", passwordEncoder.encode("TakingTheH0bi!!sToIsengard"), "USER");
-            legolas.setTwitterHandle("@Bow-ya");
-            legolas.setLocation("former Isengard");
-            legolas.setWebsite("http://greenpeace.com");
+        legolas.setTwitterHandle("@Bow-ya");
+        legolas.setLocation("former Isengard");
+        legolas.setWebsite("http://greenpeace.com");
         gimli = new User((long) 4, "Gimli", "Son of Gloin", "gimli.dwarf@blueMountain.com", passwordEncoder.encode("GaladriellF0rL!fe"), "USER");
-            gimli.setTwitterHandle("@ImABeardo");
-            gimli.setLocation("Moria");
-            gimli.setWebsite("http://smallbutoho.com");
+        gimli.setTwitterHandle("@ImABeardo");
+        gimli.setLocation("Moria");
+        gimli.setWebsite("http://smallbutoho.com");
         frodo = new User((long) 5, "Frodo", "Baggins", "frodo.baggins@shire.com", passwordEncoder.encode("SecretSamLover69#"), "USER");
-            frodo.setTwitterHandle("TheOne");
-            frodo.setLocation("on vacation ... somewhere");
-            frodo.setWebsite("http://shire.com");
+        frodo.setTwitterHandle("TheOne");
+        frodo.setLocation("on vacation ... somewhere");
+        frodo.setWebsite("http://shire.com");
         arwin = new User((long) 6, "Arwin", "Undomiell", "arwin@riverdale.com", passwordEncoder.encode("_FuckIm0rtality_"), "USER");
-            arwin.setTwitterHandle("@FirstLadyOfGondor");
-            arwin.setLocation("Gondor");
-            arwin.setWebsite("http://firstlady.com");
+        arwin.setTwitterHandle("@FirstLadyOfGondor");
+        arwin.setLocation("Gondor");
+        arwin.setWebsite("http://firstlady.com");
 
         frodo.setRole("ADMIN");
         gandalf.setRole("ADMIN");
@@ -171,7 +171,6 @@ public class InMemoryTestingData {
                 new Answer("Second!")
         );
         participationService.setAnswers(participationBookOneSam, bookOneSamAnswers);
-        bookService.save(bookOne);
         // Gandalf book one
         var participationBookOneGandalf = bookOneParticipations.get(1);
         List<Answer> bookOneGandalfAnswers = List.of(
@@ -180,7 +179,6 @@ public class InMemoryTestingData {
                 new Answer("I don't have to eat lol")
         );
         participationService.setAnswers(participationBookOneGandalf, bookOneGandalfAnswers);
-        bookService.save(bookOne);
         // Frodo book one
         var participationBookOneFrodo = bookOneParticipations.get(2);
         List<Answer> bookOneFrodoAnswers = List.of(
@@ -199,7 +197,6 @@ public class InMemoryTestingData {
                 new Answer("Hahaha, can eagles fly? Of course!")
         );
         participationService.setAnswers(participationBookTwoGandalf, bookTwoGandalfAnswers);
-        bookService.save(bookTwo);
         // Legolas book two
         var participationBookTwoLegolas = bookTwoParticipations.get(1);
         List<Answer> bookTwoLegolasAnswers = List.of(
@@ -218,7 +215,6 @@ public class InMemoryTestingData {
                 new Answer("He himself, he wanted to train with us!")
         );
         participationService.setAnswers(participationBookThreeSam, bookThreeSamAnswers);
-        bookService.save(bookThree);
         // Legolas book three
         var participationBookThreeLegolas = bookThreeParticipations.get(1);
         List<Answer> bookThreeLegolasAnswers = List.of(
@@ -227,7 +223,6 @@ public class InMemoryTestingData {
                 new Answer("Ask the hobbits!")
         );
         participationService.setAnswers(participationBookThreeLegolas, bookThreeLegolasAnswers);
-        bookService.save(bookThree);
         // Arwin book three
         var participationBookThreeArwin = bookThreeParticipations.get(2);
         List<Answer> bookThreeArwinAnswers = List.of(
@@ -245,7 +240,6 @@ public class InMemoryTestingData {
                 new Answer("Frodo has it! Looks good on him")
         );
         participationService.setAnswers(participationBookFourSam, bookFourSamAnswers);
-        bookService.save(bookFour);
         // Gimli book four
         var participationBookFourGimli = bookFourParticipations.get(1);
         List<Answer> bookFourGimliAnswers = List.of(
@@ -253,7 +247,6 @@ public class InMemoryTestingData {
                 new Answer("The what?")
         );
         participationService.setAnswers(participationBookFourGimli, bookFourGimliAnswers);
-        bookService.save(bookFour);
         // Legolas book four
         var participationBookFourLegolas = bookFourParticipations.get(2);
         List<Answer> bookFourLegolasAnswers = List.of(
