@@ -423,10 +423,14 @@ button.button.round span {
 
 .single-comment blockquote {
     display: inline-block;
-    width: 80%;
+    width: 60%;
 }
 
 .single-comment > button {
+    display: inline-block;
+}
+
+.deleteComment {
     display: inline-block;
 }
 
