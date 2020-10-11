@@ -118,7 +118,7 @@ public class ParticipationController {
 
         redirectAttributes.addAttribute("bookId", participation.getBook().getId());
 
-        return "redirect:/book/{bookId}";
+        return "redirect:/participation/{id}";
     }
 
 
