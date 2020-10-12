@@ -51,7 +51,6 @@ public class ParticipationEditController {
     @PostMapping("/update")
     @PreAuthorize("authenticated")
     public String updateQuestions(@PathVariable("id") Long id, @ModelAttribute("editAnswersForm") EditAnswersForm editAnswersForm) {
-        // ToDo: add form validation here
 
         Participation participation = participationService.getParticipationWithID(id);
 
